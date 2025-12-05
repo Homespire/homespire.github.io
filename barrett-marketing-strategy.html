@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barrett Herminghaus - Marketing Strategy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c5f4f;
+            --secondary: #d4a574;
+            --accent: #8b4513;
+            --light: #f5f1e8;
+            --dark: #1a1a1a;
+            --text: #333;
+            --text-light: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            color: var(--text);
+            background: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3d31 100%);
+            color: white;
+            padding: 80px 40px 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-weight: 300;
+            margin-bottom: 15px;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero .tagline {
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            font-style: italic;
+            opacity: 0.85;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: -80px auto 0;
+            padding: 0 40px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .mission-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, #c49565 100%);
+            color: white;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .mission-card h2 {
+            color: white;
+        }
+
+        .mission-card h2::after {
+            background: rgba(255,255,255,0.4);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+            color: var(--accent);
+            margin: 30px 0 15px;
+            font-weight: 700;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            bottom: 10px;
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 35px;
+            padding-left: 25px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -46px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: var(--secondary);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+
+        .timeline-item h4 {
+            font-size: 1.15rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-item p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .pillar {
+            background: linear-gradient(135deg, var(--light) 0%, #ebe7dc 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .pillar:hover {
+            border-left-width: 10px;
+            transform: translateX(5px);
+            background: linear-gradient(135deg, white 0%, var(--light) 100%);
+        }
+
+        .pillar-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .pillar-percent {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .pillar-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f5ee 0%, var(--light) 100%);
+            border-left: 5px solid var(--accent);
+            padding: 25px 30px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        .highlight-box strong {
+            color: var(--accent);
+            font-size: 1.05rem;
+        }
+
+        ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        ul li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .dos-donts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .dos, .donts {
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .dos {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+        }
+
+        .donts {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border: 2px solid #f44336;
+        }
+
+        .dos h4, .donts h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .dos h4 {
+            color: #2e7d32;
+        }
+
+        .donts h4 {
+            color: #c62828;
+        }
+
+        .dos ul li::before {
+            content: '✓';
+            color: #4caf50;
+        }
+
+        .donts ul li::before {
+            content: '✗';
+            color: #f44336;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark) 0%, #2a2a2a 100%);
+            color: white;
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta-section h2::after {
+            background: var(--secondary);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cta-section p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 10px 5px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px 100px;
+            }
+
+            .container {
+                padding: 0 20px 60px;
+            }
+
+            .card {
+                padding: 30px;
+            }
+
+            .dos-donts {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .cta-section {
+                padding: 40px 25px;
+            }
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Barrett Herminghaus</h1>
+            <div class="subtitle">Love Your Neighbor Mortgage Team</div>
+            <div class="tagline">A Faith-Based Launch Strategy for Homespire</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card mission-card">
+            <h2>The Mission</h2>
+            <p style="font-size: 1.15rem; line-height: 1.8;">Transform from corporate-heavy stock content to authentic, Barrett-centered storytelling that demonstrates how you love your neighbors by walking alongside them in their homebuying journey.</p>
+        </div>
+
+        <div class="card">
+            <h2>The Core Strategy</h2>
+            <p>We're moving away from generic mortgage content and into something that shows <strong>who Barrett really is</strong>. People don't want another loan officer—they want a neighbor who genuinely cares about their journey.</p>
+            
+            <div class="highlight-box">
+                <strong>The Big Shift:</strong> From corporate posts and stock graphics → Barrett's face, voice, personality, and real buyer stories throughout the entire journey (not just the keys at closing).
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Content Pillars</h2>
+            <div class="pillars-grid">
+                <div class="pillar">
+                    <div class="pillar-percent">40%</div>
+                    <div class="pillar-title">Barrett's Face & Voice</div>
+                    <div class="pillar-desc">Short videos, talking, smiling, giving advice. People know YOU.</div>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-percent">30%</div>
+                    <div class="pillar-title">Buyer Stories</div>
+                    <div class="pillar-desc">Show the journey: coffee meetings, planning, preparation—not just closing photos.</div>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-percent">20%</div>
+                    <div class="pillar-title">Education & Value</div>
+                    <div class="pillar-desc">Market insights, Q&A, process walkthroughs—with Barrett explaining.</div>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-percent">10%</div>
+                    <div class="pillar-title">Community & Faith</div>
+                    <div class="pillar-desc">Subtle integration, Love Your Neighbor in action.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>First 30 Days: The Reintroduction</h2>
+            <p style="margin-bottom: 30px;">A strong, strategic launch followed by consistent momentum. No launch and lag—we go hard from day one.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Week 1: Meet Barrett</h4>
+                    <p>Launch announcement, personal story, seminary + mortgage = service. Cut that podcast into 20+ posts. Show your face daily. Reestablish who you are and what makes you different.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 2: The Philosophy</h4>
+                    <p>Explain what "Love Your Neighbor" actually looks like. Not just a tagline—show it through listening first, educating over selling, staying connected after closing.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 3: Stories Begin</h4>
+                    <p>Start featuring buyers. Not just the keys—show the coffee meeting, the planning session, the Teams call. Collaborate with realtors. Make it about the journey.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 4: Consistency</h4>
+                    <p>Lock in the rhythm that continues beyond launch. Educational shorts, community connection, personal reflections. Build momentum.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Why Buyers Should Tell Their Stories</h2>
+            <p style="margin-bottom: 25px;">This is the differentiator. Here's what you tell them:</p>
+            
+            <ul>
+                <li><strong>Find your home faster</strong> – Realtors see you as a real person, not just another offer. Your network might know of unlisted properties. Creates momentum.</li>
+                <li><strong>Build your future network</strong> – Document your journey. Your friends and family get invested. You become a resource for others later.</li>
+                <li><strong>Free professional content</strong> – We create beautiful content celebrating your milestone that you can share with everyone you know.</li>
+                <li><strong>Help others like you</strong> – First-time buyers inspire first-time buyers. You normalize the process and reduce fear for someone else.</li>
+                <li><strong>Better service for you</strong> – Public accountability keeps everyone engaged and working harder. Your realtor gets exposure. Everyone's invested in your success.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>The Buyer Story Framework</h2>
+            <h3>Phase 1: The Beginning</h3>
+            <p>Intro post, coffee meeting, why they're buying, their hopes. Make them relatable.</p>
+
+            <h3>Phase 2: The Journey</h3>
+            <p>Preparation, education, challenges, realtor collabs. Show the real process—the hard parts and the breakthroughs.</p>
+
+            <h3>Phase 3: The Victory</h3>
+            <p>Keys in hand (yes, the traditional shot), but also Barrett + Buyer + Realtor together. Reflections on what was learned.</p>
+
+            <h3>Phase 4: The Follow-Up</h3>
+            <p>30-day, 90-day check-ins. How they're settling in. Continued relationship. Show you don't disappear after closing.</p>
+        </div>
+
+        <div class="card">
+            <h2>Do's & Don'ts</h2>
+            <div class="dos-donts">
+                <div class="dos">
+                    <h4>Do This</h4>
+                    <ul>
+                        <li>Show Barrett's face in 80%+ of content</li>
+                        <li>Use authentic voice and personality</li>
+                        <li>Tell real stories with real people</li>
+                        <li>Integrate faith naturally, not forcefully</li>
+                        <li>Collaborate publicly with realtors</li>
+                        <li>Focus on journey, not just destination</li>
+                        <li>Be consistent with posting</li>
+                        <li>Respond to every comment and DM</li>
+                    </ul>
+                </div>
+                <div class="donts">
+                    <h4>Don't Do This</h4>
+                    <ul>
+                        <li>Generic stock photos or graphics</li>
+                        <li>Corporate messaging that doesn't sound like Barrett</li>
+                        <li>Meme content without Barrett's presence</li>
+                        <li>Only showing success without process</li>
+                        <li>Forgetting to follow up with featured clients</li>
+                        <li>Posting without purpose</li>
+                        <li>Being overly salesy or pushy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>90-Day Success Metrics</h2>
+            <div class="stats-grid">
+                <div class="stat">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Barrett-Centered Posts</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Buyer Stories Featured</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Realtor Collaborations</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Database Contacts Re-engaged</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>The 90-Day Vision</h2>
+            <p>When someone looks at Barrett's social media after 90 days, they should <strong>know who he is</strong>, <strong>understand his values</strong>, <strong>trust his expertise</strong>, <strong>see his process</strong>, and most importantly—<strong>want to work with him</strong>.</p>
+            <div style="margin-top: 30px;">
+                <span class="badge">More than a loan officer</span>
+                <span class="badge">A neighbor on the journey</span>
+                <span class="badge">Walking with you home</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
