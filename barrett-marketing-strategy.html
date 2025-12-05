@@ -7,13 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c5f4f;
-            --secondary: #d4a574;
-            --accent: #8b4513;
-            --light: #f5f1e8;
+            --primary: #8b5cf6;
+            --secondary: #a78bfa;
+            --accent: #c4b5fd;
+            --light: #f8f7fc;
             --dark: #1a1a1a;
             --text: #333;
-            --text-light: #666;
+            --text-light: #555;
         }
 
         * {
@@ -31,7 +31,7 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a3d31 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
             color: white;
             padding: 80px 40px 120px;
             text-align: center;
@@ -60,6 +60,17 @@
             z-index: 1;
             max-width: 900px;
             margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+            object-fit: cover;
         }
 
         .hero h1 {
@@ -119,12 +130,6 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.12);
         }
 
-        .mission-card {
-            background: linear-gradient(135deg, var(--secondary) 0%, #c49565 100%);
-            color: white;
-            text-align: center;
-        }
-
         h2 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(1.8rem, 4vw, 2.5rem);
@@ -142,23 +147,14 @@
             left: 0;
             width: 60px;
             height: 3px;
-            background: var(--secondary);
-        }
-
-        .mission-card h2 {
-            color: white;
-        }
-
-        .mission-card h2::after {
-            background: rgba(255,255,255,0.4);
-            left: 50%;
-            transform: translateX(-50%);
+            background: var(--accent);
+            border-radius: 2px;
         }
 
         h3 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(1.3rem, 2.5vw, 1.7rem);
-            color: var(--accent);
+            color: #6d28d9;
             margin: 30px 0 15px;
             font-weight: 700;
         }
@@ -218,17 +214,18 @@
         }
 
         .pillar {
-            background: linear-gradient(135deg, var(--light) 0%, #ebe7dc 100%);
+            background: linear-gradient(135deg, var(--light) 0%, #ede9fe 100%);
             padding: 30px;
             border-radius: 15px;
-            border-left: 5px solid var(--primary);
+            border-top: 4px solid var(--primary);
+            position: relative;
             transition: all 0.3s ease;
         }
 
         .pillar:hover {
-            border-left-width: 10px;
-            transform: translateX(5px);
+            transform: scale(1.05);
             background: linear-gradient(135deg, white 0%, var(--light) 100%);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
         }
 
         .pillar-title {
@@ -252,11 +249,37 @@
         }
 
         .highlight-box {
-            background: linear-gradient(135deg, #f8f5ee 0%, var(--light) 100%);
-            border-left: 5px solid var(--accent);
+            background: linear-gradient(135deg, #f8f7fc 0%, var(--light) 100%);
+            border: 2px solid var(--accent);
             padding: 25px 30px;
             margin: 25px 0;
             border-radius: 10px;
+            position: relative;
+        }
+
+        .highlight-box::before,
+        .highlight-box::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--primary);
+        }
+
+        .highlight-box::before {
+            top: -2px;
+            left: -2px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 10px 0 0 0;
+        }
+
+        .highlight-box::after {
+            bottom: -2px;
+            right: -2px;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 10px 0;
         }
 
         .highlight-box strong {
@@ -427,25 +450,18 @@
 <body>
     <div class="hero">
         <div class="hero-content">
+            <img src="https://www.homespiremortgage.com/campaign-images/Barrett%201.jpeg" alt="Barrett Herminghaus" class="hero-image">
             <h1>Barrett Herminghaus</h1>
             <div class="subtitle">Love Your Neighbor Mortgage Team</div>
-            <div class="tagline">A Faith-Based Launch Strategy for Homespire</div>
         </div>
     </div>
 
     <div class="container">
-        <div class="card mission-card">
-            <h2>The Mission</h2>
-            <p style="font-size: 1.15rem; line-height: 1.8;">Transform from corporate-heavy stock content to authentic, Barrett-centered storytelling that demonstrates how you love your neighbors by walking alongside them in their homebuying journey.</p>
-        </div>
-
         <div class="card">
             <h2>The Core Strategy</h2>
-            <p>We're moving away from generic mortgage content and into something that shows <strong>who Barrett really is</strong>. People don't want another loan officer—they want a neighbor who genuinely cares about their journey.</p>
+            <p>We're moving away from generic mortgage content and into something that shows <strong>who Barrett really is</strong>.</p>
             
-            <div class="highlight-box">
-                <strong>The Big Shift:</strong> From corporate posts and stock graphics → Barrett's face, voice, personality, and real buyer stories throughout the entire journey (not just the keys at closing).
-            </div>
+            <p style="font-style: italic; margin-top: 30px; font-size: 1.15rem;">From corporate posts and stock graphics → Barrett's face, voice, personality, and real buyer stories throughout the entire journey (not just the keys at closing).</p>
         </div>
 
         <div class="card">
@@ -476,7 +492,7 @@
 
         <div class="card">
             <h2>First 30 Days: The Reintroduction</h2>
-            <p style="margin-bottom: 30px;">A strong, strategic launch followed by consistent momentum. No launch and lag—we go hard from day one.</p>
+            <p style="margin-bottom: 30px;">A strong, strategic launch followed by consistent momentum.</p>
             
             <div class="timeline">
                 <div class="timeline-item">
@@ -499,15 +515,25 @@
         </div>
 
         <div class="card">
-            <h2>Why Buyers Should Tell Their Stories</h2>
-            <p style="margin-bottom: 25px;">This is the differentiator. Here's what you tell them:</p>
+            <h2>The Power of Buyer Stories</h2>
+            <p style="margin-bottom: 25px;">Showcasing the journey—not just the destination—creates value for everyone involved:</p>
             
+            <h3>For Buyers</h3>
             <ul>
-                <li><strong>Find your home faster</strong> – Realtors see you as a real person, not just another offer. Your network might know of unlisted properties. Creates momentum.</li>
-                <li><strong>Build your future network</strong> – Document your journey. Your friends and family get invested. You become a resource for others later.</li>
-                <li><strong>Free professional content</strong> – We create beautiful content celebrating your milestone that you can share with everyone you know.</li>
-                <li><strong>Help others like you</strong> – First-time buyers inspire first-time buyers. You normalize the process and reduce fear for someone else.</li>
-                <li><strong>Better service for you</strong> – Public accountability keeps everyone engaged and working harder. Your realtor gets exposure. Everyone's invested in your success.</li>
+                <li><strong>Faster home search</strong> – When realtors and sellers see you as a real person with a genuine story, you stand out from other offers. Your network becomes invested and may surface unlisted opportunities.</li>
+                <li><strong>Professional milestone content</strong> – Beautiful, shareable content that celebrates one of life's biggest achievements while helping inspire others in their journey.</li>
+            </ul>
+
+            <h3>For Realtors</h3>
+            <ul>
+                <li><strong>Authentic marketing exposure</strong> – Collaborative posts and tags showcase their work through real client stories, building their brand organically.</li>
+                <li><strong>Stronger referrals</strong> – Public partnership creates accountability and demonstrates their commitment to client success.</li>
+            </ul>
+
+            <h3>For Barrett</h3>
+            <ul>
+                <li><strong>Differentiation that matters</strong> – While others post keys-at-closing photos, Barrett shows the actual relationship, guidance, and care throughout the entire process.</li>
+                <li><strong>Trust building at scale</strong> – Prospective clients see exactly how Barrett works, what the experience is like, and why his approach is different.</li>
             </ul>
         </div>
 
