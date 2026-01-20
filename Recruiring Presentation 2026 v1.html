@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #fafafa;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8f7fa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #888;
+            --accent: #6B4E9B;
+            --accent-light: #8B6BBB;
+            --accent-gradient: linear-gradient(135deg, #6B4E9B 0%, #8B6BBB 100%);
+            --border: #e8e8e8;
+            --serif: 'DM Serif Display', Georgia, serif;
+            --sans: 'Instrument Sans', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--sans);
+            line-height: 1.6;
+            font-size: 17px;
+            min-height: 100vh;
+        }
+
+        .logo {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--border);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%);
+            width: 50%;
+            transition: width 0.1s ease-out;
+        }
+
+        .nav {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav button {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .nav button:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(107, 78, 155, 0.12);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            z-index: 100;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 120px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gradient glow background */
+        .gradient-glow {
+            position: absolute;
+            bottom: -300px;
+            left: -300px;
+            width: 900px;
+            height: 900px;
+            background: radial-gradient(circle, rgba(224, 64, 251, 0.15) 0%, rgba(124, 77, 255, 0.08) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .gradient-glow-secondary {
+            position: absolute;
+            bottom: -150px;
+            left: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 77, 255, 0.12) 0%, rgba(224, 64, 251, 0.05) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slide-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            width: 100%;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-content.reverse {
+            direction: rtl;
+        }
+
+        .slide-content.reverse > * {
+            direction: ltr;
+        }
+
+        .image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(107, 78, 155, 0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .image-container img.floating {
+            border-radius: 0;
+            box-shadow: none;
+            height: auto;
+            max-height: none;
+            max-width: 150%;
+            width: auto;
+        }
+
+        .image-container img.floating-smaller {
+            border-radius: 0;
+            box-shadow: none;
+            height: auto;
+            max-height: none;
+            max-width: 80%;
+            width: auto;
+        }
+
+        .image-container img.floating:hover,
+        .image-container img.floating-smaller:hover {
+            transform: scale(1.05);
+            box-shadow: none;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 48px rgba(107, 78, 155, 0.25);
+        }
+
+        .content-container {
+            max-width: 600px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: linear-gradient(135deg, rgba(107, 78, 155, 0.08), rgba(139, 107, 187, 0.08));
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: var(--serif);
+            font-size: 56px;
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .feature-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-block:hover {
+            border-color: var(--accent-light);
+            box-shadow: 0 4px 16px rgba(107, 78, 155, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .feature-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .slide-content {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .slide-content.reverse {
+                direction: ltr;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            .slide {
+                padding: 80px 32px;
+            }
+        }
+
+        /* Shimmer effect for Jason's name */
+        @keyframes shimmer {
+            0% {
+                background-position: 200% center;
+            }
+            100% {
+                background-position: -200% center;
+            }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(
+                90deg,
+                #e040fb 0%,
+                #7c4dff 25%,
+                #ffffff 50%,
+                #7c4dff 75%,
+                #e040fb 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <img src="data:image/webp;base64,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" alt="Homespire Logo" class="logo">
+
+    <div class="nav">
+        <button onclick="previousSlide()" aria-label="Previous slide">↑</button>
+        <button onclick="nextSlide()" aria-label="Next slide">↓</button>
+    </div>
+
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
+    </div>
+
+    <!-- SLIDE 1: Cover Slide -->
+    <section class="slide" data-slide="1">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="grid-template-columns: 1fr; text-align: center; max-width: 1000px;">
+            <div class="content-container" style="max-width: 100%;">
+                <div class="section-label" style="display: inline-block;">Homespire Mortgage</div>
+                <h1 style="font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: 24px;">
+                    <span class="shimmer-text">Jason,</span> Meet Your Unfair Advantage.
+                </h1>
+                <h2 style="font-family: var(--sans); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; line-height: 1.2; margin-bottom: 32px;">
+                    <span style="color: var(--text-primary);">Technology-driven.</span>
+                    <span style="background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block;">Human-centered.</span>
+                </h2>
+                <p class="subtitle" style="font-size: 20px; margin-bottom: 60px; max-width: 750px; margin-left: auto; margin-right: auto;">Meet the technologies and operational support that power growth, performance, and real results for our Loan Originators.</p>
+                
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <div onclick="nextSlide()" style="background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%); color: white; padding: 18px 48px; border-radius: 12px; font-weight: 600; font-size: 18px; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 4px 16px rgba(224, 64, 251, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 24px rgba(224, 64, 251, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(224, 64, 251, 0.3)'">
+                        Are you ready?
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: Homespire Introduction -->
+    <section class="slide" data-slide="2">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="align-items: flex-start; padding-top: 80px;">
+            <div class="content-container">
+                <h1 style="margin-bottom: 16px;">We're far from corporate...<span style="background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">this is Homespire.</span></h1>
+
+                <p style="font-size: 20px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 56px; max-width: 550px;">
+                    Operating in <span style="font-weight: 600; color: var(--text-primary);">49 states and Washington, D.C.</span>, with a culture that's been recognized as a <span style="font-weight: 600; color: var(--text-primary);">Top Workplace</span>, one of the <span style="font-weight: 600; color: var(--text-primary);">Best Mortgage Companies to Work For</span>, and an <span style="font-weight: 600; color: var(--text-primary);">Inc. 5000 honoree</span>.
+                </p>
+
+                <div style="font-size: 15px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);">
+                    Nationwide reach. Award-winning culture.
+                </div>
+            </div>
+
+            <div class="image-container">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 40px;">
+                    <img src="https://i.ibb.co/N2MYZMRP/Remove-the-background-from-the-provided-image-Out-1768790610915.png" alt="Homespire Nationwide Coverage" style="max-width: 100%; height: auto; border-radius: 0; box-shadow: none;">
+                    
+                    <div style="display: flex; gap: 30px; align-items: center; justify-content: center;">
+                        <img src="https://i.ibb.co/HD9m79v8/Award1.png" alt="Award 1" style="height: 75px; width: auto; border-radius: 0; box-shadow: none;">
+                        <img src="https://i.ibb.co/1tVL1Pnw/award2.png" alt="Award 2" style="height: 75px; width: auto; border-radius: 0; box-shadow: none;">
+                        <img src="https://i.ibb.co/Xr5dhGTx/award3.png" alt="Award 3" style="height: 75px; width: auto; border-radius: 0; box-shadow: none;">
+                    </div>
+                    
+                    <img src="https://i.ibb.co/gZ03p0xb/Screenshot-2026-01-18-at-6-43-59-PM.png" alt="Media Logos" style="max-width: 90%; height: auto; border-radius: 0; box-shadow: none; margin-top: 8px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: Image on Left -->
+    <section class="slide" data-slide="3">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content reverse">
+            <div class="content-container">
+                <div class="section-label">AI Technology</div>
+                <h1>Meet Your Unfair Advantage</h1>
+                <p class="subtitle">Grow your business with a powerful AI Companion</p>
+
+                <div class="features">
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            </div>
+                            <div class="feature-title">Instant Access</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Instant access to Encompass files and pipeline in plain English</li>
+                            <li>Private, secure, compliant and built for mortgage</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                            </div>
+                            <div class="feature-title">AI-Generated Offers</div>
+                        </div>
+                        <p class="subtitle" style="margin-bottom: 12px; margin-top: 8px;">Create and send smart borrower options for:</p>
+                        <ul class="feature-list">
+                            <li>Rate-and-Term Refis</li>
+                            <li>Cash-Out Refis</li>
+                            <li>Purchase offers with multiple scenarios</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                            </div>
+                            <div class="feature-title">Smart Database Mining</div>
+                        </div>
+                        <p class="subtitle" style="margin-bottom: 12px; margin-top: 8px;">Instantly surface past clients with:</p>
+                        <ul class="feature-list">
+                            <li>High interest rates</li>
+                            <li>Strong equity positions</li>
+                            <li>Improved DTI profiles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://i.ibb.co/QjtKSGkf/Remove-background-from-the-provided-image-and-outp-1768772552623.png" alt="AI GPT Interface" class="floating-smaller">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: Image on Right -->
+    <section class="slide" data-slide="4">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content">
+            <div class="content-container">
+                <div class="section-label">Soft Credit Pull</div>
+                <h1>Soft Credit. Smart Start.</h1>
+                <p class="subtitle">Get a head start without a hard credit hit.</p>
+
+                <div class="features">
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                            </div>
+                            <div class="feature-title">Within Minutes, LOs Receive</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Real credit data + AUS findings</li>
+                            <li>Real numbers. Real options. Real conversations.</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                            </div>
+                            <div class="feature-title">Why This Matters</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Engage borrowers earlier with confidence</li>
+                            <li>Faster pre-qualifications</li>
+                            <li>Smarter, more informed conversations</li>
+                            <li>No trigger leads — your prospects stay protected</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://i.ibb.co/HT0zGXyz/Remove-the-background-from-the-provided-image-and-1768739112736.png" alt="Soft Credit Process" class="floating">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: Image on Left -->
+    <section class="slide" data-slide="5">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content reverse" style="align-items: flex-start; padding-top: 80px;">
+            <div class="content-container">
+                <div class="section-label">Document Management</div>
+                <h1>Mobile-First Docs & Disclosures</h1>
+                <p class="subtitle">Secure Docs + Disclosures — all from your phone</p>
+
+                <div class="features">
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Easy Document Upload</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Upload documents anytime, anywhere</li>
+                            <li>Clear, organized, easy-to-follow requests</li>
+                            <li>Real-time updates + automated notifications</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Digital Disclosures (Start to Finish)</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Review and e-sign on any device</li>
+                            <li>Instant delivery + confirmation</li>
+                            <li>No printing. No scanning. No delays.</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Hybrid eClosing Built-In</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>95%+ of loans eligible for Hybrid eClosing</li>
+                            <li>Same portal for initial disclosures + closing docs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://i.ibb.co/Z6hfLLwf/Upload-and-Disclosures-phone.png" alt="Mobile Document Management" class="floating">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 6: Image on Left -->
+    <section class="slide" data-slide="6">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="grid-template-columns: 1.2fr 1fr; gap: 0;">
+            <div class="image-container" style="margin-left: -60px; display: flex; align-items: center; justify-content: flex-start;">
+                <img src="https://i.ibb.co/qMnX8RYX/1.png" alt="Agent Connect Platform" style="max-width: 90%; height: auto; border-radius: 0; box-shadow: none;">
+            </div>
+
+            <div class="content-container">
+                <div class="section-label">Realtor Engagement</div>
+                <h1>Agent Connect</h1>
+                <p class="subtitle">Realtor relationships that grow your referral network</p>
+
+                <div class="features">
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <div class="feature-title">What We Do</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Dedicated team of dialers + AI outreach</li>
+                            <li>Smart, multi-touch engagement that warms relationships</li>
+                            <li>Includes voice AI, AI email campaigns, and real human outreach</li>
+                            <li>Breaks the ice and builds familiarity on your behalf</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                            <div class="feature-title">What You Get</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Targeted outreach to prospective Realtors®</li>
+                            <li>Booked appointments placed directly on your calendar</li>
+                            <li>New referring agents without the cold calls</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: Image on Right -->
+    <section class="slide" data-slide="7">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content">
+            <div class="content-container">
+                <div class="section-label">Database Intelligence</div>
+                <h1>Borrower Insights</h1>
+                <p class="subtitle">Find Your Next Borrowers Faster</p>
+
+                <div class="features">
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                            </div>
+                            <div class="feature-title">Surface High-Opportunity Borrowers</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Search by rate, equity, home value, and ownership</li>
+                            <li>Instantly reveal key loan details and contact data</li>
+                            <li>Quickly spot refinance-ready homeowners</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 7.5 14.6 3 12"></polyline><polyline points="21 12 16.5 14.6 16.5 19.79"></polyline><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            </div>
+                            <div class="feature-title">Rebuild & Enrich Your Database</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Recover past borrowers you've lost touch with</li>
+                            <li>Enrich old files with current property and loan data</li>
+                            <li>One-click export to your CRM</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Turn Data into Action</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Identify clients with high rates, strong equity, or better DTI</li>
+                            <li>Build targeted lists for campaigns in minutes</li>
+                            <li>Act fast with cleaner, more relevant outreach</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://i.ibb.co/PZ7dGwnj/Remove-the-background-from-the-provided-image-Out-1768791677682.png" alt="Borrower Insights Dashboard" style="border-radius: 0; box-shadow: none; max-width: 100%; height: auto;">
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: Image on Right -->
+    <section class="slide" data-slide="8">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content">
+            <div class="content-container">
+                <div class="section-label">Realtor Education</div>
+                <h1>Homespire Partnership Series</h1>
+                <p class="subtitle">Growth begins with deeper relationships</p>
+
+                <div class="features">
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                            </div>
+                            <div class="feature-title">What We Do (Done for You)</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Curate powerhouse guest speakers for Realtors® and LOs</li>
+                            <li>Send personalized invitations in your name</li>
+                            <li>Fill the virtual room with targeted agents</li>
+                            <li>Deliver recap notes + lesson videos</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                            </div>
+                            <div class="feature-title">Why It Works</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>You're positioned as a market expert</li>
+                            <li>Realtors® associate you with insight and opportunity</li>
+                            <li>Natural, value-based follow-ups</li>
+                            <li>Warmer relationships that lead to referrals</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Result</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Stronger Realtor® relationships</li>
+                            <li>More credibility</li>
+                            <li>More referral conversations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 100%;">
+                    <!-- Speaker 1 -->
+                    <div style="text-align: center;">
+                        <img src="https://i.ibb.co/GfRwqB8J/1.png" alt="Steve Kyles" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 12px;">
+                        <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Steve Kyles</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">Mortgage Marketing Animals</div>
+                    </div>
+                    
+                    <!-- Speaker 2 -->
+                    <div style="text-align: center;">
+                        <img src="https://i.ibb.co/7Jy7DqHQ/2.png" alt="Jeff Glover" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 12px;">
+                        <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Jeff Glover</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">Top Real Estate Agent & Coach</div>
+                    </div>
+                    
+                    <!-- Speaker 3 -->
+                    <div style="text-align: center;">
+                        <img src="https://i.ibb.co/8DTT8yH8/3.png" alt="Barry Habib" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 12px;">
+                        <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Barry Habib</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">Fannie Mae Board & CEO MBS Highway</div>
+                    </div>
+                    
+                    <!-- Speaker 4 -->
+                    <div style="text-align: center;">
+                        <img src="https://i.ibb.co/WNjYNCNh/4.png" alt="Dale Vermillion" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 12px;">
+                        <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">Dale Vermillion</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">Mortgage Champions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: Full Width -->
+    <section class="slide" data-slide="9">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1200px;">
+            <div class="content-container" style="max-width: 100%;">
+                <div class="section-label">Operational Excellence</div>
+                <h1 style="text-align: center;">Real Support. The Homespire Way.</h1>
+
+                <div class="features" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 40px;">
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <div class="feature-title">Loan Lab — Our LO Community (Microsoft Teams)</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>A real team, not just a chat</li>
+                            <li>Where LOs help LOs in real time</li>
+                            <li>Share wins, lessons learned, and hard-earned wisdom</li>
+                            <li>Ask questions, get perspectives, and solve deals together</li>
+                            <li>Recognition, encouragement, and camaraderie — it feels like family</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Scenario Desk</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Veteran scenario underwriters (15+ years experience)</li>
+                            <li>Real-time guidance on guidelines and product options</li>
+                            <li>Helps you structure deals with confidence before submission</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                            </div>
+                            <div class="feature-title">Condo Department (In-House)</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Dedicated condo experts on staff</li>
+                            <li>Handles complex condo reviews and approvals</li>
+                            <li>Supports a wide range of loan types</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            </div>
+                            <div class="feature-title">In-House Renovation Team</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Specialists who guide renovation loans from start to finish</li>
+                            <li>Helps you win more business in the renovation space</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Non-QM — Fully In-House</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Complete Non-QM product suite</li>
+                            <li>In-house underwriting for faster decisions and better communication</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            </div>
+                            <div class="feature-title">Internal AMC</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Partners with you to build preferred appraiser panels</li>
+                            <li>Improves quality, speed, and consistency of appraisals</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: Full Width -->
+    <section class="slide" data-slide="10">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1200px;">
+            <div class="content-container" style="max-width: 100%;">
+                <div class="section-label">Product Suite</div>
+                <h1 style="text-align: center;">More Products. More Possibilities.</h1>
+                <p class="subtitle" style="text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">Continuously expanding our products and programs to help you win more.</p>
+
+                <div class="features" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px;">
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                            </div>
+                            <div class="feature-title">Non-QM Solutions</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Bank Statement</li>
+                            <li>Asset Qualifier</li>
+                            <li>Investor Cash Flow</li>
+                            <li>Medical Professionals</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Specialty Loans</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Bridge Loans</li>
+                            <li>Bond Loans</li>
+                            <li>Construction-to-Perm</li>
+                            <li>Renovation Loans</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+                            </div>
+                            <div class="feature-title">Traditional Products</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Conventional</li>
+                            <li>FHA Financing</li>
+                            <li>VA Financing</li>
+                            <li>USDA Financing</li>
+                            <li>Jumbo</li>
+                            <li>All-in-One</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 11: Spark Social -->
+    <section class="slide" data-slide="11">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="grid-template-columns: 1fr 1fr; gap: 48px;">
+            <!-- Left Column: Content -->
+            <div class="content-container">
+                <div class="section-label">Social Media Strategy</div>
+                <h1 style="margin-bottom: 12px;">Spark Social</h1>
+                <p class="subtitle" style="font-size: 22px; margin-bottom: 16px;">Get visible. Get credible. Get referrals.</p>
+                <p style="font-size: 18px; font-weight: 500; color: var(--text-secondary); margin-bottom: 32px;">Turn social into a reliable source of business.</p>
+
+                <div class="features">
+                    <!-- Kickoff -->
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Kickoff: Toolkit</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Spark Social toolkit with tips, templates, and quick links</li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 1 -->
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Week 1: Virtual Coaching</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Set up, filming basics, and on-camera style</li>
+                            <li>Step-by-step: create, edit, and post from your phone</li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 2 -->
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Week 2: Follow-Up</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Review first videos/ideas</li>
+                            <li>Build a simple content plan</li>
+                            <li>Start posting</li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 3-4 -->
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                            </div>
+                            <div class="feature-title">Week 3-4: Follow-Up</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Review posted videos + performance</li>
+                            <li>Troubleshoot and refine your rhythm</li>
+                        </ul>
+                    </div>
+
+                    <!-- Teams Channel -->
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </div>
+                            <div class="feature-title">Teams Channel</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Daily tips, trends, and content ideas</li>
+                        </ul>
+                    </div>
+
+                    <!-- Monthly Spark Point -->
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <div class="feature-title">Monthly Spark Point</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Group Q&A + live demos</li>
+                        </ul>
+                    </div>
+
+                    <!-- 1:1 Coaching -->
+                    <div class="feature-block">
+                        <div class="feature-header">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </div>
+                            <div class="feature-title">1:1 Coaching (as needed)</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Account audit, content feedback, performance review</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Images stacked vertically -->
+            <div class="image-container" style="display: flex; flex-direction: column; gap: 40px; align-items: center; justify-content: center;">
+                <img src="https://i.ibb.co/VWspcHtD/social-media-1.png" alt="Social Media" style="width: 65%; height: auto; border-radius: 0; box-shadow: none;">
+                <img src="https://i.ibb.co/sJPZ7g6m/Picture1.png" alt="Spark Social Team" style="width: 65%; height: auto; border-radius: 0; box-shadow: none;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Total Expert Customer Intelligence Slide -->
+    <section class="slide" data-slide="12">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1300px; position: relative;">
+            <div style="position: relative;">
+                <!-- Header -->
+                <div style="text-align: center; margin-bottom: 48px;">
+                    <div class="section-label" style="display: inline-block;">Customer Intelligence</div>
+                    <h1 style="margin-bottom: 16px; margin-top: 16px;">Total Expert Customer Intelligence</h1>
+                    <p class="subtitle" style="margin-bottom: 0; max-width: 700px; margin-left: auto; margin-right: auto;">Right timing. Right borrower. Right message.</p>
+                </div>
+
+                <!-- Floating Image with reduced background visibility -->
+                <div style="position: relative; margin: 0 auto 48px; max-width: 900px; filter: drop-shadow(0 12px 40px rgba(107, 78, 155, 0.2));">
+                    <img src="https://i.ibb.co/rGwmFw7m/Erase-the-areas-indicated-by-the-mask-and-fill-the-1768837888926.png" 
+                         alt="Customer Intelligence Dashboard" 
+                         style="width: 100%; height: auto; border-radius: 20px; opacity: 0.98; mix-blend-mode: multiply;">
+                </div>
+
+                <!-- Features Grid -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px;">
+                    
+                    <!-- Mortgage Inquiry Alerts -->
+                    <div class="feature-block" style="padding: 20px;">
+                        <div class="feature-header" style="margin-bottom: 12px;">
+                            <div class="feature-icon" style="width: 42px; height: 42px;">
+                                <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            </div>
+                            <div class="feature-title" style="font-size: 16px;">Mortgage Inquiry Alerts</div>
+                        </div>
+                        <ul class="feature-list" style="font-size: 14px;">
+                            <li>Know instantly when another lender pulls credit</li>
+                            <li>FCRA compliant outreach</li>
+                        </ul>
+                    </div>
+
+                    <!-- Equity Alerts -->
+                    <div class="feature-block" style="padding: 20px;">
+                        <div class="feature-header" style="margin-bottom: 12px;">
+                            <div class="feature-icon" style="width: 42px; height: 42px;">
+                                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            </div>
+                            <div class="feature-title" style="font-size: 16px;">Equity Alerts</div>
+                        </div>
+                        <ul class="feature-list" style="font-size: 14px;">
+                            <li>Real-time home value updates</li>
+                            <li>Trigger automated journeys</li>
+                        </ul>
+                    </div>
+
+                    <!-- Listing Insights -->
+                    <div class="feature-block" style="padding: 20px;">
+                        <div class="feature-header" style="margin-bottom: 12px;">
+                            <div class="feature-icon" style="width: 42px; height: 42px;">
+                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div class="feature-title" style="font-size: 16px;">Listing Insights</div>
+                        </div>
+                        <ul class="feature-list" style="font-size: 14px;">
+                            <li>Detect MLS listings instantly</li>
+                            <li>Launch next home journeys</li>
+                        </ul>
+                    </div>
+
+                    <!-- Credit Improvement Alerts -->
+                    <div class="feature-block" style="padding: 20px;">
+                        <div class="feature-header" style="margin-bottom: 12px;">
+                            <div class="feature-icon" style="width: 42px; height: 42px;">
+                                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            </div>
+                            <div class="feature-title" style="font-size: 16px;">Credit Improvement</div>
+                        </div>
+                        <ul class="feature-list" style="font-size: 14px;">
+                            <li>Monitor denied applicants</li>
+                            <li>Alert when credit improves</li>
+                        </ul>
+                    </div>
+
+                    <!-- Rate Alerts -->
+                    <div class="feature-block" style="padding: 20px;">
+                        <div class="feature-header" style="margin-bottom: 12px;">
+                            <div class="feature-icon" style="width: 42px; height: 42px;">
+                                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            </div>
+                            <div class="feature-title" style="font-size: 16px;">Rate Alerts</div>
+                        </div>
+                        <ul class="feature-list" style="font-size: 14px;">
+                            <li>Compare rate scenarios</li>
+                            <li>Set savings threshold</li>
+                        </ul>
+                    </div>
+
+                    <!-- Bottom Line Box -->
+                    <div style="padding: 20px; background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 32px rgba(224, 64, 251, 0.3);">
+                        <p style="margin: 0; font-size: 18px; color: white; font-weight: 600; text-align: center; line-height: 1.4;">More opportunities. Better timing. Stronger pipeline.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL SLIDE: Closing -->
+    <section class="slide" data-slide="13">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="grid-template-columns: 1fr; text-align: center; max-width: 1000px;">
+            <div class="content-container" style="max-width: 100%;">
+                <h1 style="font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: 40px; line-height: 1.2;">
+                    <span class="shimmer-text">Jason,</span> thank you for your time.
+                </h1>
+                <h2 style="font-family: var(--sans); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; line-height: 1.3; margin-bottom: 80px;">
+                    Now let's put this to work <span style="background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block;">for you!</span>
+                </h2>
+                
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-bottom: 80px;">
+                    <div style="background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%); color: white; padding: 18px 40px; border-radius: 10px; font-weight: 600; font-size: 20px; box-shadow: 0 8px 32px rgba(224, 64, 251, 0.4); letter-spacing: 0.02em; text-align: center; line-height: 1.4;">
+                        The End<br>
+                        <span style="font-size: 16px; font-weight: 500; opacity: 0.9;">(or, the beginning...)</span>
+                    </div>
+                </div>
+
+                <!-- Presenter Info -->
+                <div style="display: flex; align-items: center; justify-content: center; gap: 24px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; max-width: 600px; margin: 0 auto; box-shadow: 0 4px 16px rgba(107, 78, 155, 0.08);">
+                    <img src="https://i.ibb.co/1YmLsy5w/Edit-the-provided-headshot-to-create-a-clean-circu-1768839626342.png" 
+                         alt="Prakash Karnani" 
+                         style="width: 110px; height: 110px; border-radius: 50%; box-shadow: 0 4px 12px rgba(107, 78, 155, 0.15);">
+                    <div style="text-align: left;">
+                        <h3 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 600; color: var(--text-primary);">Prakash Karnani</h3>
+                        <p style="margin: 0 0 12px 0; font-size: 14px; color: var(--text-secondary); font-weight: 500;">Executive Vice President, Homespire Mortgage</p>
+                        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--text-secondary);">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <span>pkarnani@homespiremortgage.com</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                <span>202.520.2410</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlideIndex = 0;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -20% 0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    currentSlideIndex = parseInt(entry.target.dataset.slide) - 1;
+                    updateSlideCounter();
+                }
+            });
+        }, observerOptions);
+
+        slides.forEach(slide => observer.observe(slide));
+
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function updateSlideCounter() {
+            document.getElementById('currentSlide').textContent = currentSlideIndex + 1;
+        }
+
+        window.addEventListener('scroll', updateProgress);
+
+        function nextSlide() {
+            if (currentSlideIndex < totalSlides - 1) {
+                currentSlideIndex++;
+                slides[currentSlideIndex].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                slides[currentSlideIndex].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        slides[0].classList.add('visible');
+        updateProgress();
+    </script>
+</body>
+</html>
