@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Florentino Beltran — Territory Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #0f0120;
+  --purple:  #9333EA;
+  --fuchsia: #D946EF;
+  --pink:    #F472B6;
+  --gold:    #F5C842;
+  --indigo:  #6366F1;
+  --white:   #FFFFFF;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── HEADER ── */
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px;
+  background: rgba(15,1,32,0.97);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+  z-index: 10;
+}
+.hl { display: flex; align-items: center; gap: 14px; }
+.hmark {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, #9333EA, #D946EF);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 15px;
+}
+.htitle { font-size: 16px; font-weight: 800; }
+.hsub   { font-size: 11px; color: rgba(255,255,255,0.45); margin-top:1px; }
+.hstats { display: flex; gap: 20px; align-items: center; }
+.hs { text-align: center; }
+.hs-n {
+  font-size: 19px; font-weight: 900;
+  background: linear-gradient(135deg, #fff, #D946EF);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hs-l { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.45); letter-spacing: .1em; text-transform: uppercase; }
+.hdiv { width: 1px; height: 28px; background: rgba(255,255,255,0.08); }
+
+/* ── MAP WRAPPER ── */
+.map-wrap {
+  flex: 1; position: relative; overflow: hidden;
+}
+svg#map { width: 100%; height: 100%; }
+
+/* ── LEGEND ── */
+.legend {
+  position: absolute; bottom: 20px; left: 20px;
+  background: rgba(15,1,32,0.92);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px; padding: 14px 18px;
+  backdrop-filter: blur(16px);
+  z-index: 5;
+}
+.leg-title { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #D946EF; margin-bottom: 10px; }
+.leg-row { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; font-size: 11px; color: rgba(255,255,255,0.65); }
+.leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.leg-sep { margin-top: 10px; padding-top: 9px; border-top: 1px solid rgba(255,255,255,0.07); }
+
+/* ── TOOLTIP ── */
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(20, 4, 50, 0.97);
+  border: 1px solid rgba(217,70,239,0.4);
+  border-radius: 14px;
+  padding: 14px 18px;
+  min-width: 200px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 20;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.tooltip.show { opacity: 1; transform: translateY(0); }
+.tt-price {
+  font-size: 24px; font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, #fff, #D946EF);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.tt-addr { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 5px; line-height: 1.4; }
+.tt-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tag {
+  padding: 2px 9px; border-radius: 100px;
+  font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+}
+.tag-fha  { background: rgba(217,70,239,.2);  border: 1px solid rgba(217,70,239,.5); color: #D946EF; }
+.tag-conv { background: rgba(147,51,234,.2);  border: 1px solid rgba(147,51,234,.5); color: #c084fc; }
+.tag-va   { background: rgba(244,114,182,.2); border: 1px solid rgba(244,114,182,.5); color: #F472B6; }
+.tag-cash { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.6); }
+.tag-gold { background: rgba(245,200,66,.15); border: 1px solid rgba(245,200,66,.4); color: #F5C842; }
+.tag-juan { background: rgba(99,102,241,.2);  border: 1px solid rgba(99,102,241,.5); color: #a5b4fc; }
+
+/* ── PIN ANIMATION ── */
+@keyframes pin-in {
+  0%   { opacity:0; transform: scale(0) translateY(20px); }
+  70%  { transform: scale(1.15) translateY(-4px); }
+  100% { opacity:1; transform: scale(1) translateY(0); }
+}
+.pin-g { animation: pin-in .5s cubic-bezier(.34,1.56,.64,1) both; }
+
+@keyframes pulse {
+  0%,100% { r: 6; opacity: .5; }
+  50% { r: 14; opacity: 0; }
+}
+.pulse-ring { animation: pulse 2.2s ease-out infinite; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="hl">
+    <div class="hmark">H</div>
+    <div>
+      <div class="htitle">Florentino Beltran — Territory Map</div>
+      <div class="hsub">Apr 2025 – Jan 2026 · Keller Williams Advantage 2 Realty</div>
+    </div>
+  </div>
+  <div class="hstats">
+    <div class="hs"><div class="hs-n">16</div><div class="hs-l">Closings</div></div>
+    <div class="hdiv"></div>
+    <div class="hs"><div class="hs-n">$5.24M</div><div class="hs-l">Volume</div></div>
+    <div class="hdiv"></div>
+    <div class="hs"><div class="hs-n">14</div><div class="hs-l">Cities</div></div>
+    <div class="hdiv"></div>
+    <div class="hs"><div class="hs-n">~150mi</div><div class="hs-l">Reach</div></div>
+  </div>
+</header>
+
+<!-- MAP -->
+<div class="map-wrap">
+  <svg id="map" viewBox="0 0 1140 680" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Background gradient -->
+      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#0d0118"/>
+        <stop offset="100%" stop-color="#1a0533"/>
+      </linearGradient>
+
+      <!-- Territory fill -->
+      <linearGradient id="terrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#9333EA" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#D946EF" stop-opacity="0.06"/>
+      </linearGradient>
+
+      <!-- Glow filters -->
+      <filter id="glow-fuchsia" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="glow-gold" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur stdDeviation="8" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.5)"/>
+      </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="1140" height="680" fill="url(#bgGrad)"/>
+
+    <!-- Subtle grid lines -->
+    <g stroke="rgba(147,51,234,0.08)" stroke-width="1">
+      <!-- Vertical lines every ~50px -->
+      <line x1="100" y1="0" x2="100" y2="680"/>
+      <line x1="200" y1="0" x2="200" y2="680"/>
+      <line x1="300" y1="0" x2="300" y2="680"/>
+      <line x1="400" y1="0" x2="400" y2="680"/>
+      <line x1="500" y1="0" x2="500" y2="680"/>
+      <line x1="600" y1="0" x2="600" y2="680"/>
+      <line x1="700" y1="0" x2="700" y2="680"/>
+      <line x1="800" y1="0" x2="800" y2="680"/>
+      <line x1="900" y1="0" x2="900" y2="680"/>
+      <line x1="1000" y1="0" x2="1000" y2="680"/>
+      <line x1="1100" y1="0" x2="1100" y2="680"/>
+      <!-- Horizontal lines -->
+      <line x1="0" y1="100" x2="1140" y2="100"/>
+      <line x1="0" y1="200" x2="1140" y2="200"/>
+      <line x1="0" y1="300" x2="1140" y2="300"/>
+      <line x1="0" y1="400" x2="1140" y2="400"/>
+      <line x1="0" y1="500" x2="1140" y2="500"/>
+      <line x1="0" y1="600" x2="1140" y2="600"/>
+    </g>
+
+    <!-- Decorative compass rose (bottom right) -->
+    <g transform="translate(1080, 620) opacity(0.3)">
+      <circle cx="0" cy="0" r="22" fill="none" stroke="rgba(147,51,234,0.25)" stroke-width="1"/>
+      <text x="0" y="-28" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)" font-family="Inter" font-weight="600">N</text>
+      <line x1="0" y1="-20" x2="0" y2="20" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <line x1="-20" y1="0" x2="20" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <polygon points="0,-16 3,0 0,4 -3,0" fill="rgba(217,70,239,0.5)"/>
+    </g>
+
+    <!-- Stylized water body hints (Gulf on left, Atlantic on right) -->
+    <!-- Gulf coast glow (left edge) -->
+    <ellipse cx="-40" cy="400" rx="120" ry="350" fill="rgba(99,102,241,0.05)"/>
+    <!-- Atlantic glow (right edge) -->
+    <ellipse cx="1200" cy="300" rx="120" ry="300" fill="rgba(99,102,241,0.05)"/>
+
+    <!-- Simplified Central Florida lake shapes for geographic context -->
+    <!-- Lake Apopka area (near Orlando, approx 28.6N, 81.63W → x≈581, y≈249) -->
+    <ellipse cx="578" cy="249" rx="28" ry="18"
+             fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.2)" stroke-width="1"/>
+    <text x="578" y="275" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.2)"
+          font-family="Inter" font-style="italic">Lake Apopka</text>
+
+    <!-- Lake Toho (Kissimmee area, 28.17N, 81.34W → x≈717, y≈418) -->
+    <ellipse cx="717" cy="418" rx="20" ry="28"
+             fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.2)" stroke-width="1"/>
+    <text x="717" y="455" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,0.2)"
+          font-family="Inter" font-style="italic">Lake Toho</text>
+
+    <!-- Lake Okeechobee hint (below frame, 26.9N, 80.8W) - just a partial arc at bottom -->
+    <ellipse cx="900" cy="710" rx="100" ry="70"
+             fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.15)" stroke-width="1"/>
+
+    <!-- Territory polygon (connecting all pins) -->
+    <polygon
+      points="879,293 950,287 722,168 733,254 761,233 784,233 580,220 377,272 490,383 582,427 699,430 736,381 753,366 755,374 737,289 623,495 221,538"
+      fill="url(#terrGrad)"
+      stroke="rgba(217,70,239,0.3)"
+      stroke-width="1.5"
+      stroke-dasharray="8 5"
+    />
+
+    <!-- ── REFERENCE CITY LABELS ── -->
+    <!-- Tampa (for orientation, 27.95N, 82.46W → x≈183, y≈463) -->
+    <text x="185" y="460" font-size="9" fill="rgba(255,255,255,0.15)" font-family="Inter"
+          font-weight="500" letter-spacing="0.08em">TAMPA</text>
+
+    <!-- Ocala (29.19N, 82.13W → x≈418, y≈150) -->
+    <text x="420" y="148" font-size="9" fill="rgba(255,255,255,0.15)" font-family="Inter"
+          font-weight="500" letter-spacing="0.08em">OCALA</text>
+
+    <!-- Daytona Beach (29.21N, 81.02W → x≈870, y≈144) -->
+    <text x="872" y="141" font-size="9" fill="rgba(255,255,255,0.15)" font-family="Inter"
+          font-weight="500" letter-spacing="0.08em">DAYTONA</text>
+
+    <!-- Cape Canaveral (28.39N, 80.60W → x≈1035, y≈323) -->
+    <text x="1000" y="320" font-size="9" fill="rgba(255,255,255,0.15)" font-family="Inter"
+          font-weight="500" letter-spacing="0.08em">CAPE CAN.</text>
+
+    <!-- Lakeland (28.04N, 81.95W → x≈430, y≈453) -->
+    <text x="432" y="450" font-size="9" fill="rgba(255,255,255,0.15)" font-family="Inter"
+          font-weight="500" letter-spacing="0.08em">LAKELAND</text>
+
+    <!-- Bradenton (27.49N, 82.57W → x≈133, y≈560) -->
+    <text x="60" y="557" font-size="9" fill="rgba(255,255,255,0.15)" font-family="Inter"
+          font-weight="500" letter-spacing="0.08em">BRADENTON</text>
+
+    <!-- ── DEAL PINS ── -->
+    <!-- Each pin: circle + label, color by loan type -->
+    <!-- Loan colors: FHA=#D946EF  Conv=#9333EA  VA=#F472B6  Cash=#8B8BA8  TOP=GOLD -->
+
+    <!-- 1. Christmas $169K Cash -->
+    <g class="pin-g" style="animation-delay:.05s" data-idx="0">
+      <circle class="pulse-ring" cx="879" cy="293" r="6" fill="none" stroke="rgba(139,139,168,0.5)" stroke-width="1.5" style="animation-delay:0s"/>
+      <circle cx="879" cy="293" r="9" fill="rgba(139,139,168,0.2)" stroke="rgba(139,139,168,0.5)" stroke-width="1.5"/>
+      <circle cx="879" cy="293" r="5" fill="#8B8BA8"/>
+    </g>
+
+    <!-- 2. Saint Cloud $324K Conv -->
+    <g class="pin-g" style="animation-delay:.1s" data-idx="1">
+      <circle class="pulse-ring" cx="753" cy="366" r="6" fill="none" stroke="rgba(147,51,234,0.5)" stroke-width="1.5" style="animation-delay:.3s"/>
+      <circle cx="753" cy="366" r="9" fill="rgba(147,51,234,0.2)" stroke="rgba(147,51,234,0.5)" stroke-width="1.5"/>
+      <circle cx="753" cy="366" r="5" fill="#9333EA"/>
+    </g>
+
+    <!-- 3. Deland $385K FHA -->
+    <g class="pin-g" style="animation-delay:.15s" data-idx="2">
+      <circle class="pulse-ring" cx="722" cy="168" r="6" fill="none" stroke="rgba(217,70,239,0.5)" stroke-width="1.5" style="animation-delay:.6s"/>
+      <circle cx="722" cy="168" r="9" fill="rgba(217,70,239,0.2)" stroke="rgba(217,70,239,0.5)" stroke-width="1.5"/>
+      <circle cx="722" cy="168" r="5" fill="#D946EF"/>
+    </g>
+
+    <!-- 4. Titusville $842K TOP SALE ★ -->
+    <g class="pin-g" filter="url(#glow-gold)" style="animation-delay:.2s" data-idx="3">
+      <circle class="pulse-ring" cx="950" cy="287" r="10" fill="none" stroke="rgba(245,200,66,0.6)" stroke-width="2" style="animation-delay:.2s"/>
+      <circle cx="950" cy="287" r="18" fill="rgba(245,200,66,0.12)" stroke="rgba(245,200,66,0.4)" stroke-width="1.5"/>
+      <circle cx="950" cy="287" r="10" fill="#F5C842"/>
+      <text x="950" y="291" text-anchor="middle" font-size="10" fill="#1a0533" font-weight="900">★</text>
+      <!-- "TOP" label -->
+      <rect x="926" y="264" width="48" height="16" rx="8" fill="#F5C842" opacity="0.9"/>
+      <text x="950" y="276" text-anchor="middle" font-size="9" fill="#1a0533" font-weight="800">$842K</text>
+    </g>
+
+    <!-- 5. Kissimmee $324K FHA -->
+    <g class="pin-g" style="animation-delay:.25s" data-idx="4">
+      <circle class="pulse-ring" cx="699" cy="430" r="6" fill="none" stroke="rgba(217,70,239,0.5)" stroke-width="1.5" style="animation-delay:.9s"/>
+      <circle cx="699" cy="430" r="9" fill="rgba(217,70,239,0.2)" stroke="rgba(217,70,239,0.5)" stroke-width="1.5"/>
+      <circle cx="699" cy="430" r="5" fill="#D946EF"/>
+    </g>
+
+    <!-- 6. Saint Cloud $90K Cash -->
+    <g class="pin-g" style="animation-delay:.3s" data-idx="5">
+      <circle cx="736" cy="381" r="9" fill="rgba(139,139,168,0.2)" stroke="rgba(139,139,168,0.5)" stroke-width="1.5"/>
+      <circle cx="736" cy="381" r="5" fill="#8B8BA8"/>
+    </g>
+
+    <!-- 7. Winter Springs $340K Conv + JUAN -->
+    <g class="pin-g" style="animation-delay:.35s" data-idx="6">
+      <circle cx="732" cy="254" r="13" fill="none" stroke="rgba(165,180,252,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <circle class="pulse-ring" cx="732" cy="254" r="6" fill="none" stroke="rgba(147,51,234,0.5)" stroke-width="1.5" style="animation-delay:1.2s"/>
+      <circle cx="732" cy="254" r="9" fill="rgba(147,51,234,0.2)" stroke="rgba(147,51,234,0.5)" stroke-width="1.5"/>
+      <circle cx="732" cy="254" r="5" fill="#9333EA"/>
+      <text x="745" y="247" font-size="8" fill="rgba(165,180,252,0.8)">⭐</text>
+    </g>
+
+    <!-- 8. Dundee $325K FHA -->
+    <g class="pin-g" style="animation-delay:.4s" data-idx="7">
+      <circle class="pulse-ring" cx="582" cy="427" r="6" fill="none" stroke="rgba(217,70,239,0.5)" stroke-width="1.5" style="animation-delay:1.5s"/>
+      <circle cx="582" cy="427" r="9" fill="rgba(217,70,239,0.2)" stroke="rgba(217,70,239,0.5)" stroke-width="1.5"/>
+      <circle cx="582" cy="427" r="5" fill="#D946EF"/>
+    </g>
+
+    <!-- 9. Polk City $355K FHA + JUAN -->
+    <g class="pin-g" style="animation-delay:.45s" data-idx="8">
+      <circle cx="490" cy="383" r="13" fill="none" stroke="rgba(165,180,252,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <circle class="pulse-ring" cx="490" cy="383" r="6" fill="none" stroke="rgba(217,70,239,0.5)" stroke-width="1.5" style="animation-delay:1.8s"/>
+      <circle cx="490" cy="383" r="9" fill="rgba(217,70,239,0.2)" stroke="rgba(217,70,239,0.5)" stroke-width="1.5"/>
+      <circle cx="490" cy="383" r="5" fill="#D946EF"/>
+      <text x="503" y="376" font-size="8" fill="rgba(165,180,252,0.8)">⭐</text>
+    </g>
+
+    <!-- 10. Webster $32K Cash -->
+    <g class="pin-g" style="animation-delay:.5s" data-idx="9">
+      <circle cx="377" cy="272" r="9" fill="rgba(139,139,168,0.2)" stroke="rgba(139,139,168,0.5)" stroke-width="1.5"/>
+      <circle cx="377" cy="272" r="5" fill="#8B8BA8"/>
+    </g>
+
+    <!-- 11. Saint Cloud Buckingham $660K Cash -->
+    <g class="pin-g" style="animation-delay:.55s" data-idx="10">
+      <circle cx="755" cy="374" r="11" fill="rgba(139,139,168,0.15)" stroke="rgba(200,200,220,0.5)" stroke-width="1.5"/>
+      <circle cx="755" cy="374" r="6" fill="#AAA8C8"/>
+      <!-- Price label for big cash deal -->
+      <rect x="730" y="356" width="50" height="14" rx="7" fill="rgba(200,200,220,0.15)"/>
+      <text x="755" y="367" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.7)" font-weight="700">$660K</text>
+    </g>
+
+    <!-- 12. Orlando $370K VA -->
+    <g class="pin-g" style="animation-delay:.6s" data-idx="11">
+      <circle class="pulse-ring" cx="737" cy="289" r="6" fill="none" stroke="rgba(244,114,182,0.5)" stroke-width="1.5" style="animation-delay:2.1s"/>
+      <circle cx="737" cy="289" r="9" fill="rgba(244,114,182,0.2)" stroke="rgba(244,114,182,0.5)" stroke-width="1.5"/>
+      <circle cx="737" cy="289" r="5" fill="#F472B6"/>
+    </g>
+
+    <!-- 13. Sanford $408K FHA -->
+    <g class="pin-g" style="animation-delay:.65s" data-idx="12">
+      <circle class="pulse-ring" cx="761" cy="233" r="6" fill="none" stroke="rgba(217,70,239,0.5)" stroke-width="1.5" style="animation-delay:2.4s"/>
+      <circle cx="761" cy="233" r="9" fill="rgba(217,70,239,0.2)" stroke="rgba(217,70,239,0.5)" stroke-width="1.5"/>
+      <circle cx="761" cy="233" r="5" fill="#D946EF"/>
+    </g>
+
+    <!-- 14. Mount Dora $186K Conv + JUAN -->
+    <g class="pin-g" style="animation-delay:.7s" data-idx="13">
+      <circle cx="580" cy="220" r="13" fill="none" stroke="rgba(165,180,252,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <circle class="pulse-ring" cx="580" cy="220" r="6" fill="none" stroke="rgba(147,51,234,0.5)" stroke-width="1.5" style="animation-delay:2.7s"/>
+      <circle cx="580" cy="220" r="9" fill="rgba(147,51,234,0.2)" stroke="rgba(147,51,234,0.5)" stroke-width="1.5"/>
+      <circle cx="580" cy="220" r="5" fill="#9333EA"/>
+      <text x="593" y="213" font-size="8" fill="rgba(165,180,252,0.8)">⭐</text>
+    </g>
+
+    <!-- 15. Parrish $371K FHA -->
+    <g class="pin-g" style="animation-delay:.75s" data-idx="14">
+      <circle class="pulse-ring" cx="221" cy="538" r="6" fill="none" stroke="rgba(217,70,239,0.5)" stroke-width="1.5" style="animation-delay:3s"/>
+      <circle cx="221" cy="538" r="9" fill="rgba(217,70,239,0.2)" stroke="rgba(217,70,239,0.5)" stroke-width="1.5"/>
+      <circle cx="221" cy="538" r="5" fill="#D946EF"/>
+    </g>
+
+    <!-- 16. Frostproof $60K Cash -->
+    <g class="pin-g" style="animation-delay:.8s" data-idx="15">
+      <circle cx="623" cy="495" r="9" fill="rgba(139,139,168,0.2)" stroke="rgba(139,139,168,0.5)" stroke-width="1.5"/>
+      <circle cx="623" cy="495" r="5" fill="#8B8BA8"/>
+    </g>
+
+    <!-- ── CITY LABELS ── -->
+    <g font-family="Inter" font-size="10" fill="rgba(255,255,255,0.55)" font-weight="500">
+      <text x="888" y="312">Christmas</text>
+      <text x="762" y="390">Saint Cloud</text>
+      <text x="684" y="161">Deland</text>
+      <text x="971" y="277">Titusville</text>
+      <text x="707" y="449">Kissimmee</text>
+      <text x="740" y="254">Winter Springs</text>
+      <text x="548" y="446">Dundee</text>
+      <text x="450" y="378">Polk City</text>
+      <text x="334" y="292">Webster</text>
+      <text x="744" y="303">Orlando</text>
+      <text x="770" y="225">Sanford</text>
+      <text x="538" y="213">Mt. Dora</text>
+      <text x="170" y="558">Parrish</text>
+      <text x="580" y="515">Frostproof</text>
+    </g>
+
+    <!-- Invisible hit areas for hover (larger circles) -->
+    <circle cx="879" cy="293" r="18" fill="transparent" data-idx="0" class="hit"/>
+    <circle cx="753" cy="366" r="18" fill="transparent" data-idx="1" class="hit"/>
+    <circle cx="722" cy="168" r="18" fill="transparent" data-idx="2" class="hit"/>
+    <circle cx="950" cy="287" r="22" fill="transparent" data-idx="3" class="hit"/>
+    <circle cx="699" cy="430" r="18" fill="transparent" data-idx="4" class="hit"/>
+    <circle cx="736" cy="381" r="18" fill="transparent" data-idx="5" class="hit"/>
+    <circle cx="732" cy="254" r="18" fill="transparent" data-idx="6" class="hit"/>
+    <circle cx="582" cy="427" r="18" fill="transparent" data-idx="7" class="hit"/>
+    <circle cx="490" cy="383" r="18" fill="transparent" data-idx="8" class="hit"/>
+    <circle cx="377" cy="272" r="18" fill="transparent" data-idx="9" class="hit"/>
+    <circle cx="755" cy="374" r="18" fill="transparent" data-idx="10" class="hit"/>
+    <circle cx="737" cy="289" r="18" fill="transparent" data-idx="11" class="hit"/>
+    <circle cx="761" cy="233" r="18" fill="transparent" data-idx="12" class="hit"/>
+    <circle cx="580" cy="220" r="18" fill="transparent" data-idx="13" class="hit"/>
+    <circle cx="221" cy="538" r="18" fill="transparent" data-idx="14" class="hit"/>
+    <circle cx="623" cy="495" r="18" fill="transparent" data-idx="15" class="hit"/>
+  </svg>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tt"></div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="leg-title">Pin Guide</div>
+    <div class="leg-row"><div class="leg-dot" style="background:#D946EF;box-shadow:0 0 5px #D946EF;"></div> FHA</div>
+    <div class="leg-row"><div class="leg-dot" style="background:#9333EA;box-shadow:0 0 5px #9333EA;"></div> Conventional</div>
+    <div class="leg-row"><div class="leg-dot" style="background:#F472B6;box-shadow:0 0 5px #F472B6;"></div> VA</div>
+    <div class="leg-row"><div class="leg-dot" style="background:#8B8BA8;"></div> Cash / No Loan</div>
+    <div class="leg-row"><div class="leg-dot" style="background:#F5C842;box-shadow:0 0 7px #F5C842;"></div> Top Sale ($842K)</div>
+    <div class="leg-sep">
+      <div class="leg-row" style="color:rgba(255,255,255,0.35);font-size:10px;">⭐ = Closed with Juan Farias</div>
+      <div class="leg-row" style="color:rgba(255,255,255,0.35);font-size:10px;margin-top:2px;">– – = Territory boundary</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const deals = [
+  { addr:"1205 Cupid Ave",          city:"Christmas, FL",      price:"$169K", date:"Jan 2026", loan:"Cash",  juan:false, x:879, y:293 },
+  { addr:"5657 Brosnan Rd",         city:"Saint Cloud, FL",    price:"$324K", date:"Nov 2025", loan:"Conv",  juan:false, x:753, y:366 },
+  { addr:"1355 Woodline Dr",        city:"Deland, FL",         price:"$385K", date:"Oct 2025", loan:"FHA",   juan:false, x:722, y:168 },
+  { addr:"6626 Windover Way",       city:"Titusville, FL",     price:"$842K", date:"Oct 2025", loan:"Conv",  juan:true,  x:950, y:287 },
+  { addr:"3226 Viceroy Ct",         city:"Kissimmee, FL",      price:"$324K", date:"Sep 2025", loan:"FHA",   juan:false, x:699, y:430 },
+  { addr:"Hickory Tree Rd",         city:"Saint Cloud, FL",    price:"$90K",  date:"Sep 2025", loan:"Cash",  juan:false, x:736, y:381 },
+  { addr:"620 Fruitwood Ave",       city:"Winter Springs, FL", price:"$340K", date:"Aug 2025", loan:"Conv",  juan:true,  x:732, y:254 },
+  { addr:"661 Royal Palm Dr",       city:"Dundee, FL",         price:"$325K", date:"Aug 2025", loan:"FHA",   juan:false, x:582, y:427 },
+  { addr:"3465 Deen Still Rd",      city:"Polk City, FL",      price:"$355K", date:"Jul 2025", loan:"FHA",   juan:true,  x:490, y:383 },
+  { addr:"SW 118th Ln",             city:"Webster, FL",        price:"$32K",  date:"Jul 2025", loan:"Cash",  juan:false, x:377, y:272 },
+  { addr:"3301 Buckingham Way",     city:"Saint Cloud, FL",    price:"$660K", date:"Jun 2025", loan:"Cash",  juan:false, x:755, y:374 },
+  { addr:"6701 Belmar Dr",          city:"Orlando, FL",        price:"$370K", date:"Jun 2025", loan:"VA",    juan:false, x:737, y:289 },
+  { addr:"3528 Fort Mellon Ln",     city:"Sanford, FL",        price:"$408K", date:"Apr 2025", loan:"FHA",   juan:false, x:761, y:233 },
+  { addr:"1508 Jefferson Dr",       city:"Mount Dora, FL",     price:"$186K", date:"Apr 2025", loan:"Conv",  juan:true,  x:580, y:220 },
+  { addr:"12129 Mountain Isl Trl",  city:"Parrish, FL",        price:"$371K", date:"Apr 2025", loan:"FHA",   juan:false, x:221, y:538 },
+  { addr:"355 Swingle St",          city:"Frostproof, FL",     price:"$60K",  date:"Apr 2025", loan:"Cash",  juan:false, x:623, y:495 },
+];
+
+const tt = document.getElementById('tt');
+const svgEl = document.getElementById('map');
+
+function tagHTML(loan, juan, isTop) {
+  const lc = loan.toLowerCase();
+  let html = `<span class="tag tag-${lc}">${loan}</span>`;
+  html += `<span class="tag tag-cash">${deals.find(d=>true)? '' : ''}`;
+  if (juan)  html += `<span class="tag tag-juan">⭐ w/ Juan Farias</span>`;
+  if (isTop) html += `<span class="tag tag-gold">🏆 Top Sale</span>`;
+  return html;
+}
+
+document.querySelectorAll('.hit').forEach(el => {
+  el.style.cursor = 'pointer';
+
+  el.addEventListener('mouseenter', (e) => {
+    const idx = +el.dataset.idx;
+    const d = deals[idx];
+    const isTop = d.price === '$842K';
+    const lc = d.loan.toLowerCase();
+
+    let badges = `<span class="tag tag-${lc}">${d.loan}</span>`;
+    badges += `<span class="tag tag-cash">${d.date}</span>`;
+    if (d.juan)  badges += `<span class="tag tag-juan">⭐ w/ Juan Farias</span>`;
+    if (isTop)   badges += `<span class="tag tag-gold">🏆 Top Sale</span>`;
+
+    tt.innerHTML = `
+      <div class="tt-price">${d.price}</div>
+      <div class="tt-addr">${d.addr}<br>${d.city}</div>
+      <div class="tt-tags">${badges}</div>`;
+
+    // Position tooltip using SVG viewBox coordinates → screen coords
+    const svgRect = svgEl.getBoundingClientRect();
+    const scaleX = svgRect.width / 1140;
+    const scaleY = svgRect.height / 680;
+    let px = d.x * scaleX + svgRect.left;
+    let py = d.y * scaleY + svgRect.top;
+
+    // Clamp to viewport
+    const ttW = 220, ttH = 110;
+    if (px + ttW + 20 > window.innerWidth) px -= ttW + 20;
+    else px += 20;
+    if (py - 20 < 0) py += 20;
+    else py -= 60;
+
+    tt.style.left = px + 'px';
+    tt.style.top  = py + 'px';
+    tt.classList.add('show');
+  });
+
+  el.addEventListener('mouseleave', () => {
+    tt.classList.remove('show');
+  });
+});
+</script>
+</body>
+</html>
