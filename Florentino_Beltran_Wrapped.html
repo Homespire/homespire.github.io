@@ -1090,23 +1090,10 @@
   }
 
   // Fire on page load — burst from center
-  function fireInitial() {
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight * 0.5;
-    burst(cx, cy, 120);
-    setTimeout(() => burst(cx * 0.3, cy * 0.6, 60), 300);
-    setTimeout(() => burst(cx * 1.7, cy * 0.6, 60), 500);
-  }
-
-  window.addEventListener('load', () => setTimeout(fireInitial, 400));
-
-  // Re-fire when user scrolls back to slide 1
-  const deck = document.getElementById('deck');
-  let lastSlide = 0;
-  deck && deck.addEventListener('scroll', () => {
-    const idx = Math.round(deck.scrollTop / window.innerHeight);
-    if (idx === 0 && lastSlide !== 0) setTimeout(fireInitial, 200);
-    lastSlide = idx;
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      burst(window.innerWidth / 2, window.innerHeight * 0.5, 140);
+    }, 400);
   });
 })();
 </script>
