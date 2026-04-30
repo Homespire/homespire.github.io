@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Q1 Sales Performance Review | Homespire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --purple-deep:    #0F0225;
+  --purple-dark:    #1E0545;
+  --purple-mid:     #6B21A8;
+  --purple-bright:  #9333EA;
+  --fuchsia:        #D946EF;
+  --pink:           #F472B6;
+  --blue-purple:    #4F46E5;
+  --blue-light:     #818CF8;
+  --white:          #FFFFFF;
+  --white-80:       rgba(255,255,255,0.80);
+  --white-60:       rgba(255,255,255,0.60);
+  --white-30:       rgba(255,255,255,0.30);
+  --white-15:       rgba(255,255,255,0.15);
+  --white-10:       rgba(255,255,255,0.10);
+  --white-06:       rgba(255,255,255,0.06);
+}
+
+html, body {
+  width: 100%; height: 100%;
+  font-family: 'Inter', sans-serif;
+  background: var(--purple-deep);
+  color: var(--white);
+  overflow: hidden;
+}
+
+/* ── DECK ── */
+.deck {
+  width: 100vw; height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+.deck::-webkit-scrollbar { display: none; }
+
+/* ── SLIDE ── */
+.slide {
+  width: 100vw; height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 56px 48px;
+}
+
+/* ── GRADIENTS ── */
+.s1  { background: linear-gradient(155deg, #0F0225 0%, #2A0660 45%, #5B0EA0 100%); }
+.s2  { background: linear-gradient(155deg, #130340 0%, #3D0E8A 50%, #7C1FC8 100%); }
+.s3  { background: linear-gradient(155deg, #1A0545 0%, #4A12A0 50%, #8B21D4 100%); }
+.s4  { background: linear-gradient(155deg, #0F0230 0%, #2E0A6A 45%, #6B1DB8 100%); }
+.s5  { background: linear-gradient(155deg, #160440 0%, #4338CA 50%, #7C3AED 100%); }
+.s6  { background: linear-gradient(155deg, #0A0228 0%, #350880 50%, #8B21CC 100%); }
+.s7  { background: linear-gradient(155deg, #180440 0%, #4C0D96 50%, #9B30E0 100%); }
+.s8  { background: linear-gradient(155deg, #0F0235 0%, #3D1298 50%, #7928CA 100%); }
+.s9  { background: linear-gradient(155deg, #1A042A 0%, #5B0A8E 50%, #C026D3 100%); }
+.s10 { background: linear-gradient(155deg, #0F0228 0%, #2E0A70 50%, #6B21A8 100%); }
+.s11 { background: linear-gradient(155deg, #0F0225 0%, #3D0F7A 50%, #7B1FC8 100%); }
+
+/* ── NOISE TEXTURE ── */
+.slide::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── ORBS ── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.22;
+  pointer-events: none;
+  animation: drift 9s ease-in-out infinite alternate;
+}
+.orb-a { width: 450px; height: 450px; background: var(--fuchsia);        top: -140px;  right: -100px; animation-duration: 10s; }
+.orb-b { width: 320px; height: 320px; background: var(--blue-purple);    bottom: -100px; left: -80px; animation-duration: 12s; animation-delay: -4s; }
+.orb-c { width: 220px; height: 220px; background: var(--pink);           top: 45%; left: 55%;         animation-duration: 8s;  animation-delay: -6s; }
+
+@keyframes drift {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(28px, 38px) scale(1.08); }
+}
+
+/* ── NAV CHROME ── */
+.nav-logo {
+  position: absolute;
+  top: 28px; left: 40px;
+  display: flex; align-items: center; gap: 10px;
+  z-index: 10;
+}
+.logo-mark {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--purple-bright), var(--fuchsia));
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 15px;
+}
+.logo-text {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--white-60);
+  text-transform: uppercase;
+}
+
+/* ── SLIDE COUNTER ── */
+.slide-num {
+  position: absolute;
+  top: 32px; right: 40px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--white-30);
+  z-index: 10;
+}
+
+/* ── NAV DOTS ── */
+#nav-dots {
+  position: fixed;
+  right: 20px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 8px;
+  z-index: 100;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--white-30);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+.dot.active {
+  background: var(--fuchsia);
+  transform: scale(1.4);
+}
+
+/* ── SLIDE CONTENT WRAPPER ── */
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content.left { align-items: flex-start; }
+
+/* ── CHIP / BADGE ── */
+.chip {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--white-10);
+  border: 1px solid var(--white-30);
+  backdrop-filter: blur(8px);
+  margin-bottom: 24px;
+  color: var(--white-60);
+}
+.chip.fuchsia {
+  background: rgba(217,70,239,0.15);
+  border-color: rgba(217,70,239,0.4);
+  color: var(--fuchsia);
+}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fuchsia);
+  margin-bottom: 14px;
+}
+.big-headline {
+  font-size: clamp(44px, 8vw, 96px);
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+.mid-headline {
+  font-size: clamp(32px, 5.5vw, 68px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+.mid-headline.left { text-align: left; }
+.tagline {
+  font-size: clamp(14px, 2.2vw, 20px);
+  font-weight: 400;
+  color: var(--white-60);
+  text-align: center;
+  margin-top: 18px;
+  max-width: 560px;
+  line-height: 1.55;
+  font-style: italic;
+}
+.divider {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, var(--purple-bright), var(--fuchsia));
+  border-radius: 2px;
+  margin: 22px 0;
+}
+.divider.center { margin: 22px auto; }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--white) 30%, var(--fuchsia) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.fuchsia { color: var(--fuchsia); }
+.blue-purple { color: var(--blue-light); }
+
+/* ── BULLET LIST ── */
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 680px;
+}
+.bullet-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: clamp(15px, 2.2vw, 21px);
+  font-weight: 500;
+  color: var(--white-80);
+  line-height: 1.45;
+}
+.bullet-list li .dot-icon {
+  flex-shrink: 0;
+  margin-top: 7px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple-bright), var(--fuchsia));
+}
+.bullet-list.not li .dot-icon {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ── FROM / TO CARD ── */
+.shift-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 760px;
+}
+.shift-card {
+  background: var(--white-10);
+  border: 1px solid var(--white-15);
+  border-radius: 20px;
+  padding: 36px 36px 32px;
+  backdrop-filter: blur(12px);
+}
+.shift-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.shift-label.from { color: var(--white-30); }
+.shift-label.to   { color: var(--fuchsia); }
+.shift-text {
+  font-size: clamp(22px, 3.5vw, 38px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.shift-text.from { color: var(--white-30); }
+.shift-text.to   { color: var(--white); }
+.shift-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: var(--white-30);
+  padding-top: 8px;
+}
+
+/* ── EVAL GRID ── */
+.eval-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 840px;
+}
+.eval-card {
+  background: var(--white-06);
+  border: 1px solid var(--white-15);
+  border-radius: 18px;
+  padding: 28px 30px;
+  backdrop-filter: blur(10px);
+}
+.eval-card.full { grid-column: 1 / -1; }
+.eval-card-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fuchsia);
+  margin-bottom: 16px;
+}
+.eval-card-title {
+  font-size: clamp(18px, 2.8vw, 28px);
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.pill {
+  padding: 6px 16px;
+  background: rgba(147,51,234,0.25);
+  border: 1px solid rgba(147,51,234,0.4);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white-80);
+}
+
+/* ── OUTCOME LIST ── */
+.outcome-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 740px;
+}
+.outcome-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  font-size: clamp(15px, 2.1vw, 20px);
+  font-weight: 500;
+  color: var(--white-80);
+  line-height: 1.5;
+  background: var(--white-06);
+  border: 1px solid var(--white-10);
+  border-radius: 14px;
+  padding: 16px 20px;
+  backdrop-filter: blur(8px);
+}
+.outcome-list li .num {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--fuchsia);
+  background: rgba(217,70,239,0.12);
+  border: 1px solid rgba(217,70,239,0.3);
+  border-radius: 100px;
+  padding: 3px 10px;
+  margin-top: 1px;
+}
+
+/* ── DIRECTION CARDS ── */
+.direction-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 800px;
+}
+.dir-card {
+  border-radius: 20px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(10px);
+}
+.dir-card.build {
+  background: rgba(79,70,229,0.2);
+  border: 1px solid rgba(129,140,248,0.35);
+}
+.dir-card.fix {
+  background: rgba(217,70,239,0.15);
+  border: 1px solid rgba(217,70,239,0.35);
+}
+.dir-card.decide {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.dir-word {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.dir-card.build  .dir-word { color: var(--blue-light); }
+.dir-card.fix    .dir-word { color: var(--fuchsia); }
+.dir-card.decide .dir-word { color: var(--white-60); }
+.dir-desc {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--white-60);
+  line-height: 1.55;
+}
+
+/* ── WATCH LIST ── */
+.watch-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 700px;
+}
+.watch-list li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: clamp(15px, 2.1vw, 20px);
+  font-weight: 500;
+  color: var(--white-80);
+  line-height: 1.4;
+  padding: 18px 22px;
+  background: var(--white-06);
+  border: 1px solid var(--white-10);
+  border-radius: 14px;
+}
+.watch-dot {
+  flex-shrink: 0;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.watch-dot.red    { background: #F87171; box-shadow: 0 0 8px #F87171; }
+.watch-dot.amber  { background: #FBBF24; box-shadow: 0 0 8px #FBBF24; }
+.watch-dot.purple { background: var(--fuchsia); box-shadow: 0 0 8px var(--fuchsia); }
+
+/* ── NEXT STEPS ── */
+.steps-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 680px;
+}
+.steps-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: clamp(15px, 2.1vw, 20px);
+  font-weight: 500;
+  color: var(--white-80);
+  line-height: 1.45;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, var(--purple-bright), var(--fuchsia));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
+  margin-top: 1px;
+}
+
+/* ── CLOSING ── */
+.closing-rule {
+  width: 100%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--fuchsia), transparent);
+  margin: 24px 0;
+  opacity: 0.5;
+}
+
+/* ── PROGRESS BAR ── */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--purple-bright), var(--fuchsia));
+  width: 0%;
+  transition: width 0.2s ease;
+  z-index: 200;
+}
+
+/* ── KEYBOARD HINT ── */
+.key-hint {
+  position: absolute;
+  bottom: 24px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--white-30);
+  letter-spacing: 0.1em;
+  display: flex; align-items: center; gap: 8px;
+  z-index: 10;
+}
+.key {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid var(--white-15);
+  border-radius: 4px;
+  font-size: 9px;
+}
+
+/* ── ANIMATE IN ── */
+.content > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.slide.visible .content > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.05s; }
+.slide.visible .content > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.18s; }
+.slide.visible .content > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.30s; }
+.slide.visible .content > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.42s; }
+.slide.visible .content > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.52s; }
+.slide.visible .content > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.60s; }
+
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav id="nav-dots"></nav>
+
+<div class="deck" id="deck">
+
+  <!-- ─── SLIDE 1 · TITLE ─── -->
+  <section class="slide s1" data-num="1">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">01 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+
+    <div class="content">
+      <div class="chip fuchsia">Q1 2026 · Sales Performance Review</div>
+      <h1 class="big-headline gradient-text">Q1 Sales<br>Performance<br>Review</h1>
+      <div class="divider center"></div>
+      <p class="tagline">If it doesn't move a number,<br>it doesn't move the business.</p>
+    </div>
+
+    <div class="key-hint">
+      <span class="key">↓</span> scroll or arrow keys to advance
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 2 · PURPOSE ─── -->
+  <section class="slide s2" data-num="2">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">02 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <div class="content">
+      <div class="eyebrow">Purpose</div>
+      <h2 class="mid-headline">
+        Turn <span class="gradient-text">Q1 production</span><br>into better Q2 results
+      </h2>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 3 · WHAT IT IS ─── -->
+  <section class="slide s3" data-num="3">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">03 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <div class="content">
+      <div class="eyebrow">What This Is</div>
+      <h2 class="mid-headline" style="text-align:center; margin-bottom:28px;">A Q1 Sales Performance<br>Review is&hellip;</h2>
+      <ul class="bullet-list">
+        <li><span class="dot-icon"></span>A clear look at how we performed</li>
+        <li><span class="dot-icon"></span>A way to understand what drove results</li>
+        <li><span class="dot-icon"></span>A chance to spot patterns across the business</li>
+        <li><span class="dot-icon"></span>A working session to shape what we do next</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 4 · WHAT IT IS NOT ─── -->
+  <section class="slide s4" data-num="4">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">04 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <div class="content">
+      <div class="eyebrow">What This Is Not</div>
+      <h2 class="mid-headline" style="text-align:center; margin-bottom:28px; color: rgba(255,255,255,0.55);">This review is <em style="font-style:normal; color:#F87171;">not</em>&hellip;</h2>
+      <ul class="bullet-list not">
+        <li><span class="dot-icon"></span>Not a readout of numbers</li>
+        <li><span class="dot-icon"></span>Not a leaderboard review</li>
+        <li><span class="dot-icon"></span>Not a recap of Q1</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 5 · THE SHIFT ─── -->
+  <section class="slide s5" data-num="5">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">05 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+
+    <div class="content">
+      <div class="eyebrow">The Shift</div>
+      <div class="shift-grid">
+        <div class="shift-card">
+          <div class="shift-label from">From</div>
+          <div class="shift-text from">What happened</div>
+        </div>
+        <div class="shift-card" style="background: rgba(217,70,239,0.12); border-color: rgba(217,70,239,0.3);">
+          <div class="shift-label to">To</div>
+          <div class="shift-text to">Why it happened.<br>What we do about it.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 6 · HOW WE EVALUATE ─── -->
+  <section class="slide s6" data-num="6">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">06 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <div class="content">
+      <div class="eyebrow">How We Evaluate Performance</div>
+      <div class="eval-wrap">
+        <div class="eval-card full">
+          <div class="eval-card-label">The outcome</div>
+          <div class="eval-card-title">Production is the outcome</div>
+          <p style="font-size:15px; color:var(--white-60); line-height:1.6;">We are evaluating what is <em style="color:var(--white-80); font-style:normal; font-weight:600;">behind</em> it.</p>
+          <div class="pill-row" style="margin-top:14px;">
+            <span class="pill">Activity</span>
+            <span class="pill">Behavior</span>
+            <span class="pill">Focus</span>
+            <span class="pill">Support</span>
+          </div>
+        </div>
+        <div class="eval-card">
+          <div class="eval-card-label">What we hear in the field</div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+            <li style="font-size:14px; color:var(--white-60); display:flex; gap:10px; align-items:flex-start;">
+              <span style="color:var(--fuchsia); margin-top:2px;">→</span> One-on-one conversations
+            </li>
+            <li style="font-size:14px; color:var(--white-60); display:flex; gap:10px; align-items:flex-start;">
+              <span style="color:var(--fuchsia); margin-top:2px;">→</span> Manager feedback
+            </li>
+            <li style="font-size:14px; color:var(--white-60); display:flex; gap:10px; align-items:flex-start;">
+              <span style="color:var(--fuchsia); margin-top:2px;">→</span> Real borrower and agent activity
+            </li>
+          </ul>
+        </div>
+        <div class="eval-card" style="display:flex; align-items:center; justify-content:center; text-align:center; background: rgba(217,70,239,0.1); border-color: rgba(217,70,239,0.25);">
+          <p style="font-size:clamp(14px,2vw,18px); font-weight:700; color:var(--white-80); line-height:1.5;">Patterns matter as much as<br>individual results</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 7 · WHAT THIS MEETING PRODUCES ─── -->
+  <section class="slide s7" data-num="7">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">07 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <div class="content">
+      <div class="eyebrow">What This Meeting Should Produce</div>
+      <h2 class="mid-headline" style="margin-bottom:28px; font-size: clamp(24px,3.5vw,42px);">By the end of this, we should have:</h2>
+      <ul class="outcome-list">
+        <li><span class="num">01</span>A clear view of who is performing and why</li>
+        <li><span class="num">02</span>A shared understanding of what is working</li>
+        <li><span class="num">03</span>A surfaced view of what is not working — and a plan to address it</li>
+        <li><span class="num">04</span>Alignment on where to focus in Q2</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 8 · LO DIRECTION ─── -->
+  <section class="slide s8" data-num="8">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">08 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+
+    <div class="content">
+      <div class="eyebrow">Loan Officer Direction</div>
+      <h2 class="mid-headline" style="font-size:clamp(20px,2.8vw,34px); margin-bottom:28px;">For each LO, we should leave with clear direction:</h2>
+      <div class="direction-grid">
+        <div class="dir-card build">
+          <div class="dir-word">Build</div>
+          <div class="dir-desc">How we grow production</div>
+        </div>
+        <div class="dir-card fix">
+          <div class="dir-word">Fix</div>
+          <div class="dir-desc">What needs to improve</div>
+        </div>
+        <div class="dir-card decide">
+          <div class="dir-word">Decide</div>
+          <div class="dir-desc">What needs to be evaluated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 9 · WATCH LIST ─── -->
+  <section class="slide s9" data-num="9">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">09 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <div class="content">
+      <div class="eyebrow">Watch List</div>
+      <h2 class="mid-headline" style="margin-bottom:28px; font-size:clamp(24px,3.5vw,46px);">We will identify:</h2>
+      <ul class="watch-list">
+        <li><span class="watch-dot red"></span>Loan officers who need immediate attention</li>
+        <li><span class="watch-dot amber"></span>Loan officers trending in the wrong direction</li>
+        <li><span class="watch-dot purple"></span>Loan officers where a decision needs to be made</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 10 · NEXT STEPS ─── -->
+  <section class="slide s10" data-num="10">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">10 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+
+    <div class="content">
+      <div class="eyebrow">Our Next Steps</div>
+      <h2 class="mid-headline" style="margin-bottom:28px; font-size:clamp(24px,3.5vw,44px);">Each of us should leave with:</h2>
+      <ul class="steps-list">
+        <li><span class="step-num">1</span>A short list of priority loan officers</li>
+        <li><span class="step-num">2</span>Clear actions for each</li>
+        <li><span class="step-num">3</span>A plan for follow up</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 11 · CLOSING ─── -->
+  <section class="slide s11" data-num="11">
+    <div class="nav-logo">
+      <div class="logo-mark">H</div>
+      <span class="logo-text">Homespire</span>
+    </div>
+    <span class="slide-num">11 / 11</span>
+
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+
+    <div class="content">
+      <div class="chip fuchsia">Let's get into it</div>
+      <h2 class="mid-headline gradient-text">Let's walk the<br>production</h2>
+      <div class="closing-rule"></div>
+      <p class="tagline" style="font-style:normal; font-size:clamp(16px,2.4vw,22px); color:var(--white-60);">and determine what we do next</p>
+    </div>
+  </section>
+
+</div><!-- /deck -->
+
+<script>
+const deck  = document.getElementById('deck');
+const slides = document.querySelectorAll('.slide');
+const dotsEl = document.getElementById('nav-dots');
+const prog   = document.getElementById('progress');
+const N = slides.length;
+
+// Build nav dots
+slides.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.addEventListener('click', () => {
+    deck.scrollTo({ top: slides[i].offsetTop, behavior: 'smooth' });
+  });
+  dotsEl.appendChild(d);
+});
+const dots = dotsEl.querySelectorAll('.dot');
+
+// Track active slide via IntersectionObserver
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.intersectionRatio >= 0.5) {
+      const idx = [...slides].indexOf(e.target);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      slides.forEach((s, i) => s.classList.toggle('visible', i === idx));
+      prog.style.width = ((idx + 1) / N * 100) + '%';
+    }
+  });
+}, { threshold: 0.5 });
+
+slides.forEach(s => io.observe(s));
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const cur = [...slides].findIndex(s => s.classList.contains('visible'));
+  if ((e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') && cur < N - 1) {
+    e.preventDefault();
+    deck.scrollTo({ top: slides[cur + 1].offsetTop, behavior: 'smooth' });
+  }
+  if ((e.key === 'ArrowUp' || e.key === 'ArrowLeft') && cur > 0) {
+    e.preventDefault();
+    deck.scrollTo({ top: slides[cur - 1].offsetTop, behavior: 'smooth' });
+  }
+});
+
+// Mark first slide visible immediately
+slides[0].classList.add('visible');
+</script>
+</body>
+</html>
