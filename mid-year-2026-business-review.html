@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026 Mid-Year Business Review | Homespire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --purple-deep:    #0F0225;
+  --purple-dark:    #1E0545;
+  --purple-mid:     #6B21A8;
+  --purple-bright:  #9333EA;
+  --fuchsia:        #D946EF;
+  --pink:           #F472B6;
+  --blue-purple:    #4F46E5;
+  --blue-light:     #818CF8;
+  --green:          #34D399;
+  --amber:          #FBBF24;
+  --red:            #F87171;
+  --white:          #FFFFFF;
+  --white-80:       rgba(255,255,255,0.80);
+  --white-60:       rgba(255,255,255,0.60);
+  --white-45:       rgba(255,255,255,0.45);
+  --white-30:       rgba(255,255,255,0.30);
+  --white-15:       rgba(255,255,255,0.15);
+  --white-10:       rgba(255,255,255,0.10);
+  --white-06:       rgba(255,255,255,0.06);
+}
+
+html, body {
+  width: 100%; height: 100%;
+  font-family: 'Inter', sans-serif;
+  background: var(--purple-deep);
+  color: var(--white);
+  overflow: hidden;
+}
+
+/* ── DECK ── */
+.deck {
+  width: 100vw; height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+.deck::-webkit-scrollbar { display: none; }
+
+/* ── SLIDE ── */
+.slide {
+  width: 100vw; height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 56px 48px;
+}
+
+/* ── GRADIENTS ── */
+.s1  { background: linear-gradient(155deg, #0F0225 0%, #2A0660 45%, #5B0EA0 100%); }
+.s2  { background: linear-gradient(155deg, #130340 0%, #3D0E8A 50%, #7C1FC8 100%); }
+.s3  { background: linear-gradient(155deg, #1A0545 0%, #4A12A0 50%, #8B21D4 100%); }
+.s4  { background: linear-gradient(155deg, #0F0230 0%, #2E0A6A 45%, #6B1DB8 100%); }
+.s5  { background: linear-gradient(155deg, #160440 0%, #4338CA 50%, #7C3AED 100%); }
+.s6  { background: linear-gradient(155deg, #0A0228 0%, #350880 50%, #8B21CC 100%); }
+.s7  { background: linear-gradient(155deg, #180440 0%, #4C0D96 50%, #9B30E0 100%); }
+.s8  { background: linear-gradient(155deg, #0F0235 0%, #3D1298 50%, #7928CA 100%); }
+.s9  { background: linear-gradient(155deg, #1A042A 0%, #5B0A8E 50%, #C026D3 100%); }
+.s10 { background: linear-gradient(155deg, #0F0228 0%, #2E0A70 50%, #6B21A8 100%); }
+.s11 { background: linear-gradient(155deg, #0F0225 0%, #3D0F7A 50%, #7B1FC8 100%); }
+.s12 { background: linear-gradient(155deg, #130340 0%, #3D0E8A 50%, #7C1FC8 100%); }
+.s13 { background: linear-gradient(155deg, #1A0545 0%, #4A12A0 50%, #8B21D4 100%); }
+.s14 { background: linear-gradient(155deg, #0F0230 0%, #2E0A6A 45%, #6B1DB8 100%); }
+.s15 { background: linear-gradient(155deg, #0F0225 0%, #3D0F7A 50%, #7B1FC8 100%); }
+
+/* ── NOISE TEXTURE ── */
+.slide::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── ORBS ── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.22;
+  pointer-events: none;
+  animation: drift 9s ease-in-out infinite alternate;
+}
+.orb-a { width: 450px; height: 450px; background: var(--fuchsia);        top: -140px;  right: -100px; animation-duration: 10s; }
+.orb-b { width: 320px; height: 320px; background: var(--blue-purple);    bottom: -100px; left: -80px; animation-duration: 12s; animation-delay: -4s; }
+.orb-c { width: 220px; height: 220px; background: var(--pink);           top: 45%; left: 55%;         animation-duration: 8s;  animation-delay: -6s; }
+
+@keyframes drift {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(28px, 38px) scale(1.08); }
+}
+
+/* ── SLIDE COUNTER ── */
+.slide-num {
+  position: absolute;
+  top: 32px; right: 40px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--white-30);
+  z-index: 10;
+}
+
+/* ── NAV DOTS ── */
+#nav-dots {
+  position: fixed;
+  right: 20px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 8px;
+  z-index: 100;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--white-30);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+.dot.active {
+  background: var(--fuchsia);
+  transform: scale(1.4);
+}
+
+/* ── SLIDE CONTENT WRAPPER ── */
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content.left { align-items: flex-start; }
+
+/* ── CHIP / BADGE ── */
+.chip {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--white-10);
+  border: 1px solid var(--white-30);
+  backdrop-filter: blur(8px);
+  margin-bottom: 24px;
+  color: var(--white-60);
+}
+.chip.fuchsia {
+  background: rgba(217,70,239,0.15);
+  border-color: rgba(217,70,239,0.4);
+  color: var(--fuchsia);
+}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fuchsia);
+  margin-bottom: 14px;
+  text-align: center;
+}
+.big-headline {
+  font-size: clamp(44px, 8vw, 96px);
+  font-weight: 900;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+.mid-headline {
+  font-size: clamp(32px, 5.5vw, 68px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+.section-title {
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  text-align: center;
+  margin-bottom: 6px;
+}
+.section-sub {
+  font-size: clamp(13px, 1.9vw, 17px);
+  font-weight: 400;
+  color: var(--white-60);
+  text-align: center;
+  margin-bottom: 30px;
+}
+.tagline {
+  font-size: clamp(14px, 2.2vw, 20px);
+  font-weight: 400;
+  color: var(--white-60);
+  text-align: center;
+  margin-top: 18px;
+  max-width: 560px;
+  line-height: 1.55;
+  font-style: italic;
+}
+.divider {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, var(--purple-bright), var(--fuchsia));
+  border-radius: 2px;
+  margin: 22px 0;
+}
+.divider.center { margin: 22px auto; }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--white) 30%, var(--fuchsia) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.fuchsia { color: var(--fuchsia); }
+.blue-purple { color: var(--blue-light); }
+.green { color: var(--green); }
+.red { color: var(--red); }
+
+/* ── STAT / METRIC CARDS ── */
+.metrics-row {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+.metrics-row.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.metrics-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.metrics-row.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.metric {
+  background: var(--white-06);
+  border: 1px solid var(--white-10);
+  border-radius: 18px;
+  padding: 26px 24px;
+  backdrop-filter: blur(10px);
+  display: flex; flex-direction: column; gap: 8px;
+  text-align: center;
+  align-items: center;
+}
+.metric .m-value {
+  font-size: clamp(26px, 3.6vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.metric .m-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white-45);
+}
+.metric .m-note {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white-60);
+}
+
+/* ── RING / DONUT ── */
+.chart-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.ring-wrap {
+  position: relative;
+  width: 210px; height: 210px;
+  flex-shrink: 0;
+}
+.ring-wrap.sm { width: 170px; height: 170px; }
+.ring-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--white-10); stroke-width: 12; }
+.ring-fg {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1);
+}
+.ring-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px;
+}
+.ring-pct {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.ring-sub {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--white-45);
+}
+
+/* ── LEGEND ── */
+.legend {
+  display: flex; flex-direction: column; gap: 14px;
+  min-width: 240px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 12px;
+}
+.legend-swatch {
+  width: 14px; height: 14px; border-radius: 4px;
+  flex-shrink: 0;
+}
+.legend-text { display: flex; flex-direction: column; gap: 2px; }
+.legend-name {
+  font-size: clamp(14px, 1.9vw, 18px);
+  font-weight: 700;
+}
+.legend-val {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white-60);
+}
+
+/* ── PROGRESS BAR LIST ── */
+.bar-list {
+  display: flex; flex-direction: column;
+  gap: 14px; width: 100%;
+}
+.bar-list.tight { gap: 9px; }
+.bar-row { display: flex; align-items: center; gap: 14px; width: 100%; }
+.rank-num {
+  flex-shrink: 0;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--white-10);
+  border: 1px solid var(--white-15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
+  color: var(--white-60);
+}
+.bar-row.top .rank-num {
+  background: linear-gradient(135deg, var(--purple-bright), var(--fuchsia));
+  border-color: transparent; color: var(--white);
+}
+.bar-body { flex: 1; min-width: 0; }
+.bar-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 6px; gap: 12px;
+}
+.bar-name {
+  font-size: clamp(13px, 1.7vw, 16px);
+  font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bar-val {
+  font-size: clamp(12px, 1.6vw, 15px);
+  font-weight: 700;
+  color: var(--white-80);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.bar-track {
+  width: 100%; height: 9px;
+  background: var(--white-10);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  width: 0;
+  background: linear-gradient(90deg, var(--purple-bright), var(--fuchsia));
+  transition: width 1.1s cubic-bezier(.4,0,.2,1);
+}
+.bar-fill.blue { background: linear-gradient(90deg, var(--blue-purple), var(--blue-light)); }
+.bar-fill.green { background: linear-gradient(90deg, #059669, var(--green)); }
+.bar-fill.amber { background: linear-gradient(90deg, #D97706, var(--amber)); }
+.bar-fill.red { background: linear-gradient(90deg, #B91C1C, var(--red)); }
+
+/* ── TWO COLUMN LAYOUT ── */
+.split-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+  align-items: start;
+}
+.panel {
+  background: var(--white-06);
+  border: 1px solid var(--white-10);
+  border-radius: 18px;
+  padding: 26px 28px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
+.panel-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fuchsia);
+  margin-bottom: 18px;
+}
+
+/* ── FIELD CARDS (comparison) ── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+.compare-card {
+  background: var(--white-06);
+  border: 1px solid var(--white-10);
+  border-radius: 20px;
+  padding: 30px 32px;
+  backdrop-filter: blur(10px);
+}
+.compare-card .cc-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 20px;
+}
+.cc-title { font-size: 14px; font-weight: 800; letter-spacing: 0.04em; }
+.cc-attain { font-size: 13px; font-weight: 700; color: var(--fuchsia); }
+.cc-line {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--white-06);
+  font-size: 14px;
+}
+.cc-line:last-child { border-bottom: none; }
+.cc-line .k { color: var(--white-60); font-weight: 500; }
+.cc-line .v { font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* ── NET IMPACT ── */
+.net-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  width: 100%;
+}
+.net-card {
+  border-radius: 20px;
+  padding: 30px 28px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  display: flex; flex-direction: column; gap: 10px; align-items: center;
+}
+.net-card.gain { background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.3); }
+.net-card.loss { background: rgba(248,113,113,0.10); border: 1px solid rgba(248,113,113,0.28); }
+.net-card.net  { background: rgba(217,70,239,0.14); border: 1px solid rgba(217,70,239,0.35); }
+.net-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--white-45);
+}
+.net-big {
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900; letter-spacing: -0.02em;
+}
+.net-card.gain .net-big { color: var(--green); }
+.net-card.loss .net-big { color: var(--red); }
+.net-card.net  .net-big { color: var(--fuchsia); }
+.net-sub { font-size: 12px; font-weight: 600; color: var(--white-60); }
+
+/* ── CLOSING ── */
+.closing-rule {
+  width: 100%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--fuchsia), transparent);
+  margin: 24px 0;
+  opacity: 0.5;
+}
+
+/* ── PROGRESS BAR ── */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--purple-bright), var(--fuchsia));
+  width: 0%;
+  transition: width 0.2s ease;
+  z-index: 200;
+}
+
+/* ── KEYBOARD HINT ── */
+.key-hint {
+  position: absolute;
+  bottom: 24px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--white-30);
+  letter-spacing: 0.1em;
+  display: flex; align-items: center; gap: 8px;
+  z-index: 10;
+}
+.key {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid var(--white-15);
+  border-radius: 4px;
+  font-size: 9px;
+}
+
+/* ── ANIMATE IN ── */
+.content > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.slide.visible .content > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.05s; }
+.slide.visible .content > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.16s; }
+.slide.visible .content > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.26s; }
+.slide.visible .content > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.36s; }
+.slide.visible .content > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.44s; }
+.slide.visible .content > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.52s; }
+
+@media (max-width: 720px) {
+  .split-2, .compare-grid, .net-grid,
+  .metrics-row.cols-4, .metrics-row.cols-3 { grid-template-columns: 1fr; }
+  .slide { padding: 48px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<nav id="nav-dots"></nav>
+
+<div class="deck" id="deck">
+
+  <!-- ─── SLIDE 1 · TITLE ─── -->
+  <section class="slide s1" data-num="1">
+    <span class="slide-num">01 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="content">
+      <div class="chip fuchsia">Homespire · First Half 2026</div>
+      <h1 class="big-headline gradient-text">2026 Mid&#8209;Year<br>Business<br>Review</h1>
+      <div class="divider center"></div>
+      <p class="tagline">Where we stand at the halfway mark,<br>and where we take it from here.</p>
+    </div>
+    <div class="key-hint">
+      <span class="key">&darr;</span> scroll or arrow keys to advance
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 2 · SNAPSHOT ─── -->
+  <section class="slide s2" data-num="2">
+    <span class="slide-num">02 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">First-Half Snapshot</div>
+      <h2 class="section-title">Where we stand at mid&#8209;year</h2>
+      <p class="section-sub">Funded production across all loan officers, January&ndash;June 2026.</p>
+      <div class="metrics-row cols-4">
+        <div class="metric"><div class="m-value gradient-text">$143.7M</div><div class="m-label">YTD Funded Volume</div></div>
+        <div class="metric"><div class="m-value">451</div><div class="m-label">YTD Funded Units</div></div>
+        <div class="metric"><div class="m-value">38</div><div class="m-label">Active Loan Officers</div></div>
+        <div class="metric"><div class="m-value green">+$4.4M</div><div class="m-label">New Annual Volume Added</div></div>
+      </div>
+      <div class="metrics-row cols-2" style="margin-top:16px; max-width:640px;">
+        <div class="metric"><div class="m-value fuchsia">84.5%</div><div class="m-label">Q1 Attainment</div><div class="m-note">$65.6M of $77.6M</div></div>
+        <div class="metric"><div class="m-value fuchsia">78.3%</div><div class="m-label">Q2 Attainment</div><div class="m-note">$76.1M of $97.2M</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 3 · Q1 PERFORMANCE ─── -->
+  <section class="slide s3" data-num="3">
+    <span class="slide-num">03 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Quarter One</div>
+      <h2 class="section-title">Q1 sales performance</h2>
+      <p class="section-sub">Active-LO projection vs. actual funded production.</p>
+      <div class="chart-row">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="54"/>
+            <circle class="ring-fg" cx="60" cy="60" r="54" stroke="url(#gradQ1)"
+              stroke-dasharray="339.29" data-offset="52.49" stroke-dashoffset="339.29"/>
+            <defs><linearGradient id="gradQ1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#9333EA"/><stop offset="1" stop-color="#D946EF"/>
+            </linearGradient></defs>
+          </svg>
+          <div class="ring-center"><span class="ring-pct">84.5%</span><span class="ring-sub">Achieved</span></div>
+        </div>
+        <div class="metrics-row cols-3" style="max-width:560px;">
+          <div class="metric"><div class="m-value">$77.6M</div><div class="m-label">Projected</div></div>
+          <div class="metric"><div class="m-value">$65.6M</div><div class="m-label">Actual</div></div>
+          <div class="metric"><div class="m-value red">-$12.0M</div><div class="m-label">Variance</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 4 · Q2 PERFORMANCE ─── -->
+  <section class="slide s4" data-num="4">
+    <span class="slide-num">04 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Quarter Two</div>
+      <h2 class="section-title">Q2 sales performance</h2>
+      <p class="section-sub">Active-LO projection vs. actual funded production.</p>
+      <div class="chart-row">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="54"/>
+            <circle class="ring-fg" cx="60" cy="60" r="54" stroke="url(#gradQ2)"
+              stroke-dasharray="339.29" data-offset="73.66" stroke-dashoffset="339.29"/>
+            <defs><linearGradient id="gradQ2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#9333EA"/><stop offset="1" stop-color="#D946EF"/>
+            </linearGradient></defs>
+          </svg>
+          <div class="ring-center"><span class="ring-pct">78.3%</span><span class="ring-sub">Achieved</span></div>
+        </div>
+        <div class="metrics-row cols-3" style="max-width:560px;">
+          <div class="metric"><div class="m-value">$97.2M</div><div class="m-label">Projected</div></div>
+          <div class="metric"><div class="m-value">$76.1M</div><div class="m-label">Actual</div></div>
+          <div class="metric"><div class="m-value red">-$21.1M</div><div class="m-label">Variance</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 5 · LO FORECAST DISTRIBUTION ─── -->
+  <section class="slide s5" data-num="5">
+    <span class="slide-num">05 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="content">
+      <div class="eyebrow">Forecast Achievement by LO</div>
+      <h2 class="section-title">How the roster performed</h2>
+      <p class="section-sub">Loan officers grouped by achievement against forecast, Q1 vs. Q2.</p>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <div class="cc-head"><span class="cc-title">QUARTER ONE</span><span class="cc-attain">38 Active LOs</span></div>
+          <div class="cc-line"><span class="k green">Exceeding forecast (100%+)</span><span class="v">10</span></div>
+          <div class="cc-line"><span class="k">Near forecast (within 15%)</span><span class="v">2</span></div>
+          <div class="cc-line"><span class="k amber">Under forecast (15&ndash;40%)</span><span class="v">7</span></div>
+          <div class="cc-line"><span class="k red">Severely under (40%+)</span><span class="v">7</span></div>
+        </div>
+        <div class="compare-card">
+          <div class="cc-head"><span class="cc-title">QUARTER TWO</span><span class="cc-attain">38 Active LOs</span></div>
+          <div class="cc-line"><span class="k green">Exceeding forecast (100%+)</span><span class="v">11</span></div>
+          <div class="cc-line"><span class="k">Near forecast (within 15%)</span><span class="v">2</span></div>
+          <div class="cc-line"><span class="k amber">Under forecast (15&ndash;40%)</span><span class="v">7</span></div>
+          <div class="cc-line"><span class="k red">Severely under (40%+)</span><span class="v">9</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 6 · BANKED VS BROKERED ─── -->
+  <section class="slide s6" data-num="6">
+    <span class="slide-num">06 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Funded Production Mix</div>
+      <h2 class="section-title">Banked vs. brokered</h2>
+      <div class="chart-row">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="54"/>
+            <circle class="ring-fg" cx="60" cy="60" r="54" stroke="#818CF8"
+              stroke-dasharray="339.29" data-offset="18.01" stroke-dashoffset="339.29"
+              style="transition-delay:.25s"/>
+            <circle class="ring-fg" cx="60" cy="60" r="54" stroke="#D946EF"
+              stroke-dasharray="18.02 321.27" data-fixedoffset="-321.28" stroke-dashoffset="339.29"/>
+          </svg>
+          <div class="ring-center"><span class="ring-pct">94.7%</span><span class="ring-sub">Banked</span></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#818CF8;"></span>
+            <div class="legend-text"><span class="legend-name">Banked &middot; NFM Lending</span><span class="legend-val">$136.1M &middot; 414 units &middot; 94.7%</span></div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#D946EF;"></span>
+            <div class="legend-text"><span class="legend-name">Brokered</span><span class="legend-val">$7.6M &middot; 37 units &middot; 5.3%</span></div>
+          </div>
+          <div class="legend-item" style="margin-top:6px; padding-top:14px; border-top:1px solid var(--white-10);">
+            <span class="legend-swatch" style="background:transparent;"></span>
+            <div class="legend-text"><span class="legend-name">$143.7M total</span><span class="legend-val">451 funded units YTD</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 7 · PRODUCT MIX ─── -->
+  <section class="slide s7" data-num="7">
+    <span class="slide-num">07 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Funded Production Mix</div>
+      <h2 class="section-title">Product mix, YTD</h2>
+      <p class="section-sub">Share of $143.7M funded volume by loan product.</p>
+      <div class="bar-list" style="max-width:760px;">
+        <div class="bar-row"><div class="bar-body">
+          <div class="bar-head"><span class="bar-name">Conventional</span><span class="bar-val">$79.6M &middot; 257 units &middot; 55.4%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="55.4"></div></div>
+        </div></div>
+        <div class="bar-row"><div class="bar-body">
+          <div class="bar-head"><span class="bar-name">FHA</span><span class="bar-val">$46.0M &middot; 143 units &middot; 32.0%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="32.0"></div></div>
+        </div></div>
+        <div class="bar-row"><div class="bar-body">
+          <div class="bar-head"><span class="bar-name">VA</span><span class="bar-val">$16.3M &middot; 40 units &middot; 11.4%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="11.4"></div></div>
+        </div></div>
+        <div class="bar-row"><div class="bar-body">
+          <div class="bar-head"><span class="bar-name">USDA</span><span class="bar-val">$1.3M &middot; 5 units &middot; 0.9%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="0.9"></div></div>
+        </div></div>
+        <div class="bar-row"><div class="bar-body">
+          <div class="bar-head"><span class="bar-name">Other (incl. HELOC)</span><span class="bar-val">$0.5M &middot; 6 units &middot; 0.4%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="0.4"></div></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 8 · PURCHASE VS REFINANCE ─── -->
+  <section class="slide s8" data-num="8">
+    <span class="slide-num">08 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Funded Production Mix</div>
+      <h2 class="section-title">Purchase vs. refinance</h2>
+      <div class="chart-row">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="54"/>
+            <circle class="ring-fg" cx="60" cy="60" r="54" stroke="#9333EA"
+              stroke-dasharray="339.29" data-offset="48.90" stroke-dashoffset="339.29"
+              style="transition-delay:.25s"/>
+            <circle class="ring-fg" cx="60" cy="60" r="54" stroke="#F472B6"
+              stroke-dasharray="48.89 290.40" data-fixedoffset="-290.40" stroke-dashoffset="339.29"/>
+          </svg>
+          <div class="ring-center"><span class="ring-pct">85.6%</span><span class="ring-sub">Purchase</span></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#9333EA;"></span>
+            <div class="legend-text"><span class="legend-name">Purchase</span><span class="legend-val">$123.0M &middot; 384 units &middot; 85.6%</span></div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#F472B6;"></span>
+            <div class="legend-text"><span class="legend-name">Refinance</span><span class="legend-val">$20.5M &middot; 64 units &middot; 14.2%</span></div>
+          </div>
+          <div class="legend-item" style="padding-left:26px;">
+            <div class="legend-text"><span class="legend-val">Cash-out: $7.8M &middot; 32 units</span></div>
+          </div>
+          <div class="legend-item" style="padding-left:26px; margin-top:-8px;">
+            <div class="legend-text"><span class="legend-val">No cash-out: $12.7M &middot; 32 units</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 9 · BOND / DPA ─── -->
+  <section class="slide s9" data-num="9">
+    <span class="slide-num">09 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Funded Production Mix</div>
+      <h2 class="section-title">Bond / DPA production</h2>
+      <p class="section-sub">Down-payment assistance more than doubled from Q1 to Q2.</p>
+      <div class="chart-row">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="54"/>
+            <circle class="ring-fg" cx="60" cy="60" r="54" stroke="#D946EF"
+              stroke-dasharray="339.29" data-offset="309.84" stroke-dashoffset="339.29"/>
+          </svg>
+          <div class="ring-center"><span class="ring-pct">8.7%</span><span class="ring-sub">Bond / DPA</span></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#D946EF;"></span>
+            <div class="legend-text"><span class="legend-name">Bond / DPA</span><span class="legend-val">$12.5M &middot; 43 units &middot; 8.7% YTD</span></div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:var(--white-15);"></span>
+            <div class="legend-text"><span class="legend-name">Non-Bond / DPA</span><span class="legend-val">$131.2M &middot; 408 units &middot; 91.3% YTD</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 10 · TOP LO BY VOLUME ─── -->
+  <section class="slide s10" data-num="10">
+    <span class="slide-num">10 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Top Performers</div>
+      <h2 class="section-title">Funded volume, YTD leaders</h2>
+      <p class="section-sub">Top 15 loan officers by funded dollar volume.</p>
+      <div class="bar-list tight" id="volRank" style="max-width:820px;"></div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 11 · TOP LO BY UNITS ─── -->
+  <section class="slide s11" data-num="11">
+    <span class="slide-num">11 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Top Performers</div>
+      <h2 class="section-title">Funded units, YTD leaders</h2>
+      <p class="section-sub">Top 15 loan officers by number of closed units.</p>
+      <div class="bar-list tight" id="unitRank" style="max-width:820px;"></div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 12 · NEW VOLUME / HIRES ─── -->
+  <section class="slide s12" data-num="12">
+    <span class="slide-num">12 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Roster Change</div>
+      <h2 class="section-title">New volume, 2026 hires</h2>
+      <p class="section-sub">YTD funded against full-year forecast: $13.3M of $68.0M (19.5%).</p>
+      <div class="bar-list tight" id="hires" style="max-width:840px;"></div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 13 · LOST VOLUME / TERMS ─── -->
+  <section class="slide s13" data-num="13">
+    <span class="slide-num">13 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="content">
+      <div class="eyebrow">Roster Change</div>
+      <h2 class="section-title">Lost volume, 2026 terminations</h2>
+      <p class="section-sub">Forecast that left the roster: only $8.9M of $80.0M was ever realized.</p>
+      <div class="bar-list tight" id="terms" style="max-width:840px;"></div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 14 · NET IMPACT ─── -->
+  <section class="slide s14" data-num="14">
+    <span class="slide-num">14 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="content">
+      <div class="eyebrow">Roster Change</div>
+      <h2 class="section-title">New Volume Impact</h2>
+      <div class="net-grid">
+        <div class="net-card gain">
+          <div class="net-label">New Volume (Hires)</div>
+          <div class="net-big">+$13.3M</div>
+          <div class="net-sub">Realized YTD &middot; $68.0M forecast</div>
+        </div>
+        <div class="net-card loss">
+          <div class="net-label">Lost Volume (Terms)</div>
+          <div class="net-big">-$8.9M</div>
+          <div class="net-sub">Realized YTD &middot; $80.0M forecast</div>
+        </div>
+        <div class="net-card net">
+          <div class="net-label">Net (New minus Lost)</div>
+          <div class="net-big">+$4.4M</div>
+          <div class="net-sub">Realized YTD &middot; -$12.0M forecast</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SLIDE 15 · CLOSING ─── -->
+  <section class="slide s15" data-num="15">
+    <span class="slide-num">15 / 15</span>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="content">
+      <div class="chip fuchsia">Mid-Year Review 2026</div>
+      <h2 class="mid-headline gradient-text">The second half starts now.<br>Let's finish strong.</h2>
+    </div>
+  </section>
+
+</div><!-- /deck -->
+
+<script>
+/* ── DATA ── */
+const volRank = [
+  ["Gerald Zapol",12196967],["Tony Lentini",12165754],["Otmane Laassel",11652805],
+  ["Juan Farias",9565854],["Nick Stacy",9489954],["Daniel Zlockie",7322435],
+  ["Barrett Herminghaus",7102846],["Vanessa Cordon",5504552],["Torrey Pinkerton",5318768],
+  ["Marty Guy Fink",5081287],["Fajit Lewis",4996854],["Valentina Wilber",4945625],
+  ["Ronda Polleys",4834474],["Austyn Phillips",4695007],["Nancy Cruz",3962090]
+];
+const unitRank = [
+  ["Tony Lentini",41],["Nick Stacy",37],["Juan Farias",33],["Otmane Laassel",31],
+  ["Gerald Zapol",26],["Daniel Zlockie",25],["Vanessa Cordon",24],["Austyn Phillips",22],
+  ["Barrett Herminghaus",17],["Torrey Pinkerton",16],["Marty Guy Fink",16],["Nancy Cruz",14],
+  ["Patrick Wynn",13],["Fajit Lewis",12],["Justin Atteberry",12]
+];
+const hires = [
+  ["Barrett Herminghaus",14000000,7102846],["Justin Atteberry",10000000,3800543],
+  ["Berto Garcia",10000000,2002932],["Giulianna Tessier",10000000,382500],
+  ["Moshe Barrientos",12000000,0],["Amy LeBlanc",10000000,0]
+];
+const terms = [
+  ["Tacuma Dozier",6500000,2139489],["Kurt Michael Landry",9500000,1815920],
+  ["Lori Lee Kempes Jean",9500000,1595790],["Bobby Zapol",5000000,1553910],
+  ["Mary Catherine Fleetwood",15000000,925000],["Dawson Deaton",5000000,353500],
+  ["Danika Rivera-Monserrate",3000000,255392],["Amanda Clark Maletz",2500000,247926],
+  ["Margaret DeJesus",6500000,0],["Robert Farrell Brinkley Jr",5500000,0],
+  ["Sereva M Jones",4000000,0],["Robin Lormand",4000000,0],["James Kern",4000000,0]
+];
+
+const fmtM = v => "$" + (v/1e6).toFixed(1) + "M";
+
+/* ── RENDER: simple rankings ── */
+function renderRank(id, data, unit) {
+  const max = Math.max(...data.map(d => d[1]));
+  const el = document.getElementById(id);
+  el.innerHTML = data.map((d, i) => {
+    const w = (d[1] / max * 100).toFixed(1);
+    const val = unit === "$" ? fmtM(d[1]) : d[1] + " units";
+    return `<div class="bar-row ${i < 3 ? 'top' : ''}">
+      <span class="rank-num">${i+1}</span>
+      <div class="bar-body">
+        <div class="bar-head"><span class="bar-name">${d[0]}</span><span class="bar-val">${val}</span></div>
+        <div class="bar-track"><div class="bar-fill" data-w="${w}"></div></div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ── RENDER: hires / terms attainment ── */
+function renderAttain(id, data, cls) {
+  const el = document.getElementById(id);
+  el.innerHTML = data.map(d => {
+    const pct = d[1] ? (d[2] / d[1] * 100) : 0;
+    const w = Math.min(pct, 100).toFixed(1);
+    return `<div class="bar-row">
+      <div class="bar-body">
+        <div class="bar-head">
+          <span class="bar-name">${d[0]}</span>
+          <span class="bar-val">${fmtM(d[2])} / ${fmtM(d[1])} &middot; ${pct.toFixed(0)}%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill ${cls}" data-w="${w}"></div></div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+renderRank("volRank", volRank, "$");
+renderRank("unitRank", unitRank, "u");
+renderAttain("hires", hires, "green");
+renderAttain("terms", terms, "amber");
+
+/* ── DECK NAV ── */
+const deck   = document.getElementById('deck');
+const slides = document.querySelectorAll('.slide');
+const dotsEl = document.getElementById('nav-dots');
+const prog   = document.getElementById('progress');
+const N = slides.length;
+
+slides.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.addEventListener('click', () => deck.scrollTo({ top: slides[i].offsetTop, behavior: 'smooth' }));
+  dotsEl.appendChild(d);
+});
+const dots = dotsEl.querySelectorAll('.dot');
+
+/* animate bars + rings when a slide becomes visible */
+function animate(slide) {
+  slide.querySelectorAll('.bar-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+  slide.querySelectorAll('.ring-fg[data-offset]').forEach(r => { r.style.strokeDashoffset = r.dataset.offset; });
+  slide.querySelectorAll('.ring-fg[data-fixedoffset]').forEach(r => { r.style.strokeDashoffset = r.dataset.fixedoffset; });
+}
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.intersectionRatio >= 0.5) {
+      const idx = [...slides].indexOf(e.target);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      slides.forEach((s, i) => s.classList.toggle('visible', i === idx));
+      prog.style.width = ((idx + 1) / N * 100) + '%';
+      animate(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+slides.forEach(s => io.observe(s));
+
+document.addEventListener('keydown', e => {
+  const cur = [...slides].findIndex(s => s.classList.contains('visible'));
+  if ((e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') && cur < N - 1) {
+    e.preventDefault();
+    deck.scrollTo({ top: slides[cur + 1].offsetTop, behavior: 'smooth' });
+  }
+  if ((e.key === 'ArrowUp' || e.key === 'ArrowLeft') && cur > 0) {
+    e.preventDefault();
+    deck.scrollTo({ top: slides[cur - 1].offsetTop, behavior: 'smooth' });
+  }
+});
+
+slides[0].classList.add('visible');
+animate(slides[0]);
+</script>
+</body>
+</html>
