@@ -255,11 +255,10 @@ a{color:inherit}
 .ch.duo{ display:grid; grid-template-columns:minmax(0,47fr) minmax(0,53fr);
          align-items:stretch; padding:0 }
 .ch.duo > .panel{ position:relative; overflow:hidden; background:#150429; min-height:46svh }
-.ch.duo > .panel > img, .ch.duo > .panel > video{
+.ch.duo > .panel > img{
   position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   transform:scale(1.05); transition:transform 2.2s var(--ease) }
 .ch.duo:hover > .panel > img{ transform:scale(1) }
-.ch.duo > .panel > video{ transform:none }
 .ch.duo > .panel .plate{
   position:absolute; left:0; right:0; bottom:0; z-index:3;
   padding:clamp(46px,7vh,84px) clamp(20px,2.4vw,34px) clamp(16px,2.2vh,24px);
@@ -484,18 +483,6 @@ a{color:inherit}
 @media (max-width:420px){ .faces{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
 
 
-/* ─── Video overlay ───────────────────────────────────── */
-.play{ position:absolute; inset:0; z-index:4; display:flex; flex-direction:column;
-       align-items:center; justify-content:center; gap:16px; cursor:pointer;
-       background:linear-gradient(150deg,rgba(16,3,32,.86),rgba(58,10,104,.86));
-       transition:opacity .5s var(--ease) }
-.play.gone{ opacity:0; pointer-events:none }
-.play b{ width:74px; height:74px; border-radius:50%; border:1.5px solid var(--w-70);
-         display:grid; place-items:center; backdrop-filter:blur(6px);
-         transition:.4s var(--ease) }
-.play:hover b{ background:#fff; border-color:#fff; transform:scale(1.07) }
-.play:hover b svg path{ fill:var(--ink-700) }
-.play span{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--w-70) }
 
 /* ─── CTA ─────────────────────────────────────────────── */
 .btn{ display:inline-flex; align-items:center; gap:11px; margin-top:clamp(26px,4vh,42px);
@@ -626,22 +613,18 @@ a{color:inherit}
 
 <!-- ══════════ 3 · LOAN LAB VIDEO ═════════════════════ -->
 <section class="ch duo rev grad-rich" id="c3" data-label="The Loan Lab">
-  <div class="panel" style="background:linear-gradient(150deg,#12032A,#3D0B72)">
-    <video id="loanlab" preload="none" playsinline muted loop
-           src="loan-lab-scroll-through.mp4"></video>
-    <div class="play" id="playbtn" role="button" tabindex="0" aria-label="Play the Loan Lab scroll-through">
-      <b><svg width="17" height="19" viewBox="0 0 17 19" aria-hidden="true"><path d="M17 9.5 0 19V0z" fill="#fff"/></svg></b>
-      <span>Play the scroll-through</span>
-    </div>
+  <div class="panel" data-rv="mask">
+    <img src="assets/img/nc-team.webp" alt="A branch team gathered under the Homespire wall, holding up medals and purple foam fists.">
+    <span class="plate">The North Carolina team</span>
   </div>
   <div class="copy"><div>
     <p class="eyebrow" data-rv>Inside the Loan Lab</p>
     <h2 class="h2" data-rv style="--d:90ms; margin:clamp(16px,2.6vh,26px) 0 clamp(16px,2.6vh,24px); max-width:13ch">
-      Scroll a <span class="em grad">single day.</span>
+      What a Tuesday <span class="em grad">looks like.</span>
     </h2>
     <p class="lede" data-rv style="--d:170ms">
-      Recognition, deal help, wins, encouragement, camaraderie. This is one continuous scroll
-      through our LO channel — no edits, no staging. It's just what a Tuesday looks like.
+      Recognition, deal help, wins, encouragement, camaraderie — all of it in one channel.
+      No edits, no staging, no performance. Just the day as it happens.
     </p>
     <div class="rules">
       <div data-rv style="--d:250ms"><i class="chip-i"><svg class="ico"><use href="#i-clock"/></svg></i><h4>Real time</h4><p>Post a scenario in the morning, have three answers before lunch.</p></div>
@@ -947,12 +930,6 @@ a{color:inherit}
     if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
   }, { passive: true });
   onScroll();
-
-  /* ── Loan Lab video ───────────────────────────────── */
-  const v = document.getElementById('loanlab'), pb = document.getElementById('playbtn');
-  function playIt(){ v.play().then(()=> pb.classList.add('gone')).catch(()=>{}); }
-  pb.addEventListener('click', playIt);
-  pb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playIt(); } });
 
   /* ── Leadership ───────────────────────────────────
      Paste each person's LinkedIn URL and title below.
