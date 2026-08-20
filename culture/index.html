@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Life at Homespire — Culture</title>
+<meta name="description" content="Come for the opportunity. Stay for the people. An inside look at the culture of Homespire Mortgage." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/marty-joy.webp">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   HOMESPIRE — CULTURE
+   Design system
+   ═══════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* Brand */
+  --purple:      #7C4DFF;
+  --purple-lift: #9B7BFF;
+  --fuchsia:     #E040FB;
+  --fuchsia-lift:#F27BFF;
+
+  /* Ink scale */
+  --ink-900: #0B0212;
+  --ink-800: #150429;
+  --ink-700: #21073F;
+  --ink-600: #2E0A5A;
+
+  --paper:   #FBFAFD;
+  --paper-2: #F2EEF9;
+
+  --w-95: rgba(255,255,255,.95);
+  --w-70: rgba(255,255,255,.70);
+  --w-52: rgba(255,255,255,.52);
+  --w-16: rgba(255,255,255,.16);
+  --w-08: rgba(255,255,255,.08);
+
+  --serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --sans:  'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  --gutter: clamp(22px, 5vw, 88px);
+  --ease:   cubic-bezier(.22,.61,.28,1);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+}
+
+html{
+  scroll-behavior:smooth;
+  scroll-snap-type: y proximity;
+  background: var(--ink-900);
+  -webkit-text-size-adjust:100%;
+}
+body{
+  font-family: var(--sans);
+  color: var(--w-95);
+  background: var(--ink-900);
+  overflow-x:hidden;
+  font-synthesis-weight:none;
+  -webkit-font-smoothing:antialiased;
+}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+
+/* ─── Chapter shell ───────────────────────────────────── */
+.ch{
+  position:relative;
+  min-height:100svh;
+  scroll-snap-align:start;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+  isolation:isolate;
+}
+.pad{ padding: clamp(72px,10svh,120px) var(--gutter) clamp(64px,9svh,104px); width:100%; }
+.wrap{ max-width:1440px; margin-inline:auto; width:100%; }
+
+/* Fine grain — keeps large flat colour fields from banding */
+.ch::after{
+  content:'';position:absolute;inset:0;z-index:6;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.035;mix-blend-mode:overlay;
+}
+
+/* ─── Full-bleed photography ──────────────────────────── */
+.bleed{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+.bleed img{
+  width:100%;height:100%;object-fit:cover;
+  transform:scale(1.06);
+  will-change:transform;
+}
+.bleed.ken img{ animation: ken 22s var(--ease) forwards; }
+
+/* Crop control — where the subject sits in each frame. Landscape group
+   shots need a different anchor once the frame turns portrait. */
+#c0  .bleed img{ object-position:50% 50% }
+#c5  .bleed img{ object-position:62% 50% }
+#c10 .bleed img{ object-position:50% 42% }
+#c7 .panel img{ object-position:50% 24% }
+#c8 .panel img{ object-position:46% 40% }
+#c12 .bleed img{ object-position:50% 30% }
+@media (max-width:900px){
+  #c0  .bleed img{ object-position:27% 52% }
+  #c5  .bleed img{ object-position:52% 46% }
+  #c12 .bleed img{ object-position:52% 26% }
+  #c7 .panel img{ object-position:50% 20% }
+  #c8 .panel img{ object-position:50% 34% }
+}
+@keyframes ken{ from{transform:scale(1.14)} to{transform:scale(1.0)} }
+
+.scrim{ position:absolute; inset:0; z-index:1; }
+.scrim-l{ background:linear-gradient(100deg, rgba(11,2,18,.80) 0%, rgba(11,2,18,.46) 30%, rgba(11,2,18,.06) 58%, transparent 76%); }
+.scrim-b{ background:linear-gradient(to top, rgba(11,2,18,.88) 0%, rgba(11,2,18,.34) 30%, transparent 58%); }
+.scrim-v{ background:linear-gradient(to top, rgba(11,2,18,.90) 0%, rgba(11,2,18,.22) 44%, rgba(11,2,18,.30) 100%); }
+/* Copy scrim — anchors a column of type to the left of a photograph
+   and guarantees contrast no matter how bright the frame is. */
+.scrim-copy{ background:
+  linear-gradient(94deg, rgba(9,2,16,.95) 0%, rgba(9,2,16,.90) 26%, rgba(9,2,16,.62) 48%,
+                  rgba(9,2,16,.22) 72%, rgba(9,2,16,.06) 100%),
+  linear-gradient(to top, rgba(9,2,16,.70) 0%, rgba(9,2,16,.14) 38%, transparent 66%); }
+/* Hero: photograph first. One soft floor, nothing across the subject. */
+.scrim-hero{ background:
+  linear-gradient(to top, rgba(9,2,16,.92) 0%, rgba(9,2,16,.62) 22%, rgba(9,2,16,.16) 44%, transparent 62%),
+  radial-gradient(120% 90% at 70% 20%, transparent 42%, rgba(9,2,16,.34) 100%); }
+.shot .bleed img{ filter:saturate(.92) brightness(.84) }
+.shot .col{ max-width:min(680px, 60%) }
+.shot .stat b{ font-size:clamp(32px,3.4vw,50px) }
+.shot .stats{ gap:clamp(14px,1.8vw,28px) }
+@media (max-width:1024px){ .shot .col{ max-width:100% } }
+.pad, .rail{ position:relative; z-index:5; }
+
+/* ─── Gradient chapters ───────────────────────────────── */
+.grad-deep { background:linear-gradient(158deg,#0B0212 0%, #2A0757 52%, #4A0C8C 100%); }
+.grad-rich { background:linear-gradient(158deg,#180430 0%, #5B14A8 48%, #A821C9 100%); }
+.grad-paper{ background:linear-gradient(170deg,#FBFAFD 0%, #F1EBFB 100%); color:var(--ink-800); }
+
+/* Soft light orbs — the only "ambient" motion */
+.orb{ position:absolute;border-radius:50%;filter:blur(90px);opacity:.32;z-index:1;pointer-events:none;
+      animation:drift 16s ease-in-out infinite alternate; }
+.orb.a{ width:46vw;height:46vw;background:var(--fuchsia); top:-14vw; right:-10vw; }
+.orb.b{ width:38vw;height:38vw;background:var(--purple);  bottom:-14vw; left:-8vw; animation-duration:21s; animation-delay:-6s; }
+@keyframes drift{ from{transform:translate3d(0,0,0) scale(1)} to{transform:translate3d(3vw,4vh,0) scale(1.12)} }
+
+/* ─── Type ────────────────────────────────────────────── */
+.eyebrow{
+  font-size:clamp(10px,1.05vw,12px); font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase;
+  display:flex; align-items:center; gap:12px;
+  color:var(--fuchsia-lift);
+}
+.eyebrow::before{ content:''; width:clamp(24px,4vw,48px); height:1.5px; background:currentColor; opacity:.8; }
+.grad-paper .eyebrow{ color:#B01FC9 }
+
+.display{
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(44px,8.2vw,124px);
+  line-height:.95; letter-spacing:-.022em;
+  text-wrap:balance;
+}
+.h2{
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(34px,5.6vw,80px);
+  line-height:1.0; letter-spacing:-.018em;
+  text-wrap:balance;
+}
+.h3{ font-family:var(--serif); font-size:clamp(24px,3vw,40px); line-height:1.08; letter-spacing:-.01em; }
+.lede{
+  font-size:clamp(16px,1.55vw,22px); line-height:1.55;
+  color:var(--w-70); max-width:56ch; font-weight:400;
+}
+.grad-paper .lede{ color:#4B3B63 }
+.em{ font-family:var(--serif); font-style:italic; }
+.grad{ background:linear-gradient(96deg,var(--fuchsia-lift),var(--purple-lift));
+       -webkit-background-clip:text;background-clip:text;color:transparent; }
+
+/* ─── Reveal engine ───────────────────────────────────── */
+[data-rv]{
+  opacity:0;
+  transform:translate3d(0, 26px, 0);
+  transition:opacity .95s var(--ease-out), transform 1.05s var(--ease-out), clip-path 1.2s var(--ease-out);
+  transition-delay:var(--d,0ms);
+}
+[data-rv="mask"]{ transform:none; clip-path:inset(0 0 100% 0); }
+[data-rv="scale"]{ transform:translate3d(0,26px,0) scale(.965); }
+.in [data-rv]{ opacity:1; transform:none; clip-path:inset(0 0 0 0); }
+
+/* ─── Chapter rail ────────────────────────────────────── */
+.rail{
+  position:fixed; right:clamp(14px,1.8vw,28px); top:50%; transform:translateY(-50%);
+  z-index:60; display:flex; flex-direction:column; gap:11px; align-items:flex-end;
+  mix-blend-mode:difference;
+}
+.rail a{
+  display:flex; align-items:center; gap:9px; text-decoration:none;
+  font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:rgba(255,255,255,.55); transition:color .4s var(--ease);
+}
+.rail .lbl{
+  opacity:0; transform:translateX(6px);
+  transition:opacity .4s var(--ease), transform .4s var(--ease);
+  white-space:nowrap; pointer-events:none;
+}
+.rail a:hover .lbl, .rail a.on .lbl{ opacity:1; transform:none }
+.rail .dot{ width:18px; height:2px; background:rgba(255,255,255,.45); border-radius:2px;
+            transition:width .45s var(--ease), background .45s var(--ease); }
+.rail a.on{ color:#fff }
+.rail a.on .dot{ width:34px; background:#fff }
+
+.progress{ position:fixed; top:0; left:0; height:2px; z-index:80;
+           background:linear-gradient(90deg,var(--purple),var(--fuchsia)); width:0%; }
+
+/* ─── Hero ────────────────────────────────────────────── */
+.hero{ justify-content:flex-end }
+.hero .pad{ padding-bottom:clamp(78px,12svh,132px) }
+/* Hero type is deliberately smaller than the section displays — the photograph is the hero. */
+.hero .display{ font-size:clamp(38px,5.4vw,86px); max-width:13ch; line-height:1.0;
+                 text-shadow:0 2px 40px rgba(9,2,16,.55) }
+.hero .eyebrow{ text-shadow:0 1px 18px rgba(9,2,16,.85) }
+.cue{ position:absolute; bottom:clamp(22px,4svh,40px); left:var(--gutter); z-index:5;
+      display:flex; align-items:center; gap:12px; font-size:10px; font-weight:600;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--w-52) }
+.cue i{ display:block; width:1px; height:34px; background:linear-gradient(to bottom,transparent,#fff);
+        animation:cueRun 2.1s var(--ease) infinite }
+@keyframes cueRun{ 0%{transform:scaleY(0);transform-origin:top} 45%{transform:scaleY(1);transform-origin:top}
+                   55%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+/* Word-by-word hero reveal */
+.words span{ display:inline-block; overflow:hidden; vertical-align:bottom }
+.words span i{ display:inline-block; font-style:inherit; transform:translateY(110%);
+               animation:wordUp 1.15s var(--ease-out) forwards; animation-delay:var(--wd,0ms) }
+@keyframes wordUp{ to{ transform:translateY(0) } }
+
+/* ─── Stats ───────────────────────────────────────────── */
+.stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+        gap:clamp(18px,2.4vw,40px); margin-top:clamp(36px,5vh,64px) }
+.stat{ border-top:1px solid var(--w-16); padding-top:16px;
+       display:flex; flex-direction:column }
+.stat .chip-i{ width:clamp(26px,2.1vw,31px); height:clamp(26px,2.1vw,31px);
+               border-radius:8px; padding:clamp(5px,.5vw,7px);
+               margin-bottom:clamp(10px,1.4vh,16px) }
+.stat:hover .chip-i{ background:var(--fuchsia); border-color:var(--fuchsia);
+                     color:#fff; transform:translateY(-2px) }
+.stat b{ font-family:var(--serif); font-weight:400;
+         font-size:clamp(40px,5.4vw,74px); line-height:1; letter-spacing:-.02em }
+.stat span{ display:block; margin-top:auto; padding-top:14px; font-size:12.5px;
+            line-height:1.45; color:var(--w-52); letter-spacing:.04em }
+.grad-paper .stat{ border-color:rgba(30,8,55,.16) }
+.grad-paper .stat span{ color:#6A5A82 }
+
+/* ─── Duo: a full-height photograph against a column of copy ──
+   The photo panel bleeds to the page edge and runs the full viewport
+   height. This is the "life size" treatment. ─────────────────── */
+.ch.duo{ display:grid; grid-template-columns:minmax(0,47fr) minmax(0,53fr);
+         align-items:stretch; padding:0 }
+.ch.duo > .panel{ position:relative; overflow:hidden; background:#150429; min-height:46svh }
+.ch.duo > .panel > img, .ch.duo > .panel > video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  transform:scale(1.05); transition:transform 2.2s var(--ease) }
+.ch.duo:hover > .panel > img{ transform:scale(1) }
+.ch.duo > .panel > video{ transform:none }
+.ch.duo > .panel .plate{
+  position:absolute; left:0; right:0; bottom:0; z-index:3;
+  padding:clamp(46px,7vh,84px) clamp(20px,2.4vw,34px) clamp(16px,2.2vh,24px);
+  font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--w-70);
+  background:linear-gradient(to top,rgba(11,2,18,.86),transparent);
+}
+.ch.duo > .copy{ display:flex; align-items:center;
+                 padding:clamp(44px,6.4svh,80px) var(--gutter) }
+.ch.duo > .copy > div{ width:100%; max-width:720px }
+/* Type in a half-width column is set a size down from the full-bleed displays. */
+.ch.duo .h2{ font-size:clamp(30px,3.6vw,54px); line-height:1.04 }
+.ch.duo .lede{ font-size:clamp(15px,1.15vw,18px); line-height:1.6 }
+.ch.duo.rev > .panel{ order:2 }
+@media (max-width:1024px){
+  .ch.duo{ grid-template-columns:1fr; grid-auto-rows:min-content }
+  .ch.duo > .panel{ height:50svh }
+  .ch.duo.rev > .panel{ order:0 }
+  .ch.duo > .copy{ padding:clamp(40px,6svh,72px) var(--gutter) }
+}
+@media (max-width:760px){
+  .ch.duo > .copy{ padding:56px var(--gutter) 76px }
+}
+
+/* ─── Icons ───────────────────────────────────────────── */
+.ico{ width:100%; height:100%; fill:none; stroke:currentColor;
+      stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round }
+.chip-i{
+  width:clamp(30px,2.6vw,38px); height:clamp(30px,2.6vw,38px);
+  flex:0 0 auto; align-self:flex-start;
+  display:grid; place-items:center; padding:clamp(6px,.62vw,9px);
+  border-radius:9px; color:var(--fuchsia-lift);
+  background:rgba(224,64,251,.11); border:1px solid rgba(224,64,251,.26);
+  transition:background .45s var(--ease), border-color .45s var(--ease),
+             color .45s var(--ease), transform .45s var(--ease) }
+.grad-paper .chip-i{ color:#B01FC9; background:rgba(176,31,201,.08);
+                     border-color:rgba(176,31,201,.22) }
+
+/* ─── Rule list — replaces boxed cards in narrow copy columns ── */
+.rules{ margin-top:clamp(24px,3.6vh,42px); border-top:1px solid var(--w-16) }
+.rules div{ display:grid; grid-template-columns:auto 1fr;
+            column-gap:clamp(13px,1.2vw,18px); row-gap:4px; align-items:start;
+            padding:clamp(12px,1.6vh,18px) 0; border-bottom:1px solid var(--w-16);
+            transition:border-color .5s var(--ease) }
+.rules div:hover{ border-bottom-color:var(--fuchsia) }
+.rules div:hover .chip-i{ background:var(--fuchsia); border-color:var(--fuchsia);
+                          color:#fff; transform:translateY(-2px) }
+/* Icon spans both lines; the title never has to share its row. */
+.rules .chip-i{ grid-row:1 / span 2 }
+.rules h4{ padding-top:clamp(2px,.3vw,5px) }
+.rules p{ grid-column:2 }
+.rules h4{ font-family:var(--serif); font-weight:400; font-size:clamp(17px,1.5vw,23px);
+           line-height:1.1; letter-spacing:-.008em }
+.rules p{ font-size:clamp(13px,1.02vw,15px); line-height:1.55; color:var(--w-70) }
+@media (max-width:560px){ .rules h4{ padding-top:0 } }
+
+/* ─── Light chapter overrides ─────────────────────────── */
+.grad-paper .rules{ border-top-color:rgba(30,8,55,.15) }
+.grad-paper .rules div{ border-bottom-color:rgba(30,8,55,.15) }
+.grad-paper .rules div:hover{ border-bottom-color:#B01FC9 }
+.grad-paper .rules p{ color:#5C4B77 }
+.grad-paper .rules h4{ color:var(--ink-800) }
+.grad-paper .grad{ background:linear-gradient(96deg,#C41FD8,#6B34E8);
+                   -webkit-background-clip:text; background-clip:text; color:transparent }
+
+
+/* ─── Core values ─────────────────────────────────────── */
+.values{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+         gap:clamp(24px,3.2vh,46px) clamp(26px,3.4vw,66px);
+         margin-top:clamp(30px,4.4vh,56px) }
+.value{ border-top:1px solid var(--w-16); padding-top:clamp(16px,2vh,24px) }
+.value img{ width:clamp(52px,4.2vw,72px); height:auto; margin-bottom:16px;
+            filter:drop-shadow(0 8px 22px rgba(224,64,251,.42));
+            transition:transform .6s var(--ease) }
+.value:hover img{ transform:translateY(-5px) rotate(-4deg) }
+.value h4{ font-family:var(--serif); font-weight:400; font-size:clamp(18px,1.7vw,23px); line-height:1.1 }
+.value p{ margin-top:8px; font-size:clamp(13px,1vw,15px); line-height:1.55;
+           color:var(--w-70); max-width:34ch }
+@media (max-width:900px){ .values{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+@media (max-width:520px){ .values{ grid-template-columns:1fr } }
+
+
+
+/* ─── Gallery carousel ────────────────────────────────── */
+.gallery{ position:relative; margin-top:clamp(20px,3vh,36px) }
+.gtrack{
+  display:flex; gap:clamp(10px,1.1vw,18px);
+  overflow-x:auto; overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory; scroll-padding-inline:var(--gutter);
+  padding:4px var(--gutter) clamp(16px,2vh,26px);
+  scrollbar-width:none }
+.gtrack::-webkit-scrollbar{ display:none }
+.gcard{
+  flex:0 0 auto; scroll-snap-align:center; position:relative;
+  height:clamp(240px,46svh,520px); width:auto;
+  padding:0; border:0; background:#150429; border-radius:4px;
+  overflow:hidden; cursor:zoom-in;
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease) }
+.gcard img{ height:100%; width:auto; max-width:none; object-fit:cover;
+            transition:transform 1.2s var(--ease), filter .5s var(--ease);
+            filter:saturate(.96) }
+.gcard:hover{ transform:translateY(-6px); box-shadow:0 22px 56px rgba(9,2,16,.66) }
+.gcard:hover img, .gcard:focus-visible img{ transform:scale(1.06); filter:none }
+.gcard figcaption{
+  position:absolute; inset:auto 0 0 0; z-index:2; text-align:left;
+  padding:44px 16px 14px; font-size:11px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--w-95);
+  background:linear-gradient(to top,rgba(9,2,16,.92),transparent);
+  opacity:0; transform:translateY(8px); transition:.45s var(--ease) }
+.gcard:hover figcaption, .gcard:focus-visible figcaption{ opacity:1; transform:none }
+/* On a phone a landscape frame at full height is wider than the screen,
+   so the card takes a fixed width and the photo crops into it instead. */
+@media (max-width:760px){
+  .gcard{ height:clamp(210px,34svh,330px); width:82vw }
+  .gcard img{ width:100%; height:100%; object-fit:cover }
+  .gnav .hint{ display:none }
+}
+.gcard .zoom{
+  position:absolute; top:12px; right:12px; z-index:2;
+  width:32px; height:32px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(9,2,16,.55); backdrop-filter:blur(8px);
+  border:1px solid var(--w-16); opacity:0; transform:scale(.85);
+  transition:.4s var(--ease) }
+.gcard:hover .zoom, .gcard:focus-visible .zoom{ opacity:1; transform:none }
+
+.gnav{ display:flex; gap:10px; align-items:center;
+       padding-inline:var(--gutter); margin-top:clamp(4px,1vh,12px) }
+.gnav button{
+  width:44px; height:44px; border-radius:50%; cursor:pointer;
+  background:var(--w-08); border:1px solid var(--w-16); color:#fff;
+  display:grid; place-items:center;
+  transition:.4s var(--ease) }
+.gnav button:hover{ background:var(--fuchsia); border-color:var(--fuchsia); transform:scale(1.06) }
+.gnav button:disabled{ opacity:.28; cursor:default; transform:none;
+                       background:var(--w-08); border-color:var(--w-16) }
+.gnav .hint{ margin-left:6px; font-size:10.5px; letter-spacing:.15em;
+             text-transform:uppercase; color:var(--w-52) }
+
+/* ─── Lightbox ────────────────────────────────────────── */
+.lb{
+  position:fixed; inset:0; z-index:200; display:none;
+  align-items:center; justify-content:center;
+  background:rgba(6,1,11,.94);
+  -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px) }
+.lb[open]{ display:flex }
+.lb .stage{ position:relative; width:100%; height:100%;
+            display:flex; align-items:center; justify-content:center;
+            padding:clamp(52px,7vh,84px) clamp(52px,8vw,132px) }
+.lb figure{ max-width:100%; max-height:100%; display:flex;
+            flex-direction:column; align-items:center; gap:16px }
+.lb img{ max-width:100%; max-height:calc(100svh - clamp(150px,20vh,220px));
+         width:auto; height:auto; object-fit:contain; border-radius:3px;
+         box-shadow:0 30px 90px rgba(0,0,0,.6);
+         animation:lbIn .5s var(--ease-out) }
+@keyframes lbIn{ from{ opacity:0; transform:scale(.97) } to{ opacity:1; transform:none } }
+.lb figcaption{ font-size:12px; letter-spacing:.13em; text-transform:uppercase;
+                color:var(--w-70); text-align:center; max-width:60ch }
+.lb .count{ position:absolute; top:clamp(18px,3vh,30px); left:clamp(20px,4vw,44px);
+            font-size:11px; letter-spacing:.16em; color:var(--w-52) }
+.lb .x, .lb .prev, .lb .next{
+  position:absolute; width:clamp(40px,3.4vw,52px); height:clamp(40px,3.4vw,52px);
+  border-radius:50%; cursor:pointer; color:#fff;
+  background:var(--w-08); border:1px solid var(--w-16);
+  display:grid; place-items:center; transition:.4s var(--ease) }
+.lb .x:hover, .lb .prev:hover, .lb .next:hover{ background:var(--fuchsia); border-color:var(--fuchsia) }
+.lb .x{ top:clamp(16px,3vh,28px); right:clamp(20px,4vw,44px) }
+.lb .prev{ left:clamp(12px,2vw,30px); top:50%; transform:translateY(-50%) }
+.lb .next{ right:clamp(12px,2vw,30px); top:50%; transform:translateY(-50%) }
+.lb .prev:hover, .lb .next:hover{ transform:translateY(-50%) scale(1.06) }
+@media (max-width:640px){
+  .lb .stage{ padding:64px 12px 88px }
+  .lb .prev{ left:10px } .lb .next{ right:10px }
+}
+
+/* ─── Quotes ──────────────────────────────────────────── */
+.quotes{ display:grid; gap:clamp(14px,1.8vw,26px);
+         grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); margin-top:clamp(30px,4.5vh,56px) }
+.quote{ border-left:2px solid var(--fuchsia); padding:4px 0 4px clamp(18px,2vw,28px) }
+.quote blockquote{ font-family:var(--serif); font-size:clamp(19px,2.05vw,28px);
+                   line-height:1.28; letter-spacing:-.01em }
+.quote cite{ display:block; margin-top:14px; font-style:normal; font-size:11px;
+             letter-spacing:.16em; text-transform:uppercase; color:var(--w-52) }
+.quote.slot{ border-left-style:dashed; border-left-color:rgba(224,64,251,.55) }
+.quote.slot blockquote{ color:var(--w-52) }
+.quote.slot cite::before{ content:'⟵ replace · '; color:var(--fuchsia-lift) }
+
+/* ─── Faces row ───────────────────────────────────────── */
+.faces{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+         gap:clamp(14px,1.6vw,26px) clamp(12px,1.4vw,22px);
+         margin-top:clamp(24px,3.4vh,40px); max-width:560px }
+.face{ position:relative; text-align:center }
+.face figure{ position:relative; border-radius:50%; overflow:hidden;
+              border:1.5px solid var(--w-16); aspect-ratio:1;
+              transition:border-color .5s var(--ease), transform .5s var(--ease),
+                         box-shadow .5s var(--ease) }
+.face img{ width:100%; height:100%; object-fit:cover;
+           filter:grayscale(1) contrast(1.06) brightness(1.02);
+           transition:filter .55s var(--ease), transform 1s var(--ease) }
+.face:hover figure, .face:focus-within figure{
+  border-color:var(--fuchsia); transform:translateY(-6px);
+  box-shadow:0 18px 44px rgba(224,64,251,.30) }
+.face:hover img, .face:focus-within img{ filter:none; transform:scale(1.05) }
+/* The LinkedIn badge rides up out of the portrait on hover. */
+.face .li{
+  position:absolute; right:6%; bottom:6%; z-index:3;
+  width:clamp(26px,2.2vw,32px); height:clamp(26px,2.2vw,32px);
+  display:grid; place-items:center; border-radius:50%;
+  background:var(--fuchsia); color:#fff; text-decoration:none;
+  opacity:0; transform:translateY(8px) scale(.8);
+  transition:.42s var(--ease);
+  box-shadow:0 6px 18px rgba(9,2,16,.5) }
+.face:hover .li, .face:focus-within .li{ opacity:1; transform:none }
+.face .li:hover{ background:#fff; color:var(--ink-700) }
+.face .li svg{ width:54%; height:54%; fill:currentColor }
+.face b{ display:block; margin-top:11px; font-size:clamp(11px,.92vw,13px);
+         font-weight:600; letter-spacing:.01em; line-height:1.2 }
+.face em{ display:block; margin-top:3px; font-style:normal;
+          font-size:clamp(9.5px,.76vw,11px); letter-spacing:.06em;
+          text-transform:uppercase; color:var(--w-52); line-height:1.3;
+          opacity:.55; transition:opacity .45s var(--ease), color .45s var(--ease) }
+.face:hover em, .face:focus-within em{ opacity:1; color:var(--fuchsia-lift) }
+@media (max-width:1024px){ .faces{ max-width:460px } }
+@media (max-width:420px){ .faces{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+
+
+/* ─── Video overlay ───────────────────────────────────── */
+.play{ position:absolute; inset:0; z-index:4; display:flex; flex-direction:column;
+       align-items:center; justify-content:center; gap:16px; cursor:pointer;
+       background:linear-gradient(150deg,rgba(16,3,32,.86),rgba(58,10,104,.86));
+       transition:opacity .5s var(--ease) }
+.play.gone{ opacity:0; pointer-events:none }
+.play b{ width:74px; height:74px; border-radius:50%; border:1.5px solid var(--w-70);
+         display:grid; place-items:center; backdrop-filter:blur(6px);
+         transition:.4s var(--ease) }
+.play:hover b{ background:#fff; border-color:#fff; transform:scale(1.07) }
+.play:hover b svg path{ fill:var(--ink-700) }
+.play span{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--w-70) }
+
+/* ─── CTA ─────────────────────────────────────────────── */
+.btn{ display:inline-flex; align-items:center; gap:11px; margin-top:clamp(26px,4vh,42px);
+      padding:15px 30px; border-radius:100px; text-decoration:none;
+      background:linear-gradient(96deg,var(--purple),var(--fuchsia)); color:#fff;
+      font-size:13px; font-weight:600; letter-spacing:.06em; white-space:nowrap;
+      box-shadow:0 12px 40px rgba(224,64,251,.34);
+      transition:transform .4s var(--ease), box-shadow .4s var(--ease) }
+.btn:hover{ transform:translateY(-3px); box-shadow:0 18px 54px rgba(224,64,251,.5) }
+.btn svg{ transition:transform .4s var(--ease) }
+.btn:hover svg{ transform:translateX(4px) }
+
+/* ═══ Responsive ══════════════════════════════════════ */
+@media (max-width:1024px){
+  .rail .lbl{ display:none }
+}
+@media (max-width:760px){
+  html{ scroll-snap-type:none }
+  /* Chapters still fill the screen, but grow when the copy needs it. */
+  .ch{ min-height:100svh }
+  .rail{ display:none }
+  .scrim-l{ background:linear-gradient(to top, rgba(11,2,18,.94) 0%, rgba(11,2,18,.55) 40%, rgba(11,2,18,.18) 100%) }
+  .display{ font-size:clamp(38px,11vw,60px) }
+  .pad{ padding:118px var(--gutter) 76px }
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; scroll-snap-type:none }
+  *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important;
+                        transition-duration:.001ms !important }
+  [data-rv]{ opacity:1 !important; transform:none !important; clip-path:none !important }
+  .words span i{ transform:none !important }
+  .bleed img{ transform:none }
+}
+</style>
+</head>
+<body>
+
+<!-- Icon sprite. Stroked, 24×24, inherits colour from the element that uses it. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m16.2 7.8-2.1 6.4-6.4 2.1 2.1-6.4 6.4-2.1z"/></symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="m3 11 18-5.5v13L3 13z"/><path d="M3 11H2.5A1.5 1.5 0 0 0 1 12.5v0A1.5 1.5 0 0 0 2.5 14H3"/><path d="M11.6 16.8a3 3 0 1 1-5.5-1.7"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9.5 9-7 9 7V20a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20z"/><path d="M9.5 21.5V13h5v8.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-1.8a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V21"/><circle cx="9" cy="7.5" r="3.8"/><path d="M22 21v-1.8a4 4 0 0 0-3-3.8"/><path d="M16.5 3.9a4 4 0 0 1 0 7.4"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6.5 3.5h11V9a5.5 5.5 0 0 1-11 0z"/><path d="M6.5 5.5H4.8a2.3 2.3 0 0 0 0 4.6h.9"/><path d="M17.5 5.5h1.7a2.3 2.3 0 0 1 0 4.6h-.9"/><path d="M12 14.5v3"/><path d="M8 21h8"/><path d="M9.5 21c0-2 1-3.5 2.5-3.5s2.5 1.5 2.5 3.5"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6.2a1.9 1.9 0 0 0-3.8 0"/><path d="M14.2 10V4.2a1.9 1.9 0 0 0-3.8 0v1.9"/><path d="M10.4 10.6V6.2a1.9 1.9 0 0 0-3.8 0V14"/><path d="M18 8.6a1.9 1.9 0 1 1 3.8 0v5.6a7.6 7.6 0 0 1-7.6 7.6h-1.9c-2.7 0-4.3-.8-5.7-2.2l-3.4-3.4a1.9 1.9 0 0 1 2.7-2.7l2.7 2.2"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.8l6.5-.9z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16.5" rx="2"/><path d="M16 2.5V7M8 2.5V7M3 10.5h18"/></symbol>
+  <symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M15 21v-1.8a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V21"/><circle cx="8.5" cy="7.5" r="3.8"/><path d="M19 8.5v5M21.5 11h-5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 21.5s7.5-3.8 7.5-9.5V5.2L12 2.5 4.5 5.2V12c0 5.7 7.5 9.5 7.5 9.5z"/><path d="m9.2 11.8 2 2 3.6-3.6"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4.5 14.5s1-1 4-1 5 2 8 2 3.5-1 3.5-1V3.5s-.9 1-3.5 1-5-2-8-2-4 1-4 1z"/><path d="M4.5 22V2.5"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="m21 8-9-5.2L3 8v8l9 5.2L21 16z"/><path d="m3 8 9 5.2M21 8l-9 5.2m0 0V21"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.6 5a5.2 5.2 0 0 0-7.4 0L12 6.2 10.8 5a5.2 5.2 0 1 0-7.4 7.4l8.6 8.6 8.6-8.6a5.2 5.2 0 0 0 0-7.4z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5S4.8 15 4.8 9.8a7.2 7.2 0 1 1 14.4 0C19.2 15 12 21.5 12 21.5z"/><circle cx="12" cy="9.6" r="2.6"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="5.8"/><path d="m8.4 13.6-1.2 7.9 4.8-2.8 4.8 2.8-1.2-7.9"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="m3 16.5 6-6 4 4 8-8"/><path d="M15.5 6.5H21v5.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m21.5 2.5-8 19-3.5-8.5-8.5-3.5z"/><path d="M21.5 2.5 10 13"/></symbol>
+</defs></svg>
+
+<div class="progress" id="progress"></div>
+
+<nav class="rail" id="rail" aria-label="Chapters"></nav>
+
+<!-- ══════════ 0 · COVER ══════════════════════════════ -->
+<section class="ch hero" id="c0" data-label="Welcome">
+  <div class="bleed ken"><img src="assets/img/marty-joy.webp" alt="A Homespire team member laughing, arms thrown wide, one heel kicked up on the desk." fetchpriority="high"></div>
+  <div class="scrim scrim-hero"></div>
+
+  <div class="pad"><div class="wrap">
+    <p class="eyebrow" style="margin-bottom:clamp(16px,2.6vh,26px)">Homespire Mortgage</p>
+    <h1 class="display words">
+      <span><i style="--wd:120ms">Come</i></span> <span><i style="--wd:190ms">for</i></span> <span><i style="--wd:260ms">the</i></span>
+      <span><i style="--wd:330ms">opportunity.</i></span><br>
+      <span><i style="--wd:470ms" class="grad">Stay</i></span> <span><i style="--wd:540ms" class="grad">for</i></span>
+      <span><i style="--wd:610ms" class="grad">the</i></span> <span><i style="--wd:680ms" class="grad">people.</i></span>
+    </h1>
+  </div></div>
+
+  <div class="cue"><i></i><span>Scroll to begin</span></div>
+</section>
+
+<!-- ══════════ 1 · THESIS ═════════════════════════════ -->
+<section class="ch grad-deep" id="c1" data-label="Who we are">
+  <div class="orb a"></div><div class="orb b"></div>
+  <div class="pad"><div class="wrap">
+    <p class="eyebrow" data-rv>Chapter One</p>
+    <h2 class="h2" data-rv style="--d:90ms; margin:clamp(18px,3vh,28px) 0 clamp(18px,3vh,26px); max-width:19ch">
+      We're more than a <span class="em grad">mortgage company.</span>
+    </h2>
+    <p class="lede" data-rv style="--d:180ms">
+      We're a community built around growth, support, recognition and purpose — operating
+      in 49 states and Washington, D.C., with a culture that people don't leave.
+    </p>
+
+    <div class="stats">
+      <div class="stat" data-rv style="--d:280ms"><i class="chip-i"><svg class="ico"><use href="#i-pin"/></svg></i><b data-count="49">0</b><span>States we lend in — plus Washington, D.C.</span></div>
+      <div class="stat" data-rv style="--d:360ms"><i class="chip-i"><svg class="ico"><use href="#i-award"/></svg></i><b>Top Workplace</b><span>Recognized for the culture our people build</span></div>
+      <div class="stat" data-rv style="--d:440ms"><i class="chip-i"><svg class="ico"><use href="#i-trend"/></svg></i><b data-count="5000" data-prefix="Inc. " data-plain>0</b><span>Honoree — growth that creates opportunity</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══════════ 2 · WE WIN TOGETHER ════════════════════ -->
+<section class="ch duo" id="c2" data-label="We win together" style="background:#0B0212">
+  <div class="panel" data-rv="mask">
+    <img src="assets/img/vanessa-ladies.webp" alt="Five Homespire teammates standing shoulder to shoulder, arms folded, in front of a gallery wall.">
+    <span class="plate">Operations · Miami Lakes</span>
+  </div>
+  <div class="copy"><div>
+    <p class="eyebrow" data-rv style="--d:120ms">Chapter Two</p>
+    <h2 class="h2" data-rv style="--d:200ms; margin:clamp(16px,2.6vh,26px) 0 clamp(16px,2.6vh,24px)">
+      Small-town vibes.<br><span class="em grad">Big-company support.</span>
+    </h2>
+    <p class="lede" data-rv style="--d:280ms">
+      Tough file? Marketing idea? A scenario nobody's seen before? You are surrounded by
+      people who genuinely want you to win — and who answer.
+    </p>
+    <div class="rules">
+      <div data-rv style="--d:360ms"><i class="chip-i"><svg class="ico"><use href="#i-chat"/></svg></i><h4>The Loan Lab</h4><p>Our LO community in Teams. A real team, not just a chat — where LOs help LOs in real time and share the hard-earned wisdom.</p></div>
+      <div data-rv style="--d:420ms"><i class="chip-i"><svg class="ico"><use href="#i-compass"/></svg></i><h4>Scenario Desk</h4><p>Veteran underwriters with 15+ years each, giving real-time guidance so you structure the deal with confidence before submission.</p></div>
+      <div data-rv style="--d:480ms"><i class="chip-i"><svg class="ico"><use href="#i-megaphone"/></svg></i><h4>Marketing, on call</h4><p>Send the request, get the work back. Marketing is a partner in your pipeline, not a ticket queue.</p></div>
+      <div data-rv style="--d:540ms"><i class="chip-i"><svg class="ico"><use href="#i-home"/></svg></i><h4>In-house everything</h4><p>Condo, renovation, Non-QM and our own AMC — the specialists who unblock your file work here.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══════════ 3 · LOAN LAB VIDEO ═════════════════════ -->
+<section class="ch duo rev grad-rich" id="c3" data-label="The Loan Lab">
+  <div class="panel" style="background:linear-gradient(150deg,#12032A,#3D0B72)">
+    <video id="loanlab" preload="none" playsinline muted loop
+           src="loan-lab-scroll-through.mp4"></video>
+    <div class="play" id="playbtn" role="button" tabindex="0" aria-label="Play the Loan Lab scroll-through">
+      <b><svg width="17" height="19" viewBox="0 0 17 19" aria-hidden="true"><path d="M17 9.5 0 19V0z" fill="#fff"/></svg></b>
+      <span>Play the scroll-through</span>
+    </div>
+  </div>
+  <div class="copy"><div>
+    <p class="eyebrow" data-rv>Inside the Loan Lab</p>
+    <h2 class="h2" data-rv style="--d:90ms; margin:clamp(16px,2.6vh,26px) 0 clamp(16px,2.6vh,24px); max-width:13ch">
+      Scroll a <span class="em grad">single day.</span>
+    </h2>
+    <p class="lede" data-rv style="--d:170ms">
+      Recognition, deal help, wins, encouragement, camaraderie. This is one continuous scroll
+      through our LO channel — no edits, no staging. It's just what a Tuesday looks like.
+    </p>
+    <div class="rules">
+      <div data-rv style="--d:250ms"><i class="chip-i"><svg class="ico"><use href="#i-clock"/></svg></i><h4>Real time</h4><p>Post a scenario in the morning, have three answers before lunch.</p></div>
+      <div data-rv style="--d:310ms"><i class="chip-i"><svg class="ico"><use href="#i-users"/></svg></i><h4>Real people</h4><p>Originators, underwriters and leadership in the same channel, on the same day.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══════════ 4 · LEADERSHIP ═════════════════════════ -->
+<section class="ch duo rev" id="c4" data-label="Leadership" style="background:#0B0212">
+  <div class="panel" data-rv="mask">
+    <img src="assets/img/michael-ri.webp" alt="Homespire leadership visiting a branch team in Rhode Island.">
+    <span class="plate">Branch visit · Rhode Island</span>
+  </div>
+  <div class="copy"><div>
+    <p class="eyebrow" data-rv>Chapter Three</p>
+    <h2 class="h2" data-rv style="--d:90ms; margin:clamp(16px,2.6vh,26px) 0 clamp(16px,2.6vh,24px); max-width:15ch">
+      Leadership that <span class="em grad">shows up.</span>
+    </h2>
+    <p class="lede" data-rv style="--d:170ms">
+      Our leaders don't sit behind closed doors. They fly out, sit down, listen, and stay
+      connected to the people actually driving the business. If you need them, you'll get them.
+    </p>
+    <div class="faces" id="faces"></div>
+  </div></div>
+</section>
+
+<!-- ══════════ 5 · WE CELEBRATE SUCCESS ═══════════════ -->
+<section class="ch shot" id="c5" data-label="We celebrate success">
+  <div class="bleed"><img src="assets/img/buggy-crew.webp" alt="The Homespire production-trip crew lined up in front of dune buggies." data-px></div>
+  <div class="scrim scrim-copy"></div>
+  <div class="pad"><div class="wrap"><div class="col">
+    <p class="eyebrow" data-rv>Chapter Four</p>
+    <h2 class="h2" data-rv style="--d:90ms; margin:clamp(16px,2.6vh,26px) 0 clamp(16px,2.6vh,24px); max-width:14ch">
+      Exceptional gets <span class="em grad">celebrated.</span>
+    </h2>
+    <p class="lede" data-rv style="--d:170ms">
+      Top Volume. Top Units. Monthly producer recognition. And the trip everyone works all year
+      for — Atlantis, Bahamas, with the people who earned it beside you.
+    </p>
+    <div class="stats">
+      <div class="stat" data-rv style="--d:260ms"><i class="chip-i"><svg class="ico"><use href="#i-calendar"/></svg></i><b data-count="12">0</b><span>Monthly producer recognitions a year</span></div>
+      <div class="stat" data-rv style="--d:330ms"><i class="chip-i"><svg class="ico"><use href="#i-trophy"/></svg></i><b data-count="1" data-prefix="Top " data-suffix="%">0</b><span>Originators in the nation on our roster</span></div>
+      <div class="stat" data-rv style="--d:400ms"><i class="chip-i"><svg class="ico"><use href="#i-send"/></svg></i><b>Annual</b><span>Production trip — earned, not assigned</span></div>
+    </div>
+  </div></div></div>
+</section>
+
+<!-- ══════════ 6 · WE CELEBRATE PEOPLE ════════════════ -->
+<section class="ch duo grad-paper" id="c6" data-label="We celebrate people">
+  <div class="copy"><div>
+    <p class="eyebrow" data-rv>Chapter Five</p>
+    <h2 class="h2" data-rv style="--d:90ms; margin:clamp(14px,2.4vh,24px) 0 clamp(14px,2.4vh,22px); max-width:16ch">
+      Recognition isn't reserved for top producers.
+    </h2>
+    <p class="lede" data-rv style="--d:170ms">
+      Employee Spotlights. High-5 peer recognition. The FRED Award. Birthdays, anniversaries,
+      new babies, new homes. Closing loans or supporting the people who do — it counts here.
+    </p>
+    <div class="rules">
+      <div data-rv style="--d:250ms"><i class="chip-i"><svg class="ico"><use href="#i-trophy"/></svg></i><h4>The FRED Award</h4><p>Our highest honour for living the values — nominated by the people who work beside you.</p></div>
+      <div data-rv style="--d:310ms"><i class="chip-i"><svg class="ico"><use href="#i-hand"/></svg></i><h4>High-5</h4><p>Peer-to-peer recognition. No approval chain, no quota — just say it.</p></div>
+      <div data-rv style="--d:370ms"><i class="chip-i"><svg class="ico"><use href="#i-star"/></svg></i><h4>Employee Spotlights</h4><p>The whole company meets you: what you do, and who you are outside of it.</p></div>
+    </div>
+  </div></div>
+  <div class="panel" data-rv="mask">
+    <img src="assets/img/marty-passion.webp" alt="A teammate holding up a small engraved wooden block that reads: we do it with passion.">
+    <span class="plate">One of our six values</span>
+  </div>
+</section>
+
+<!-- ══════════ 7 · PURPLE NATION ══════════════════════ -->
+<section class="ch duo grad-rich" id="c7" data-label="Purple Nation">
+  <div class="panel" data-rv="mask">
+    <img src="assets/img/lasean-cheer.webp" alt="A teammate throwing both arms in the air in front of the Homespire step-and-repeat.">
+    <span class="plate">Charity Classic · Maryland</span>
+  </div>
+  <div class="copy"><div>
+    <p class="eyebrow" data-rv style="--d:120ms">Chapter Six</p>
+    <h2 class="h2" data-rv style="--d:200ms; margin:clamp(16px,2.6vh,26px) 0 clamp(16px,2.6vh,24px); max-width:12ch">
+      <span class="em grad">Purple Nation.</span><br>One Homespire.
+    </h2>
+    <p class="lede" data-rv style="--d:280ms">
+      Across the hall or across the country, you're on one team. Every month, Purple Nation
+      UNITE! puts the whole company on one call — wins, welcomes, shout-outs, and the
+      occasional foam fist.
+    </p>
+    <div class="rules">
+      <div data-rv style="--d:360ms"><i class="chip-i"><svg class="ico"><use href="#i-calendar"/></svg></i><h4>Every month</h4><p>One call, one company. Recognition read out loud, by name.</p></div>
+      <div data-rv style="--d:420ms"><i class="chip-i"><svg class="ico"><use href="#i-user-plus"/></svg></i><h4>Every new hire</h4><p>Announced to everyone. You are known here before your first week is out.</p></div>
+      <div data-rv style="--d:480ms"><i class="chip-i"><svg class="ico"><use href="#i-users"/></svg></i><h4>Every branch</h4><p>Thirty-odd offices and a lot of home desks, on the same call at the same time.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══════════ 8 · HOMESPIRE MOVE ═════════════════════ -->
+<section class="ch duo rev" id="c8" data-label="HomespireMOVE" style="background:linear-gradient(158deg,#0B0212 0%,#1B0538 60%,#2C0757 100%)">
+  <div class="panel" data-rv="mask">
+    <img src="assets/img/charity-ladies.webp" alt="Teammates in Inspired to Impact shirts at the Homespire Charity Classic.">
+    <span class="plate">Inspired to Impact</span>
+  </div>
+  <div class="copy"><div>
+    <p class="eyebrow" data-rv>Chapter Seven</p>
+    <h2 class="h2" data-rv style="--d:90ms; margin:clamp(16px,2.6vh,26px) 0 clamp(16px,2.6vh,24px); max-width:14ch">
+      Purpose beyond <span class="em grad">production.</span>
+    </h2>
+    <p class="lede" data-rv style="--d:170ms">
+      HomespireMOVE combines philanthropy, networking and employee engagement behind the causes
+      our people actually care about. Success means making a difference — not just closing loans.
+    </p>
+    <div class="rules">
+      <div data-rv style="--d:250ms"><i class="chip-i"><svg class="ico"><use href="#i-shield"/></svg></i><h4>Homes for Our Troops</h4><p>Ribbon cuttings for specially adapted, mortgage-free homes for severely injured veterans.</p></div>
+      <div data-rv style="--d:305ms"><i class="chip-i"><svg class="ico"><use href="#i-flag"/></svg></i><h4>The Charity Classic</h4><p>Our annual golf outing — the one day a year we compete at something other than volume.</p></div>
+      <div data-rv style="--d:360ms"><i class="chip-i"><svg class="ico"><use href="#i-box"/></svg></i><h4>Food &amp; backpacks</h4><p>Conference rooms turned into staging areas, filled by people who signed up on their own time.</p></div>
+      <div data-rv style="--d:415ms"><i class="chip-i"><svg class="ico"><use href="#i-heart"/></svg></i><h4>Cause Spotlights</h4><p>We put a name and a face to what our teammates give their weekends to.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══════════ 9 · FOUNDATION ═════════════════════════ -->
+<section class="ch grad-deep" id="c9" data-label="Our foundation">
+  <div class="orb a" style="opacity:.26"></div>
+  <div class="pad"><div class="wrap">
+    <p class="eyebrow" data-rv>Chapter Eight</p>
+    <h2 class="h2" data-rv style="--d:90ms; margin:clamp(14px,2.4vh,24px) 0 clamp(12px,2vh,20px); max-width:21ch">
+      Our culture isn't <span class="em grad">accidental.</span>
+    </h2>
+    <p class="lede" data-rv style="--d:170ms">Six values, and we actually use them.</p>
+
+    <div class="values">
+      <div class="value" data-rv style="--d:250ms"><img src="assets/img/val-people-first.webp" alt="" loading="lazy"><h4>People First</h4><p>It's what we've always believed in.</p></div>
+      <div class="value" data-rv style="--d:300ms"><img src="assets/img/val-better-together.webp" alt="" loading="lazy"><h4>We are better together</h4><p>Working across boundaries to help our team win.</p></div>
+      <div class="value" data-rv style="--d:350ms"><img src="assets/img/val-run-on-respect.webp" alt="" loading="lazy"><h4>We run on respect</h4><p>Our strength lies in our similarities, and our differences.</p></div>
+      <div class="value" data-rv style="--d:400ms"><img src="assets/img/val-think-big.webp" alt="" loading="lazy"><h4>We think big</h4><p>Find a solution, then make it even better.</p></div>
+      <div class="value" data-rv style="--d:450ms"><img src="assets/img/val-passion.webp" alt="" loading="lazy"><h4>We do it with passion</h4><p>Think like our client, walk in their shoes.</p></div>
+      <div class="value" data-rv style="--d:500ms"><img src="assets/img/val-inspired-to-impact.webp" alt="" loading="lazy"><h4>Inspired to impact</h4><p>One home, one neighborhood, one community at a time.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══════════ 10 · VOICES ════════════════════════════ -->
+<section class="ch shot" id="c10" data-label="What our people say">
+  <div class="bleed"><img src="assets/img/florida-dinner@lg.webp" alt="A long table of Homespire teammates at a team dinner." data-px></div>
+  <div class="scrim" style="background:linear-gradient(to top,rgba(9,2,16,.94),rgba(9,2,16,.87) 55%,rgba(9,2,16,.92))"></div>
+  <div class="pad"><div class="wrap">
+    <p class="eyebrow" data-rv>Chapter Nine</p>
+    <h2 class="h2" data-rv style="--d:90ms; margin:clamp(14px,2.4vh,24px) 0 clamp(12px,2vh,20px); max-width:17ch">
+      The best way to understand it is to <span class="em grad">hear it.</span>
+    </h2>
+    <div class="quotes">
+      <div class="quote slot" data-rv style="--d:220ms">
+        <blockquote>Add a real quote here about how fast people answer when you need help.</blockquote>
+        <cite>Name, Title, Branch</cite>
+      </div>
+      <div class="quote slot" data-rv style="--d:290ms">
+        <blockquote>Add a real quote here about leadership being reachable and invested in your business.</blockquote>
+        <cite>Name, Title, Branch</cite>
+      </div>
+      <div class="quote slot" data-rv style="--d:360ms">
+        <blockquote>Add a real quote here about what someone built at Homespire that they couldn't elsewhere.</blockquote>
+        <cite>Name, Title, Branch</cite>
+      </div>
+      <div class="quote slot" data-rv style="--d:430ms">
+        <blockquote>Add a real quote here about the family atmosphere — the reason someone stayed.</blockquote>
+        <cite>Name, Title, Branch</cite>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ══════════ 11 · COLLAGE ═══════════════════════════ -->
+<section class="ch" id="c11" data-label="Life here" style="background:#0B0212">
+  <div class="pad" style="padding-left:0;padding-right:0">
+    <div class="wrap" style="padding-inline:var(--gutter); margin-bottom:clamp(24px,4vh,42px)">
+      <p class="eyebrow" data-rv>Chapter Ten</p>
+      <h2 class="h2" data-rv style="--d:90ms; margin-top:clamp(14px,2.4vh,24px); max-width:16ch">
+        A year, more or less, <span class="em grad">in pictures.</span>
+      </h2>
+    </div>
+    <div class="gallery" data-rv style="--d:180ms">
+      <div class="gtrack" id="gtrack" tabindex="0" role="listbox" aria-label="Culture photo gallery"></div>
+      <div class="gnav">
+        <button id="gprev" aria-label="Previous photos">
+          <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M14 5.5H2M6 1.5l-4 4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="gnext" aria-label="More photos">
+          <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <span class="hint">Drag to browse · click any frame to enlarge</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 12 · CLOSE ═════════════════════════════ -->
+<section class="ch hero shot" id="c12" data-label="Join us">
+  <div class="bleed"><img src="assets/img/rob-pointing.webp" alt="A Homespire teammate in a Homespire tee, grinning and pointing straight at the camera." data-px></div>
+  <div class="scrim scrim-hero"></div>
+  <div class="pad"><div class="wrap"><div class="col" style="max-width:min(720px,58%)">
+    <p class="eyebrow" data-rv>The difference</p>
+    <h2 class="display" data-rv style="--d:90ms; margin:clamp(16px,2.8vh,28px) 0 clamp(18px,3vh,28px)">
+      Come for the opportunity.<br><span class="grad">Stay for the people.</span>
+    </h2>
+    <p class="lede" data-rv style="--d:180ms">
+      You'll find the tools to grow your business, the support to hit your goals, and a culture
+      that feels like home. Collaborative culture. Accessible leadership. Recognition, growth and purpose.
+    </p>
+    <a class="btn" data-rv style="--d:260ms" href="mailto:pkarnani@homespiremortgage.com?subject=Homespire%20Culture%20%E2%80%94%20let's%20talk">
+      Start a conversation
+      <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div></div></div>
+</section>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <span class="count" id="lbCount"></span>
+  <button class="x" id="lbClose" aria-label="Close viewer">
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+  </button>
+  <button class="prev" id="lbPrev" aria-label="Previous photo">
+    <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M14 5.5H2M6 1.5l-4 4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="next" id="lbNext" aria-label="Next photo">
+    <svg width="15" height="11" viewBox="0 0 15 11" fill="none" aria-hidden="true"><path d="M1 5.5h12M9 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="stage"><figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure></div>
+</div>
+
+<script>
+(function(){
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const chapters = [...document.querySelectorAll('.ch')];
+
+  /* ── Chapter rail ─────────────────────────────────── */
+  const rail = document.getElementById('rail');
+  rail.innerHTML = chapters.map(s =>
+    `<a href="#${s.id}" data-for="${s.id}"><span class="lbl">${s.dataset.label}</span><span class="dot"></span></a>`
+  ).join('');
+  const links = new Map([...rail.querySelectorAll('a')].map(a => [a.dataset.for, a]));
+
+  /* ── Reveal on enter ──────────────────────────────── */
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        e.target.querySelectorAll('[data-count]').forEach(runCount);
+      }
+    });
+  }, { threshold: 0.22, rootMargin: '0px 0px -8% 0px' });
+  chapters.forEach(s => io.observe(s));
+
+  /* ── Active chapter (separate, tighter observer) ──── */
+  const ioActive = new IntersectionObserver(es => {
+    es.forEach(e => {
+      const a = links.get(e.target.id);
+      if (!a) return;
+      if (e.isIntersecting) {
+        [...links.values()].forEach(x => x.classList.remove('on'));
+        a.classList.add('on');
+      }
+    });
+  }, { threshold: 0.5 });
+  chapters.forEach(s => ioActive.observe(s));
+
+  /* ── Count-up ─────────────────────────────────────── */
+  function runCount(el){
+    if (el.dataset.done) return;
+    el.dataset.done = '1';
+    const target = +el.dataset.count;
+    const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+    const fmt = n => pre + (el.hasAttribute('data-plain') ? n : n.toLocaleString()) + suf;
+    if (RM){ el.textContent = fmt(target); return; }
+    const dur = 1500, t0 = performance.now();
+    (function step(t){
+      const p = Math.min(1, (t - t0) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      const n = Math.round(target * e);
+      el.textContent = pre + (el.hasAttribute('data-plain') ? n : n.toLocaleString()) + suf;
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  /* ── Scroll: progress bar, brand fade, photo parallax ─ */
+  const bar = document.getElementById('progress');
+  const px = [...document.querySelectorAll('[data-px]')];
+  let ticking = false;
+
+  function onScroll(){
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+
+    if (!RM && innerWidth > 760) {
+      for (const img of px) {
+        const r = img.closest('.ch').getBoundingClientRect();
+        if (r.bottom < -100 || r.top > innerHeight + 100) continue;
+        const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; // -1 … 1
+        img.style.transform = `scale(1.08) translate3d(0, ${(-p * 2.2).toFixed(2)}%, 0)`;
+      }
+    }
+    ticking = false;
+  }
+  addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+
+  /* ── Loan Lab video ───────────────────────────────── */
+  const v = document.getElementById('loanlab'), pb = document.getElementById('playbtn');
+  function playIt(){ v.play().then(()=> pb.classList.add('gone')).catch(()=>{}); }
+  pb.addEventListener('click', playIt);
+  pb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playIt(); } });
+
+  /* ── Leadership ───────────────────────────────────
+     Paste each person's LinkedIn URL and title below.
+     A blank `li` simply hides the badge; a blank `title`
+     hides the line. Nothing else needs to change.     */
+  const LEADERS = [
+    { img:'hs-michael-rappaport', name:'Michael Rappaport', title:'', li:'' },
+    { img:'hs-marty-guy-fink',    name:'Marty Guy Fink',    title:'', li:'' },
+    { img:'hs-edwin-oquendo',     name:'Edwin Oquendo',     title:'', li:'' },
+    { img:'hs-justin-atteberry',  name:'Justin Atteberry',  title:'', li:'' },
+    { img:'hs-nick-stacy',        name:'Nick Stacy',        title:'', li:'' },
+    { img:'hs-vanessa-cordon',    name:'Vanessa Cordon',    title:'', li:'' },
+  ];
+  const LI_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11,0 5 2.5 2.5 0 010-5zM2.4 21h5.2V9.2H2.4V21zm7.6 0h5.2v-6.4c0-1.7.3-3.4 2.4-3.4s2.1 1.9 2.1 3.5V21H25v-7.1c0-4-0.9-6.1-4.6-6.1-1.8 0-3 1-3.5 1.9h-.1V9.2H10V21z"/></svg>';
+
+  document.getElementById('faces').innerHTML = LEADERS.map((p, i) => `
+    <div class="face" data-rv style="--d:${250 + i * 45}ms">
+      <figure>
+        <img src="assets/img/${p.img}.webp" alt="${p.name}" loading="lazy">
+        ${p.li ? `<a class="li" href="${p.li}" target="_blank" rel="noopener"
+                     aria-label="${p.name} on LinkedIn">${LI_ICON}</a>` : ''}
+      </figure>
+      <b>${p.name}</b>${p.title ? `<em>${p.title}</em>` : ''}
+    </div>`).join('');
+
+  /* ── Photo sets ───────────────────────────────────── */
+  const CAPTIONS = {
+    'golf-cart':'LaSean at the Charity Classic', 'autumn-michele':'Autumn & Michele, Charity Classic',
+    'florida-dinner':'The Florida team, out to dinner', 'marty-cape':'The Homespire cape, worn with conviction',
+    'twinning':'Twinning in public, unplanned', 'swag':'The purple closet',
+    'lasean-cart':'Charity Classic, hole 4', 'ribbon-cutting':'Homes for Our Troops ribbon cutting',
+    'melanie-boat':'Off the clock', 'marketing-breakfast':'Marketing team breakfast',
+    'prod-trip-group':'Production trip, Atlantis', 'atlantis-throne':'Atlantis, Bahamas',
+    'office-dog':'The hardest worker in the office', 'food-drive':'Food drive staging',
+    'kids-awards':'Awards day', 'shirt-handoff':'Welcome to the purple',
+    'teamwork-kids':'Teamwork, taught early', 'lunch-learn':'Lunch and learn',
+    'tote':'Homespire, on holiday', 'prod-trip-three':'Production trip crew',
+    'purple-fist-kid':'Team Purple, next generation', 'team-purple-fist':'No caption necessary',
+    'nina-move':'MOVE Spotlight — Flagler Sea Turtle Patrol', 'troops-group':'Homes for Our Troops',
+    'nc-team':'The North Carolina team', 'dania-fred':'The FRED Award',
+    'cupcakes':'Work anniversary cupcakes', 'michael-bday':'Happy birthday, in unison',
+    'medal-selfie':'Medals earned', 'otmane-top1':'Top 1% of originators, nationally',
+    'purple-nation-call':'Purple Nation UNITE!', 'rob-pointing':'Yes, you',
+    'charity-ladies':'Inspired to Impact', 'vanessa-ladies':'Operations, Miami Lakes',
+    'buggy-crew':'Production trip, off-road', 'lasean-cheer':'Arms up, always',
+    'michael-ri':'Branch visit, Rhode Island', 'marty-joy':'Marty, mid-celebration',
+  };
+
+  /* Chapter Ten — the full gallery */
+  const GALLERY = [
+    'marty-joy','rob-pointing','golf-cart','charity-ladies','lasean-cheer','vanessa-ladies',
+    'buggy-crew','autumn-michele','marty-cape','prod-trip-group','atlantis-throne','nc-team',
+    'florida-dinner','marketing-breakfast','ribbon-cutting','troops-group','food-drive',
+    'purple-nation-call','michael-ri','twinning','swag','melanie-boat','office-dog','tote',
+    'lasean-cart','prod-trip-three','purple-fist-kid','teamwork-kids','kids-awards','lunch-learn',
+  ];
+
+  const cap = s => CAPTIONS[s] || '';
+
+  /* ── Lightbox ─────────────────────────────────────── */
+  const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'),
+        lbCap = document.getElementById('lbCap'), lbCount = document.getElementById('lbCount');
+  let lbSet = [], lbAt = 0, lbOpener = null;
+
+  function lbShow(i){
+    lbAt = (i + lbSet.length) % lbSet.length;
+    const slug = lbSet[lbAt];
+    lbImg.src = `assets/img/${slug}@lg.webp`;
+    lbImg.alt = lbCap.textContent = cap(slug);
+    lbCount.textContent = `${lbAt + 1} / ${lbSet.length}`;
+    // Warm the neighbours so paging feels instant.
+    [lbAt + 1, lbAt - 1].forEach(n => {
+      const s2 = lbSet[(n + lbSet.length) % lbSet.length];
+      new Image().src = `assets/img/${s2}@lg.webp`;
+    });
+  }
+  function lbOpen(set, i, opener){
+    lbSet = set; lbOpener = opener;
+    lb.setAttribute('open','');
+    document.body.style.overflow = 'hidden';
+    lbShow(i);
+    document.getElementById('lbClose').focus();
+  }
+  function lbClose(){
+    lb.removeAttribute('open');
+    document.body.style.overflow = '';
+    lbImg.removeAttribute('src');
+    if (lbOpener) { lbOpener.focus(); lbOpener = null; }
+  }
+  document.getElementById('lbClose').addEventListener('click', lbClose);
+  document.getElementById('lbPrev').addEventListener('click', () => lbShow(lbAt - 1));
+  document.getElementById('lbNext').addEventListener('click', () => lbShow(lbAt + 1));
+  lb.addEventListener('click', e => { if (e.target === lb || e.target.closest('.stage') === e.target) lbClose(); });
+  document.querySelector('.lb .stage').addEventListener('click', e => { if (e.target.tagName !== 'IMG') lbClose(); });
+
+  /* ── Gallery carousel (Chapter Ten) ───────────────── */
+  const gtrack = document.getElementById('gtrack');
+  gtrack.innerHTML = GALLERY.map((slug, i) => `
+    <button type="button" class="gcard" data-set="G" data-i="${i}" aria-label="Enlarge: ${cap(slug)}">
+      <img src="assets/img/${slug}@s.webp" alt="${cap(slug)}" decoding="async"${i > 5 ? ' loading="lazy"' : ''}>
+      <span class="zoom">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="4.6" stroke="#fff" stroke-width="1.4"/>
+          <path d="M9.6 9.6L13 13M6 4v4M4 6h4" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+        </svg></span>
+      <figcaption>${cap(slug)}</figcaption>
+    </button>`).join('');
+
+  const gprev = document.getElementById('gprev'), gnext = document.getElementById('gnext');
+  const gpage = dir => gtrack.scrollBy({ left: dir * gtrack.clientWidth * 0.8, behavior: 'smooth' });
+  gprev.addEventListener('click', () => gpage(-1));
+  gnext.addEventListener('click', () => gpage(1));
+  function gsync(){
+    gprev.disabled = gtrack.scrollLeft < 8;
+    gnext.disabled = gtrack.scrollLeft > gtrack.scrollWidth - gtrack.clientWidth - 8;
+  }
+  gtrack.addEventListener('scroll', gsync, { passive: true });
+  addEventListener('resize', gsync);
+  gsync();
+
+  /* Drag to browse. No pointer capture — capturing retargets the click
+     away from the card and the lightbox would never open. */
+  let drag = null, dragged = false;
+  gtrack.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'touch') return;           // native touch scrolling is better
+    drag = { x: e.clientX, left: gtrack.scrollLeft };
+    dragged = false;
+  });
+  addEventListener('pointermove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (Math.abs(dx) > 4) dragged = true;
+    if (dragged) { gtrack.scrollLeft = drag.left - dx; e.preventDefault(); }
+  });
+  addEventListener('pointerup', () => {
+    drag = null;
+    // let the click that follows this pointerup see `dragged`, then reset
+    setTimeout(() => { dragged = false; }, 0);
+  });
+
+  /* One click handler for every openable frame */
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-set]');
+    if (!btn) return;
+    if (dragged) return;                             // that was a drag, not a click
+    lbOpen(GALLERY, +btn.dataset.i, btn);
+  });
+
+  /* ── Keyboard chapter nav ─────────────────────────── */
+  addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (lb.hasAttribute('open')) {
+      if (e.key === 'Escape')     { e.preventDefault(); lbClose(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); lbShow(lbAt - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); lbShow(lbAt + 1); }
+      return;
+    }
+    const i = chapters.findIndex(s => s.getBoundingClientRect().top > -innerHeight * 0.4);
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      const n = chapters[Math.min(chapters.length - 1, Math.max(0, i))];
+      if (n) { e.preventDefault(); n.scrollIntoView({ behavior: 'smooth' }); }
+    }
+    if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      const n = chapters[Math.max(0, i - 2)];
+      if (n) { e.preventDefault(); n.scrollIntoView({ behavior: 'smooth' }); }
+    }
+  });
+})();
+</script>
+</body>
+</html>
