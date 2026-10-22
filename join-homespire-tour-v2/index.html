@@ -3043,6 +3043,237 @@
                 overflow-x: auto;
             }
         }
+
+        /* ============================================
+           LO TESTIMONIALS: tap the chip (or press T) to open
+           ============================================ */
+
+        .testi-chip {
+            position: absolute;
+            left: 32px;
+            bottom: 26px;
+            z-index: 30;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 16px 6px 6px;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 6px 20px rgba(59, 11, 112, 0.14);
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .testi-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(59, 11, 112, 0.22);
+        }
+
+        .testi-chip img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(139, 92, 246, 0.55);
+        }
+
+        .testi-chip .testi-q {
+            font-family: var(--serif);
+            font-size: 26px;
+            line-height: 0.6;
+            color: var(--accent);
+            margin-top: 8px;
+        }
+
+        .slide.dark .testi-chip {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+        }
+
+        .slide.dark .testi-chip .testi-q {
+            color: #f0dcff;
+        }
+
+        .testi-chip:after {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: 44px;
+            border: 2px solid rgba(139, 92, 246, 0.45);
+            animation: testiPulse 2.6s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes testiPulse {
+            0% { opacity: 0.9; transform: scale(1); }
+            70%, 100% { opacity: 0; transform: scale(1.12); }
+        }
+
+        .testi-pop {
+            position: absolute;
+            inset: 0;
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: rgba(22, 3, 41, 0.42);
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+        }
+
+        .testi-pop[hidden] {
+            display: none;
+        }
+
+        .testi-card {
+            position: relative;
+            width: min(760px, 100%);
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 40px 46px 34px;
+            box-shadow: 0 30px 80px rgba(22, 3, 41, 0.35);
+            animation: testiIn 0.32s ease;
+            text-align: left;
+        }
+
+        @keyframes testiIn {
+            from { opacity: 0; transform: translateY(14px) scale(0.97); }
+            to { opacity: 1; transform: none; }
+        }
+
+        .testi-card:before {
+            content: "“";
+            position: absolute;
+            top: 6px;
+            right: 34px;
+            font-family: var(--serif);
+            font-size: 150px;
+            line-height: 1;
+            color: rgba(139, 92, 246, 0.16);
+            pointer-events: none;
+        }
+
+        .testi-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: #ffffff;
+            font-size: 16px;
+            color: var(--text-muted);
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .testi-close:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .testi-quote {
+            font-family: var(--serif);
+            font-size: clamp(19px, 1.7vw, 24px);
+            line-height: 1.5;
+            color: var(--text-primary);
+            margin: 0 0 26px;
+        }
+
+        /* Keep the card readable on dark slides, which recolor paragraphs white */
+        .slide .testi-card .testi-quote,
+        .slide.dark .testi-card .testi-quote {
+            color: var(--text-primary);
+        }
+
+        .slide.dark .testi-card .testi-name {
+            color: var(--text-primary);
+        }
+
+        .slide.dark .testi-card .testi-role {
+            color: var(--text-secondary);
+        }
+
+        .testi-quote mark {
+            background: linear-gradient(180deg, transparent 58%, rgba(224, 64, 251, 0.22) 58%);
+            color: #4B1A8A;
+            padding: 0 2px;
+        }
+
+        .testi-who {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .testi-who img {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px rgba(139, 92, 246, 0.5);
+            flex-shrink: 0;
+        }
+
+        .testi-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .testi-role {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .testi-tag {
+            margin-left: auto;
+            align-self: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        @media screen and (max-width: 767px) {
+            .testi-chip {
+                left: 12px;
+                bottom: 14px;
+                font-size: 13px;
+            }
+
+            .testi-pop {
+                padding: 14px;
+            }
+
+            .testi-card {
+                padding: 30px 22px 24px;
+            }
+
+            .testi-tag {
+                display: none;
+            }
+        }
+
+        @media print {
+            .testi-chip,
+            .testi-pop {
+                display: none !important;
+            }
+        }
     </style>
 
 </head>
@@ -5194,6 +5425,111 @@
             }, true);
 
             restart();
+        })();
+
+        // LO testimonials: a "Hear from…" chip on the slide opens the quote.
+        // Presenter shortcut: press T to open or close the testimonial on the current slide.
+        (function () {
+            const PEOPLE = {
+                edwin: {
+                    name: 'Edwin Oquendo', role: 'Sales Solution Manager', state: 'Florida', topic: 'Soft Credit Pull',
+                    img: 'images/v2/lo-edwin.webp',
+                    quote: 'Being able to do a soft credit pull has changed how I talk with borrowers early in the process. <mark>I know where their credit stands before we get into the details</mark>, so I’m not guessing. I can walk through options that actually fit their situation, give them <mark>more accurate information up front</mark>, and start with a clearer plan. The conversations are better, and <mark>borrowers can tell I’m prepared.</mark>'
+                },
+                torrey: {
+                    name: 'Torrey Pinkerton', role: 'Branch Manager', state: 'Texas', topic: 'Agent Connect',
+                    img: 'images/v2/lo-torrey.webp',
+                    quote: 'Agent Connect gave me <mark>conversations with agents I wouldn’t have had the time to chase on my own</mark>. The program handles the outreach, so I can spend my time actually getting to know the agents and showing them how I work. Those conversations are turning into <mark>real business relationships</mark>, and the relationships have turned into <mark>referrals, including a closed loan.</mark>'
+                },
+                paul: {
+                    name: 'Paul Howard', role: 'Regional Manager', state: 'Georgia', topic: 'Borrower Insights',
+                    img: 'images/v2/lo-paul.webp',
+                    quote: 'When I joined Homespire, one of my biggest worries was starting my contact lists from scratch again. I’d spent years building relationships with past clients and realtors, and I didn’t want to lose all their info. The team was able to <mark>rebuild my database using Borrower Insights</mark>, including loan information. Instead of trying to piece together from memory or my cell address book, <mark>I had my past clients and agents in front of me from day one</mark> so I could seamlessly pick up those relationships right where I left off.'
+                },
+                vanessa: {
+                    name: 'Vanessa Cordon', role: 'Senior Loan Officer', state: 'Maryland', topic: 'Spark Social',
+                    img: 'images/v2/lo-vanessa.webp',
+                    quote: 'I always knew social media could help my business, but I had a hard time staying consistent on my own. Being a part of Spark Social has <mark>kept me accountable</mark>. I make sure I’m on regularly now because I know we’re checking in, and the content ideas and editing tips make it easier to actually follow through. That consistency has paid off. <mark>I’ve closed a loan that came directly from social media</mark>, <mark>realtors who see me online have sent me leads</mark>, and it’s become one of the easiest ways to stay in front of my partners.'
+                },
+                stephanie: {
+                    name: 'Stephanie Parra', role: 'Branch Manager', state: 'Rhode Island', topic: 'Sales Goal Tracker',
+                    img: 'images/v2/lo-stephanie.webp',
+                    quote: 'The Sales Goal Tracker has definitely <mark>kept me on track</mark>. Setting my target numbers at the beginning of the year, especially my income goal, <mark>made everything more real</mark>. And <mark>checking in on my progress each month with my manager</mark> helps me stay focused on what I need to do.'
+                },
+                marty: {
+                    name: 'Marty Guy Fink', role: 'Branch Manager', state: 'Virginia', topic: 'Loan Lab',
+                    img: 'images/v2/lo-marty.webp',
+                    quote: '<mark>The Loan Lab is genius.</mark> No question’s too small. We help each other troubleshoot and brainstorm solutions to tricky scenarios: here’s the guideline, here’s how I handled this situation, here’s what you need to watch out for. <mark>I don’t know why every company doesn’t have this.</mark>'
+                }
+            };
+
+            const pops = [];
+
+            document.querySelectorAll('.slide[data-testimonial]').forEach(slide => {
+                const p = PEOPLE[slide.dataset.testimonial];
+                if (!p) return;
+                const first = p.name.split(' ')[0];
+
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                chip.className = 'testi-chip';
+                chip.setAttribute('aria-label', 'Hear from ' + p.name);
+                chip.innerHTML = '<img src="' + p.img + '" alt="" data-nozoom><span>Hear from ' + first + '</span><span class="testi-q">”</span>';
+
+                const pop = document.createElement('div');
+                pop.className = 'testi-pop';
+                pop.hidden = true;
+                pop.innerHTML =
+                    '<div class="testi-card" role="dialog" aria-modal="true" aria-label="Testimonial from ' + p.name + '">' +
+                    '<button type="button" class="testi-close" aria-label="Close">✕</button>' +
+                    '<p class="testi-quote">“' + p.quote + '”</p>' +
+                    '<div class="testi-who"><img src="' + p.img + '" alt="' + p.name + '" data-nozoom>' +
+                    '<div><div class="testi-name">' + p.name + '</div><div class="testi-role">' + p.role + ' · ' + p.state + '</div></div>' +
+                    '<span class="testi-tag">' + p.topic + '</span></div></div>';
+
+                const open = () => { pops.forEach(x => { x.hidden = true; }); pop.hidden = false; };
+                const close = () => { pop.hidden = true; };
+                chip.addEventListener('click', open);
+                pop.querySelector('.testi-close').addEventListener('click', close);
+                pop.addEventListener('click', e => { if (e.target === pop) close(); });
+
+                slide.appendChild(chip);
+                slide.appendChild(pop);
+                pops.push(pop);
+                slide._testimonial = { pop, open, close };
+            });
+
+            if (!pops.length) return;
+
+            const openPop = () => pops.find(p => !p.hidden);
+
+            window.addEventListener('keydown', e => {
+                if (e.target.matches && e.target.matches('input, select, textarea')) return;
+                const shown = openPop();
+                if (e.key === 't' || e.key === 'T') {
+                    const mid = window.innerHeight / 2;
+                    const slide = [...document.querySelectorAll('.slide')].find(s => { const r = s.getBoundingClientRect(); return r.top <= mid && r.bottom > mid; });
+                    const t = slide && slide._testimonial;
+                    if (shown) shown.hidden = true;
+                    else if (t) t.open();
+                    if (shown || t) { e.preventDefault(); e.stopPropagation(); }
+                    return;
+                }
+                // While a testimonial is open, the next key press just closes it
+                if (shown && ['Escape', 'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' '].includes(e.key)) {
+                    shown.hidden = true;
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }, true);
+
+            // Moving to another slide closes any open testimonial
+            window.addEventListener('scroll', () => {
+                const shown = openPop();
+                if (!shown) return;
+                const r = shown.parentElement.getBoundingClientRect();
+                if (r.bottom < window.innerHeight * 0.4 || r.top > window.innerHeight * 0.6) shown.hidden = true;
+            }, { passive: true });
         })();
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f0ce7d66e3ce5c7',t:'MTc3Njk0NzcwMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
