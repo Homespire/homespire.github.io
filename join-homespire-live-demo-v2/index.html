@@ -3069,6 +3069,12 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
+        /* Right-hand placement, clear of the slide counter in the corner */
+        .testi-chip.right {
+            left: auto;
+            right: 84px;
+        }
+
         .testi-chip:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 26px rgba(59, 11, 112, 0.22);
@@ -3253,6 +3259,11 @@
                 left: 12px;
                 bottom: 14px;
                 font-size: 13px;
+            }
+
+            .testi-chip.right {
+                left: auto;
+                right: 56px;
             }
 
             .testi-pop {
@@ -6190,6 +6201,7 @@
         (function () {
             const PEOPLE = {
                 edwin: {
+                    side: 'right',
                     name: 'Edwin Oquendo', role: 'Sales Solution Manager', state: 'Florida', topic: 'Soft Credit Pull',
                     img: 'images/v2/lo-edwin.webp',
                     quote: 'Being able to do a soft credit pull has changed how I talk with borrowers early in the process. <mark>I know where their credit stands before we get into the details</mark>, so I’m not guessing. I can walk through options that actually fit their situation, give them <mark>more accurate information up front</mark>, and start with a clearer plan. The conversations are better, and <mark>borrowers can tell I’m prepared.</mark>'
@@ -6205,6 +6217,7 @@
                     quote: 'When I joined Homespire, one of my biggest worries was starting my contact lists from scratch again. I’d spent years building relationships with past clients and realtors, and I didn’t want to lose all their info. The team was able to <mark>rebuild my database using Borrower Insights</mark>, including loan information. Instead of trying to piece together from memory or my cell address book, <mark>I had my past clients and agents in front of me from day one</mark> so I could seamlessly pick up those relationships right where I left off.'
                 },
                 vanessa: {
+                    side: 'right',
                     name: 'Vanessa Cordon', role: 'Senior Loan Officer', state: 'Maryland', topic: 'Spark Social',
                     img: 'images/v2/lo-vanessa.webp',
                     quote: 'I always knew social media could help my business, but I had a hard time staying consistent on my own. Being a part of Spark Social has <mark>kept me accountable</mark>. I make sure I’m on regularly now because I know we’re checking in, and the content ideas and editing tips make it easier to actually follow through. That consistency has paid off. <mark>I’ve closed a loan that came directly from social media</mark>, <mark>realtors who see me online have sent me leads</mark>, and it’s become one of the easiest ways to stay in front of my partners.'
@@ -6230,7 +6243,7 @@
 
                 const chip = document.createElement('button');
                 chip.type = 'button';
-                chip.className = 'testi-chip';
+                chip.className = 'testi-chip' + (p.side === 'right' || document.body.dataset.testiSide === 'right' ? ' right' : '');
                 chip.setAttribute('aria-label', 'Hear from ' + p.name);
                 chip.innerHTML = '<img src="' + p.img + '" alt="" data-nozoom><span>Hear from ' + first + '</span><span class="testi-q">”</span>';
 

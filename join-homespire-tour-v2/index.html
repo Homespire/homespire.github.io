@@ -3069,6 +3069,12 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
+        /* Right-hand placement, clear of the slide counter in the corner */
+        .testi-chip.right {
+            left: auto;
+            right: 84px;
+        }
+
         .testi-chip:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 26px rgba(59, 11, 112, 0.22);
@@ -3255,6 +3261,11 @@
                 font-size: 13px;
             }
 
+            .testi-chip.right {
+                left: auto;
+                right: 56px;
+            }
+
             .testi-pop {
                 padding: 14px;
             }
@@ -3277,7 +3288,7 @@
     </style>
 
 </head>
-<body>
+<body data-testi-side="right">
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
@@ -3647,7 +3658,7 @@
         </div>
     </section>
     <!-- SLIDE 8: Image on Right -->
-    <section class="slide" data-slide="8">
+    <section class="slide" data-slide="8" data-testimonial="edwin">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 56px;">
@@ -3741,7 +3752,7 @@
         </div>
     </section>
     <!-- SLIDE: Agent Connect Results -->
-    <section class="slide dark" data-slide="10">
+    <section class="slide dark" data-slide="10" data-testimonial="torrey">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1280px;">
@@ -3995,7 +4006,7 @@
         </div>
     </section>
     <!-- SLIDE: Goals & Performance -->
-    <section class="slide" data-slide="15">
+    <section class="slide" data-slide="15" data-testimonial="stephanie">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content reverse" style="grid-template-columns: 1fr 1.25fr; gap: 56px;">
@@ -4053,7 +4064,7 @@
         </div>
     </section>
     <!-- SLIDE 16: Full Width -->
-    <section class="slide" data-slide="16">
+    <section class="slide" data-slide="16" data-testimonial="marty">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1200px;">
@@ -5432,33 +5443,35 @@
         (function () {
             const PEOPLE = {
                 edwin: {
+                    side: 'right',
                     name: 'Edwin Oquendo', role: 'Sales Solution Manager', state: 'Florida', topic: 'Soft Credit Pull',
-                    img: 'images/v2/lo-edwin.webp',
+                    img: '../join-homespire-live-demo-v2/images/v2/lo-edwin.webp',
                     quote: 'Being able to do a soft credit pull has changed how I talk with borrowers early in the process. <mark>I know where their credit stands before we get into the details</mark>, so I’m not guessing. I can walk through options that actually fit their situation, give them <mark>more accurate information up front</mark>, and start with a clearer plan. The conversations are better, and <mark>borrowers can tell I’m prepared.</mark>'
                 },
                 torrey: {
                     name: 'Torrey Pinkerton', role: 'Branch Manager', state: 'Texas', topic: 'Agent Connect',
-                    img: 'images/v2/lo-torrey.webp',
+                    img: '../join-homespire-live-demo-v2/images/v2/lo-torrey.webp',
                     quote: 'Agent Connect gave me <mark>conversations with agents I wouldn’t have had the time to chase on my own</mark>. The program handles the outreach, so I can spend my time actually getting to know the agents and showing them how I work. Those conversations are turning into <mark>real business relationships</mark>, and the relationships have turned into <mark>referrals, including a closed loan.</mark>'
                 },
                 paul: {
                     name: 'Paul Howard', role: 'Regional Manager', state: 'Georgia', topic: 'Borrower Insights',
-                    img: 'images/v2/lo-paul.webp',
+                    img: '../join-homespire-live-demo-v2/images/v2/lo-paul.webp',
                     quote: 'When I joined Homespire, one of my biggest worries was starting my contact lists from scratch again. I’d spent years building relationships with past clients and realtors, and I didn’t want to lose all their info. The team was able to <mark>rebuild my database using Borrower Insights</mark>, including loan information. Instead of trying to piece together from memory or my cell address book, <mark>I had my past clients and agents in front of me from day one</mark> so I could seamlessly pick up those relationships right where I left off.'
                 },
                 vanessa: {
+                    side: 'right',
                     name: 'Vanessa Cordon', role: 'Senior Loan Officer', state: 'Maryland', topic: 'Spark Social',
-                    img: 'images/v2/lo-vanessa.webp',
+                    img: '../join-homespire-live-demo-v2/images/v2/lo-vanessa.webp',
                     quote: 'I always knew social media could help my business, but I had a hard time staying consistent on my own. Being a part of Spark Social has <mark>kept me accountable</mark>. I make sure I’m on regularly now because I know we’re checking in, and the content ideas and editing tips make it easier to actually follow through. That consistency has paid off. <mark>I’ve closed a loan that came directly from social media</mark>, <mark>realtors who see me online have sent me leads</mark>, and it’s become one of the easiest ways to stay in front of my partners.'
                 },
                 stephanie: {
                     name: 'Stephanie Parra', role: 'Branch Manager', state: 'Rhode Island', topic: 'Sales Goal Tracker',
-                    img: 'images/v2/lo-stephanie.webp',
+                    img: '../join-homespire-live-demo-v2/images/v2/lo-stephanie.webp',
                     quote: 'The Sales Goal Tracker has definitely <mark>kept me on track</mark>. Setting my target numbers at the beginning of the year, especially my income goal, <mark>made everything more real</mark>. And <mark>checking in on my progress each month with my manager</mark> helps me stay focused on what I need to do.'
                 },
                 marty: {
                     name: 'Marty Guy Fink', role: 'Branch Manager', state: 'Virginia', topic: 'Loan Lab',
-                    img: 'images/v2/lo-marty.webp',
+                    img: '../join-homespire-live-demo-v2/images/v2/lo-marty.webp',
                     quote: '<mark>The Loan Lab is genius.</mark> No question’s too small. We help each other troubleshoot and brainstorm solutions to tricky scenarios: here’s the guideline, here’s how I handled this situation, here’s what you need to watch out for. <mark>I don’t know why every company doesn’t have this.</mark>'
                 }
             };
@@ -5472,7 +5485,7 @@
 
                 const chip = document.createElement('button');
                 chip.type = 'button';
-                chip.className = 'testi-chip';
+                chip.className = 'testi-chip' + (p.side === 'right' || document.body.dataset.testiSide === 'right' ? ' right' : '');
                 chip.setAttribute('aria-label', 'Hear from ' + p.name);
                 chip.innerHTML = '<img src="' + p.img + '" alt="" data-nozoom><span>Hear from ' + first + '</span><span class="testi-q">”</span>';
 
