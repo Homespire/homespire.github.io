@@ -3042,6 +3042,32 @@
             .gpt-table-wrap {
                 overflow-x: auto;
             }
+
+            .gpt-top {
+                flex-wrap: wrap;
+                gap: 6px;
+                padding: 10px 14px;
+            }
+
+            .gpt-btn {
+                white-space: normal;
+            }
+
+            .gpt-form .gpt-btn {
+                width: 100%;
+            }
+
+            .gpt-fetched > div[style*="justify-content: space-between"] {
+                flex-wrap: wrap;
+            }
+
+            .gpt-actions .gpt-btn {
+                flex: 1 1 auto;
+            }
+
+            .gpt-composer {
+                margin: 8px 12px 12px;
+            }
         }
 
         /* ============================================
@@ -3121,7 +3147,7 @@
         }
 
         .testi-pop {
-            position: absolute;
+            position: fixed;
             inset: 0;
             z-index: 40;
             display: flex;
@@ -3283,6 +3309,211 @@
             .testi-chip,
             .testi-pop {
                 display: none !important;
+            }
+        }
+
+        /* ============================================
+           MOBILE & TABLET (1024px and below)
+           One column, headline first, nothing wider than the screen,
+           and visuals fade in just after the headline.
+           ============================================ */
+        @media screen and (max-width: 1024px) {
+            .slide-content,
+            .slide-content.reverse {
+                grid-template-columns: minmax(0, 1fr) !important;
+                direction: ltr;
+                zoom: 1 !important;
+            }
+
+            .slide-content > * {
+                min-width: 0;
+            }
+
+            /* Whatever holds the headline always comes first */
+            .slide-content > :has(h1) {
+                order: -1;
+            }
+
+            .slide-content .content-container {
+                max-width: 100% !important;
+            }
+
+            /* Headline first, then the visuals */
+            .slide .slide-content > * {
+                opacity: 0;
+                transform: translateY(18px);
+                transition: opacity 0.55s ease, transform 0.55s ease;
+            }
+
+            .slide.visible .slide-content > * {
+                opacity: 1;
+                transform: none;
+            }
+
+            .slide.visible .slide-content > :not(:has(h1)) {
+                transition-delay: 0.25s;
+            }
+
+            .slide img {
+                max-width: 100%;
+            }
+
+            /* .floating images overhang their column on desktop; keep them inside on tablets */
+            .image-container img.floating,
+            .image-container img.floating-smaller {
+                max-width: 100% !important;
+                max-height: 70vh;
+                width: auto;
+            }
+
+            /* Argyle and Finicity phones had a fixed 500px height */
+            .slide img[style*="height: 500px"] {
+                height: auto !important;
+                width: min(62%, 260px) !important;
+                margin: 0 auto 8px;
+            }
+
+            .slide-content div[style*="align-items: center; gap: 16px; margin-bottom: 20px;"] {
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+
+            /* 360 in action: phones sized to the screen, not the slide */
+            .trio.four .trio-img {
+                height: auto;
+                padding: 18px 0 0;
+            }
+
+            .trio.four .trio-img img.phone {
+                height: auto;
+                width: auto;
+                max-height: 56vh;
+                max-width: 78%;
+                margin-top: 0;
+            }
+
+            .trio.four .trio-img img:not(.phone) {
+                width: 72%;
+                margin-top: 18px;
+            }
+
+            /* Spark Social: two phones side by side within the screen */
+            .image-container[style*="flex-direction: row"] img {
+                width: 47% !important;
+                max-width: 47% !important;
+                max-height: none !important;
+                height: auto !important;
+            }
+
+            /* Microsites frame fits the screen width */
+            .scroller {
+                width: 100%;
+            }
+
+            .scroller-frame {
+                width: min(100%, 360px);
+            }
+
+            .scroller-view {
+                height: auto;
+                width: 100%;
+            }
+
+            .scroller.wide .scroller-view {
+                width: 100%;
+                max-height: 46vh;
+            }
+
+            .scroller-label {
+                min-width: 0;
+            }
+
+            /* Long headlines wrap naturally */
+            h1 br {
+                display: none;
+            }
+
+            .gpt-intro h1 br {
+                display: inline;
+            }
+
+            .link-row {
+                gap: 8px;
+            }
+
+            /* Agent Connect results: tiles two across, the highlight tile full width */
+            .steps.five {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 12px;
+            }
+
+            .steps.five .step-arrow {
+                display: none;
+            }
+
+            .steps.five .stat.highlight {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            .slide {
+                padding: 76px 0 40px !important;
+            }
+
+            .slide-content {
+                padding: 20px 20px !important;
+            }
+
+            .thumbs img {
+                height: 52px;
+            }
+
+            /* Digital Verification: Argyle and Finicity stack */
+            .slide-content div[style*="grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px;"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            .stat .stat-value {
+                font-size: 2.4rem;
+            }
+
+            .testimonial,
+            .hvr {
+                max-width: 100%;
+            }
+
+            /* Thank-you presenter card stacks */
+            .slide-content div[style*="max-width: 600px; margin: 0 auto;"] {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px !important;
+            }
+
+            .slide-content div[style*="max-width: 600px; margin: 0 auto;"] > div {
+                text-align: center !important;
+            }
+
+            .slide-content div[style*="max-width: 600px; margin: 0 auto;"] > div > div {
+                align-items: center;
+            }
+        }
+
+        /* Slides with a testimonial button keep room for it below the content */
+        @media screen and (max-width: 1024px) {
+            .slide[data-testimonial] {
+                padding-bottom: 96px !important;
+            }
+
+            .slide[data-testimonial] .testi-chip {
+                bottom: 28px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slide .slide-content > * {
+                opacity: 1 !important;
+                transform: none !important;
             }
         }
     </style>
@@ -5340,6 +5571,8 @@
         }, { passive: true });
 
         function handleSwipe() {
+            // Phones and tablets scroll naturally, so long slides can be read in full
+            if (window.innerWidth <= 1024) return;
             const swipeDistance = touchStartY - touchEndY;
             
             if (Math.abs(swipeDistance) > minSwipeDistance) {
@@ -6265,7 +6498,8 @@
                 pop.addEventListener('click', e => { if (e.target === pop) close(); });
 
                 slide.appendChild(chip);
-                slide.appendChild(pop);
+                pop._slide = slide;
+                document.body.appendChild(pop);
                 pops.push(pop);
                 slide._testimonial = { pop, open, close };
             });
@@ -6298,7 +6532,7 @@
             window.addEventListener('scroll', () => {
                 const shown = openPop();
                 if (!shown) return;
-                const r = shown.parentElement.getBoundingClientRect();
+                const r = shown._slide.getBoundingClientRect();
                 if (r.bottom < window.innerHeight * 0.4 || r.top > window.innerHeight * 0.6) shown.hidden = true;
             }, { passive: true });
         })();
