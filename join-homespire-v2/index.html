@@ -2102,6 +2102,928 @@
                 height: 52vh;
             }
         }
+
+        /* ============================================
+           HOMESPIRE GPT: interactive demo slide
+           ============================================ */
+
+        .gpt-intro {
+            text-align: center;
+        }
+
+        .gpt-intro .section-label {
+            margin-bottom: 10px;
+        }
+
+        .gpt-intro h1 {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            margin-bottom: 0;
+        }
+
+        .gpt {
+            --g-deep: #3B0B70;
+            --g-primary: #6D28D9;
+            --g-accent: #8B5CF6;
+            --g-pale: #F3EEFA;
+            --g-text: #1F1B24;
+            --g-muted: #6B6475;
+            --g-border: #E6E0EF;
+            --g-green: #15803D;
+            --g-green-bg: #E8F7EE;
+            position: relative;
+            display: grid;
+            grid-template-columns: 188px minmax(0, 1fr) 264px;
+            width: min(100%, calc((100vh - 250px) * 16 / 9));
+            aspect-ratio: 16 / 9;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid var(--g-border);
+            border-radius: 18px;
+            box-shadow: 0 24px 60px rgba(59, 11, 112, 0.16);
+            overflow: hidden;
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.45;
+            color: var(--g-text);
+            text-align: left;
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        .gpt.wide {
+            grid-template-columns: 188px minmax(0, 1fr) 0;
+        }
+
+        .gpt.wide .gpt-starters {
+            display: none;
+        }
+
+        .gpt button {
+            font-family: inherit;
+        }
+
+        /* Sidebar */
+        .gpt-side {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 16px 12px;
+            background: var(--g-pale);
+            border-right: 1px solid var(--g-border);
+            min-height: 0;
+        }
+
+        .gpt-brand {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--g-deep);
+            padding: 2px 6px 14px;
+        }
+
+        .gpt-logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+        }
+
+        .gpt-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 9px 10px;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--g-text);
+            font-size: 14px;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .gpt-nav:hover {
+            background: rgba(109, 40, 217, 0.08);
+        }
+
+        .gpt-nav.active {
+            background: #ffffff;
+            color: var(--g-primary);
+            font-weight: 600;
+            box-shadow: 0 1px 4px rgba(59, 11, 112, 0.1);
+        }
+
+        .gpt-ico {
+            width: 18px;
+            text-align: center;
+            color: var(--g-primary);
+        }
+
+        .gpt-user {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 6px 0;
+            border-top: 1px solid var(--g-border);
+            font-size: 13px;
+        }
+
+        .gpt-user small {
+            display: block;
+            color: var(--g-muted);
+        }
+
+        .gpt-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--g-primary);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Main workspace */
+        .gpt-main {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        .gpt-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 11px 18px;
+            border-bottom: 1px solid var(--g-border);
+        }
+
+        .gpt-title {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .gpt-top-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gpt-tag {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--g-muted);
+            margin-right: 4px;
+        }
+
+        .gpt-ctl {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--g-border);
+            background: #ffffff;
+            color: var(--g-muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .gpt-ctl.primary {
+            background: var(--g-deep);
+            border-color: var(--g-deep);
+            color: #ffffff;
+        }
+
+        .gpt-ctl:disabled {
+            opacity: 0.45;
+            cursor: default;
+        }
+
+        .gpt-thread {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            padding: 18px 26px 10px;
+            scroll-behavior: smooth;
+        }
+
+        .gpt-composer {
+            display: flex;
+            gap: 8px;
+            margin: 8px 22px 14px;
+            padding: 6px 6px 6px 16px;
+            border: 1px solid var(--g-border);
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(59, 11, 112, 0.06);
+        }
+
+        .gpt-composer input {
+            flex: 1;
+            min-width: 0;
+            border: 0;
+            outline: none;
+            font: inherit;
+            font-size: 15px;
+            color: var(--g-text);
+            background: transparent;
+        }
+
+        .gpt-composer button {
+            width: 36px;
+            height: 36px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--g-primary);
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Messages */
+        .gpt-msg {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            animation: gptIn 0.28s ease;
+        }
+
+        @keyframes gptIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        .gpt-msg.user {
+            justify-content: flex-end;
+        }
+
+        .gpt-bubble {
+            background: var(--g-pale);
+            color: var(--g-text);
+            padding: 10px 15px;
+            border-radius: 14px 14px 4px 14px;
+            max-width: 72%;
+            font-weight: 500;
+        }
+
+        .gpt-bot-ico {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, var(--g-primary), var(--g-accent));
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .gpt-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .gpt-body > p {
+            margin: 4px 0 10px;
+        }
+
+        .gpt-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--g-muted);
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        .gpt-spin {
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--g-border);
+            border-top-color: var(--g-primary);
+            border-radius: 50%;
+            animation: gptSpin 0.7s linear infinite;
+        }
+
+        @keyframes gptSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .gpt-chip {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 9px 14px;
+            border: 1px solid var(--g-accent);
+            border-radius: 12px;
+            background: #ffffff;
+            color: var(--g-primary);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .gpt-chip:hover {
+            background: var(--g-pale);
+        }
+
+        .gpt-card {
+            background: #ffffff;
+            border: 1px solid var(--g-border);
+            border-radius: 14px;
+            padding: 14px 16px;
+            box-shadow: 0 2px 10px rgba(59, 11, 112, 0.05);
+        }
+
+        .gpt-ok {
+            color: var(--g-green);
+            font-weight: 600;
+        }
+
+        /* Loan table */
+        .gpt-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .gpt-table th {
+            text-align: left;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--g-muted);
+            padding: 0 10px 8px;
+            border-bottom: 1px solid var(--g-border);
+        }
+
+        .gpt-table td {
+            padding: 9px 10px;
+            border-bottom: 1px solid var(--g-border);
+            white-space: nowrap;
+        }
+
+        .gpt-table tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .gpt-table tbody tr {
+            cursor: pointer;
+        }
+
+        .gpt-table tbody tr:hover td {
+            background: var(--g-pale);
+        }
+
+        .gpt-table tr.picked td {
+            background: var(--g-pale);
+        }
+
+        .gpt-rate {
+            font-weight: 700;
+            color: var(--g-primary);
+        }
+
+        .gpt-pill {
+            display: inline-block;
+            padding: 2px 9px;
+            border-radius: 20px;
+            background: var(--g-green-bg);
+            color: var(--g-green);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .gpt-link {
+            border: 0;
+            background: none;
+            color: var(--g-primary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Forms */
+        .gpt-form {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .gpt-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--g-muted);
+            margin-bottom: 4px;
+        }
+
+        .gpt-field input,
+        .gpt-field select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--g-border);
+            border-radius: 9px;
+            font: inherit;
+            font-size: 14px;
+            color: var(--g-text);
+            background: #ffffff;
+        }
+
+        .gpt-field input:focus,
+        .gpt-field select:focus {
+            outline: 2px solid rgba(139, 92, 246, 0.35);
+            border-color: var(--g-accent);
+        }
+
+        .gpt-btn {
+            padding: 9px 18px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--g-primary);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .gpt-btn:hover {
+            background: var(--g-deep);
+        }
+
+        .gpt-btn.ghost {
+            background: #ffffff;
+            color: var(--g-primary);
+            border: 1px solid var(--g-border);
+        }
+
+        .gpt-btn:disabled {
+            opacity: 0.55;
+            cursor: default;
+        }
+
+        .gpt-details {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px 16px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--g-border);
+            font-size: 13px;
+        }
+
+        .gpt-details div span {
+            display: block;
+            color: var(--g-muted);
+            font-size: 11.5px;
+        }
+
+        .gpt-details div strong {
+            font-weight: 600;
+        }
+
+        .gpt-details .wide2 {
+            grid-column: span 2;
+        }
+
+        /* Scenarios */
+        .gpt-current {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 26px;
+            align-items: baseline;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: var(--g-pale);
+            font-size: 13.5px;
+            margin-bottom: 12px;
+        }
+
+        .gpt-current b {
+            color: var(--g-deep);
+        }
+
+        .gpt-current .lbl {
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--g-primary);
+        }
+
+        .gpt-options {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .gpt-opt {
+            border: 1px solid var(--g-border);
+            border-radius: 14px;
+            padding: 12px 14px;
+            background: #ffffff;
+            position: relative;
+        }
+
+        .gpt-opt.top {
+            border: 2px solid var(--g-accent);
+            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.14);
+        }
+
+        .gpt-opt-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-bottom: 8px;
+            min-height: 24px;
+        }
+
+        .gpt-opt-head strong {
+            font-size: 16px;
+            color: var(--g-deep);
+        }
+
+        .gpt-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            justify-content: flex-end;
+        }
+
+        .gpt-badge {
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            background: var(--g-pale);
+            color: var(--g-primary);
+            white-space: nowrap;
+        }
+
+        .gpt-badge.savings {
+            background: var(--g-primary);
+            color: #ffffff;
+        }
+
+        .gpt-opt-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 8px;
+        }
+
+        .gpt-opt-inputs .gpt-field label {
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+
+        .gpt-opt-inputs .gpt-field input {
+            padding: 6px 8px;
+            font-size: 13.5px;
+        }
+
+        .gpt-opt-sub {
+            font-size: 11.5px;
+            color: var(--g-muted);
+            margin: 6px 0 0;
+        }
+
+        .gpt-results {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid var(--g-border);
+            display: grid;
+            gap: 3px;
+            font-size: 13.5px;
+        }
+
+        .gpt-results div {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .gpt-results span {
+            color: var(--g-muted);
+        }
+
+        .gpt-pos {
+            color: var(--g-green);
+            font-weight: 700;
+        }
+
+        .gpt-neg {
+            color: #B42318;
+            font-weight: 700;
+        }
+
+        .gpt-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 12px;
+        }
+
+        /* Offer */
+        .gpt-offer {
+            border: 1px solid var(--g-border);
+            border-radius: 16px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 6px 24px rgba(59, 11, 112, 0.08);
+        }
+
+        .gpt-offer-band {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 18px;
+            background: var(--g-deep);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .gpt-offer-band span:last-child {
+            opacity: 0.75;
+            font-weight: 500;
+        }
+
+        .gpt-offer-body {
+            padding: 16px 20px 18px;
+        }
+
+        .gpt-offer h3 {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: 26px;
+            color: var(--g-deep);
+            margin: 0 0 8px;
+        }
+
+        .gpt-offer-intro {
+            margin: 0 0 12px;
+            font-size: 14.5px;
+        }
+
+        .gpt-offer .gpt-results {
+            border-top: 0;
+            margin-top: 4px;
+            padding-top: 0;
+        }
+
+        .gpt-offer-note {
+            margin: 12px 0 4px;
+            font-size: 14px;
+        }
+
+        .gpt-sign {
+            margin-top: 12px;
+            font-size: 13.5px;
+            line-height: 1.4;
+        }
+
+        .gpt-sign strong {
+            color: var(--g-deep);
+        }
+
+        .gpt-disclose {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--g-border);
+            font-size: 11px;
+            color: var(--g-muted);
+            line-height: 1.45;
+        }
+
+        .gpt-flash {
+            animation: gptFlash 1.2s ease;
+        }
+
+        @keyframes gptFlash {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+            30% { box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.35); }
+        }
+
+        /* Conversation starters */
+        .gpt-starters {
+            border-left: 1px solid var(--g-border);
+            padding: 18px 16px;
+            background: #FCFAFE;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 0;
+            overflow-y: auto;
+        }
+
+        .gpt-starters-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--g-muted);
+            margin-bottom: 2px;
+        }
+
+        .gpt-starter {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--g-border);
+            background: #ffffff;
+            cursor: pointer;
+            font-size: 13.5px;
+            color: var(--g-text);
+        }
+
+        .gpt-starter strong {
+            display: block;
+            color: var(--g-primary);
+            margin-bottom: 3px;
+            font-size: 13.5px;
+        }
+
+        .gpt-starter:not(.muted):hover {
+            border-color: var(--g-accent);
+            box-shadow: 0 4px 14px rgba(109, 40, 217, 0.12);
+        }
+
+        .gpt-starter.muted {
+            opacity: 0.55;
+            cursor: default;
+        }
+
+        /* Email modal */
+        .gpt-modal {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            background: rgba(31, 12, 56, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+        }
+
+        .gpt-modal[hidden] {
+            display: none;
+        }
+
+        .gpt-modal-card {
+            width: min(720px, 100%);
+            max-height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .gpt-modal-head,
+        .gpt-modal-foot {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--g-border);
+        }
+
+        .gpt-modal-head {
+            justify-content: space-between;
+        }
+
+        .gpt-modal-foot {
+            border-bottom: 0;
+            border-top: 1px solid var(--g-border);
+            justify-content: flex-end;
+        }
+
+        .gpt-x {
+            border: 0;
+            background: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--g-muted);
+        }
+
+        .gpt-sent {
+            margin-right: auto;
+            color: var(--g-green);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .gpt-email {
+            overflow-y: auto;
+            padding: 14px 20px;
+            font-size: 14px;
+        }
+
+        .gpt-email p {
+            margin: 0 0 10px;
+        }
+
+        .gpt-email-meta {
+            display: grid;
+            grid-template-columns: 70px 1fr;
+            gap: 3px 10px;
+            font-size: 13.5px;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--g-border);
+        }
+
+        .gpt-email-meta span {
+            color: var(--g-muted);
+        }
+
+        .gpt-email-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+            margin: 10px 0;
+        }
+
+        .gpt-email-table th,
+        .gpt-email-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid var(--g-border);
+            text-align: right;
+        }
+
+        .gpt-email-table th:first-child,
+        .gpt-email-table td:first-child {
+            text-align: left;
+        }
+
+        .gpt-email-table thead th {
+            background: var(--g-pale);
+            color: var(--g-deep);
+            font-size: 12.5px;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .gpt,
+            .gpt.wide {
+                grid-template-columns: minmax(0, 1fr);
+                width: 100%;
+                aspect-ratio: auto;
+                height: 78vh;
+            }
+
+            .gpt-side,
+            .gpt-starters {
+                display: none;
+            }
+
+            .gpt-options,
+            .gpt-form,
+            .gpt-details {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gpt-tag {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 640px) {
+            .gpt-options,
+            .gpt-form,
+            .gpt-details {
+                grid-template-columns: 1fr;
+            }
+
+            .gpt-thread {
+                padding: 14px;
+            }
+
+            .gpt-table-wrap {
+                overflow-x: auto;
+            }
+        }
     </style>
 
 </head>
@@ -2465,8 +3387,80 @@
         </div>
     </section>
 
-    <!-- SLIDE 8: Loan Application Platform -->
+    <!-- SLIDE: Homespire GPT - interactive demo -->
     <section class="slide" data-slide="8">
+        <div class="gradient-glow"></div>
+        <div class="gradient-glow-secondary"></div>
+        <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1320px; gap: 16px;">
+            <div class="gpt-intro">
+                <div class="section-label">AI Tools</div>
+                <h1>When GPT meets your Encompass data,<br><span class="gradient-text">new opportunities begin to surface.</span></h1>
+            </div>
+
+            <div class="gpt" id="gpt-demo">
+                <aside class="gpt-side">
+                    <div class="gpt-brand"><img class="gpt-logo" alt="Homespire" data-nozoom></div>
+                    <button type="button" class="gpt-nav" data-nav="new"><span class="gpt-ico">＋</span>New Chat</button>
+                    <button type="button" class="gpt-nav" data-nav="search"><span class="gpt-ico">⌕</span>Loan Search</button>
+                    <button type="button" class="gpt-nav" data-nav="offers"><span class="gpt-ico">✉</span>Refinance Offers</button>
+                    <div class="gpt-user">
+                        <span class="gpt-avatar">AM</span>
+                        <div><strong>Alex Morgan</strong><small>Loan Officer</small></div>
+                    </div>
+                </aside>
+
+                <main class="gpt-main">
+                    <div class="gpt-top">
+                        <span class="gpt-title">New chat</span>
+                        <div class="gpt-top-right">
+                            <span class="gpt-tag">Demo • Illustrative data</span>
+                            <button type="button" class="gpt-ctl" data-ctl="restart">Restart demo</button>
+                            <button type="button" class="gpt-ctl primary" data-ctl="next">Next step →</button>
+                        </div>
+                    </div>
+                    <div class="gpt-thread" aria-live="polite"></div>
+                    <form class="gpt-composer" autocomplete="off">
+                        <input type="text" aria-label="Message Homespire GPT" placeholder="Ask about your loans…">
+                        <button type="submit" aria-label="Send">↑</button>
+                    </form>
+                </main>
+
+                <aside class="gpt-starters">
+                    <div class="gpt-starters-title">Conversation starters</div>
+                    <button type="button" class="gpt-starter" data-prompt="search">
+                        <strong>Find refinance candidates</strong>
+                        <span>Show me all my loans with an interest rate of 7.5% or greater.</span>
+                    </button>
+                    <div class="gpt-starter muted">
+                        <strong>Surface equity</strong>
+                        <span>Which past clients have the strongest equity?</span>
+                    </div>
+                    <div class="gpt-starter muted">
+                        <strong>Purchase offers</strong>
+                        <span>Draft a purchase offer with multiple scenarios.</span>
+                    </div>
+                </aside>
+
+                <div class="gpt-modal" hidden>
+                    <div class="gpt-modal-card" role="dialog" aria-modal="true" aria-label="Email preview">
+                        <div class="gpt-modal-head">
+                            <strong>Email preview</strong>
+                            <button type="button" class="gpt-x" data-ctl="close-email" aria-label="Close">✕</button>
+                        </div>
+                        <div class="gpt-email"></div>
+                        <div class="gpt-modal-foot">
+                            <span class="gpt-sent" hidden>✓ Demo email prepared — no email was sent.</span>
+                            <button type="button" class="gpt-btn ghost" data-ctl="close-email">Close</button>
+                            <button type="button" class="gpt-btn" data-ctl="send">Simulate Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: Loan Application Platform -->
+    <section class="slide" data-slide="9">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="gap: 64px;">
@@ -2535,8 +3529,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 9: Image on Right -->
-    <section class="slide" data-slide="9">
+    <!-- SLIDE 10: Image on Right -->
+    <section class="slide" data-slide="10">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 56px;">
@@ -2583,8 +3577,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 10: Image on Left -->
-    <section class="slide" data-slide="10">
+    <!-- SLIDE 11: Image on Left -->
+    <section class="slide" data-slide="11">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content reverse" style="align-items: center;">
@@ -2644,8 +3638,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 11: Digital Verification - Argyle and Finicity -->
-    <section class="slide" data-slide="11">
+    <!-- SLIDE 12: Digital Verification - Argyle and Finicity -->
+    <section class="slide" data-slide="12">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1200px;">
@@ -2706,8 +3700,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 12: Image on Left -->
-    <section class="slide" data-slide="12">
+    <!-- SLIDE 13: Image on Left -->
+    <section class="slide" data-slide="13">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1.2fr 1fr; gap: 0;">
@@ -2755,7 +3749,7 @@
     </section>
 
     <!-- SLIDE: Agent Connect Results -->
-    <section class="slide dark" data-slide="13">
+    <section class="slide dark" data-slide="14">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1280px;">
@@ -2800,7 +3794,7 @@
     </section>
 
     <!-- SLIDE: Realtor Portal -->
-    <section class="slide" data-slide="14">
+    <section class="slide" data-slide="15">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content reverse" style="grid-template-columns: 1fr 1.25fr; gap: 64px;">
@@ -2848,7 +3842,7 @@
     </section>
 
     <!-- SLIDE: Borrower Insights -->
-    <section class="slide" data-slide="15">
+    <section class="slide" data-slide="16">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1320px; gap: 28px;">
@@ -2925,7 +3919,7 @@
     </section>
 
     <!-- SLIDE: Opportunities -->
-    <section class="slide dark" data-slide="16">
+    <section class="slide dark" data-slide="17">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); gap: 44px; max-width: 1500px;">
@@ -2958,7 +3952,7 @@
     </section>
 
     <!-- SLIDE: Opportunities - A Safety Net -->
-    <section class="slide" data-slide="17">
+    <section class="slide" data-slide="18">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content reverse" style="grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); gap: 44px; max-width: 1500px;">
@@ -3010,7 +4004,7 @@
     </section>
 
     <!-- SLIDE: Automated Customer Journeys -->
-    <section class="slide" data-slide="18">
+    <section class="slide" data-slide="19">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr 1.1fr; gap: 64px;">
@@ -3038,7 +4032,7 @@
     </section>
 
     <!-- SLIDE: Home Value Report -->
-    <section class="slide" data-slide="19">
+    <section class="slide" data-slide="20">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="gap: 64px;">
@@ -3125,7 +4119,7 @@
     </section>
 
     <!-- SLIDE: Microsites -->
-    <section class="slide dark" data-slide="20">
+    <section class="slide dark" data-slide="21">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: auto 1fr; gap: 64px; max-width: 1180px;">
@@ -3165,7 +4159,7 @@
     </section>
 
     <!-- SLIDE: Buyer's Edge - Listings -->
-    <section class="slide dark" data-slide="21">
+    <section class="slide dark" data-slide="22">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1100px; text-align: center;">
@@ -3189,7 +4183,7 @@
     </section>
 
     <!-- SLIDE: Buyer's Edge - Per-Home Page -->
-    <section class="slide" data-slide="22">
+    <section class="slide" data-slide="23">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1100px; text-align: center;">
@@ -3212,8 +4206,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 23: Spark Social -->
-    <section class="slide" data-slide="23">
+    <!-- SLIDE 24: Spark Social -->
+    <section class="slide" data-slide="24">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px;">
@@ -3330,8 +4324,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 24: Image on Right -->
-    <section class="slide" data-slide="24">
+    <!-- SLIDE 25: Image on Right -->
+    <section class="slide" data-slide="25">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content">
@@ -3422,7 +4416,7 @@
     </section>
 
     <!-- SLIDE: Built for Leaders -->
-    <section class="slide dark" data-slide="25">
+    <section class="slide dark" data-slide="26">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr 1.25fr; gap: 56px;">
@@ -3484,7 +4478,7 @@
     </section>
 
     <!-- SLIDE: Goals & Performance -->
-    <section class="slide" data-slide="26">
+    <section class="slide" data-slide="27">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content reverse" style="grid-template-columns: 1fr 1.25fr; gap: 56px;">
@@ -3547,8 +4541,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 27: Full Width -->
-    <section class="slide" data-slide="27">
+    <!-- SLIDE 28: Full Width -->
+    <section class="slide" data-slide="28">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1200px;">
@@ -3644,8 +4638,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 28: Full Width -->
-    <section class="slide" data-slide="28">
+    <!-- SLIDE 29: Full Width -->
+    <section class="slide" data-slide="29">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; max-width: 1200px;">
@@ -3710,8 +4704,8 @@
         </div>
     </section>
 
-    <!-- SLIDE 29: Thank You / Presenter Info -->
-    <section class="slide" data-slide="29">
+    <!-- SLIDE 30: Thank You / Presenter Info -->
+    <section class="slide" data-slide="30">
         <div class="gradient-glow"></div>
         <div class="gradient-glow-secondary"></div>
         <div class="slide-content" style="grid-template-columns: 1fr; text-align: center; max-width: 1000px;">
@@ -4341,6 +5335,604 @@
                     if (!panel.hidden) e.stopPropagation();
                 }, { capture: true, passive: true }));
             });
+        })();
+
+        // Homespire GPT demo: a self-contained, click-through simulation with fictional data.
+        // No network calls except loading the PDF library on demand.
+        (function () {
+            const root = document.getElementById('gpt-demo');
+            if (!root) return;
+
+            const thread = root.querySelector('.gpt-thread');
+            const composer = root.querySelector('.gpt-composer');
+            const input = composer.querySelector('input');
+            const nextBtn = root.querySelector('[data-ctl="next"]');
+            const modal = root.querySelector('.gpt-modal');
+            const emailBox = root.querySelector('.gpt-email');
+            const sentNote = root.querySelector('.gpt-sent');
+            const sendBtn = root.querySelector('[data-ctl="send"]');
+            const deckLogo = document.querySelector('img.logo');
+            if (deckLogo) root.querySelector('.gpt-logo').src = deckLogo.src;
+
+            const SEARCH_PROMPT = 'Show me all my loans with an interest rate of 7.5% or greater.';
+            const OFFER_PROMPT = 'Generate a rate-and-term refinance offer for loan DEMO-10482.';
+            const LO = { name: 'Alex Morgan', email: 'alex.morgan@example.com', phone: '(202) 555-0148' };
+
+            // The signed-in loan officer's full available history (fictional). The search filters this.
+            const HISTORY = [
+                { loan: 'DEMO-10482', borrower: 'Jordan Reed', amount: 360000, rate: 7.5, funded: 'Oct 1, 2026', status: 'Funded', lo: 'Alex Morgan' },
+                { loan: 'DEMO-10483', borrower: 'Taylor Brooks', amount: 425000, rate: 7.75, funded: 'May 15, 2025', status: 'Funded', lo: 'Alex Morgan' },
+                { loan: 'DEMO-10484', borrower: 'Casey Lane', amount: 298000, rate: 8.0, funded: 'Nov 20, 2024', status: 'Funded', lo: 'Alex Morgan' },
+                { loan: 'DEMO-10485', borrower: 'Morgan Hayes', amount: 510000, rate: 7.625, funded: 'Mar 12, 2025', status: 'Funded', lo: 'Alex Morgan' },
+                { loan: 'DEMO-10486', borrower: 'Avery Ellis', amount: 335000, rate: 7.875, funded: 'Aug 8, 2024', status: 'Funded', lo: 'Alex Morgan' },
+                { loan: 'DEMO-10487', borrower: 'Cameron Blake', amount: 460000, rate: 8.125, funded: 'Jan 24, 2025', status: 'Funded', lo: 'Alex Morgan' },
+                { loan: 'DEMO-10471', borrower: 'Riley Hayes', amount: 315000, rate: 6.875, funded: 'Jun 3, 2023', status: 'Funded', lo: 'Alex Morgan' },
+                { loan: 'DEMO-10476', borrower: 'Jamie Ellis', amount: 402000, rate: 7.25, funded: 'Feb 9, 2024', status: 'Funded', lo: 'Alex Morgan' },
+                { loan: 'DEMO-10490', borrower: 'Quinn Bailey', amount: 389000, rate: 7.875, funded: '—', status: 'In process', lo: 'Alex Morgan' }
+            ];
+
+            // Comparison assumptions for the selected loan (demonstration values, not a payoff quote)
+            const LOAN = {
+                borrower: 'Jordan Reed', first: 'Jordan', email: 'jordan.reed@example.com',
+                property: '123 Example Lane, Sample City, MD 00000', loan: 'DEMO-10482',
+                lo: 'Alex Morgan', status: 'Funded', originalAmount: 360000, balance: 360000,
+                rate: 7.5, termMonths: 360, remainingMonths: 360, value: 480000,
+                occupancy: 'Primary Residence', propertyType: 'Single Family', loanType: 'Conventional',
+                mi: 0, cashOut: 0
+            };
+
+            const DEFAULTS = [
+                { id: 'A', rate: 6.5, termYears: 30, principal: 360000, closing: 3600 },
+                { id: 'B', rate: 6.25, termYears: 30, principal: 360000, closing: 5400 },
+                { id: 'C', rate: 6.0, termYears: 30, principal: 360000, closing: 7200 }
+            ];
+
+            let state, scenarios, timers = [], busy = false, refs = {};
+
+            // ---------- math (full precision; round only for display) ----------
+            function payment(principal, annualRate, months) {
+                if (!(months > 0)) return 0;
+                const r = annualRate / 100 / 12;
+                if (r === 0) return principal / months;
+                return principal * r / (1 - Math.pow(1 + r, -months));
+            }
+
+            function currentPI() {
+                return payment(LOAN.balance, LOAN.rate, LOAN.remainingMonths);
+            }
+
+            function evaluate(s) {
+                const proposed = payment(s.principal, s.rate, s.termYears * 12);
+                const monthly = currentPI() - proposed;
+                return {
+                    proposed,
+                    monthly,
+                    annual: monthly * 12,
+                    breakEven: monthly > 0 ? s.closing / monthly : null
+                };
+            }
+
+            function standouts() {
+                const results = scenarios.map(evaluate);
+                let savings = null, cheapest = 0;
+                results.forEach((r, i) => {
+                    if (r.monthly > 0 && (savings === null || r.monthly > results[savings].monthly)) savings = i;
+                    if (scenarios[i].closing < scenarios[cheapest].closing) cheapest = i;
+                });
+                return { results, savings, cheapest };
+            }
+
+            const money = (n, d = 2) => (n < 0 ? '−$' : '$') + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+            const pct = n => n.toFixed(3) + '%';
+            const beText = r => r.breakEven === null ? 'No payment-savings break-even' : r.breakEven.toFixed(1) + ' months';
+            const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+            // ---------- helpers ----------
+            function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+            function setState(s) {
+                state = s;
+                const done = s === 'sent';
+                nextBtn.disabled = done || busy;
+                nextBtn.textContent = done ? 'Demo complete' : 'Next step →';
+                const nav = { start: 'new', searching: 'search', results: 'search' }[s] || 'offers';
+                root.querySelectorAll('.gpt-nav').forEach(b => b.classList.toggle('active', b.dataset.nav === nav));
+                root.querySelector('.gpt-title').textContent = s === 'start' ? 'New chat' : nav === 'search' ? 'Loan search' : 'Refinance offer · Jordan Reed';
+            }
+
+            function setBusy(b) {
+                busy = b;
+                nextBtn.disabled = b || state === 'sent';
+            }
+
+            function bringIntoView(el) {
+                requestAnimationFrame(() => {
+                    thread.scrollTop = Math.max(0, el.offsetTop - thread.offsetTop - 14);
+                });
+            }
+
+            function userSays(text) {
+                const m = document.createElement('div');
+                m.className = 'gpt-msg user';
+                m.innerHTML = '<div class="gpt-bubble">' + esc(text) + '</div>';
+                thread.appendChild(m);
+                return m;
+            }
+
+            function botSays(html) {
+                const m = document.createElement('div');
+                m.className = 'gpt-msg';
+                m.innerHTML = '<div class="gpt-bot-ico">H</div><div class="gpt-body">' + html + '</div>';
+                thread.appendChild(m);
+                return m;
+            }
+
+            function statusSequence(msg, steps, done) {
+                const body = msg.querySelector('.gpt-body');
+                body.innerHTML = '<div class="gpt-status"><span class="gpt-spin"></span><span></span></div>';
+                const label = body.querySelector('.gpt-status span:last-child');
+                steps.forEach((text, i) => later(() => { label.textContent = text; }, i * 750));
+                later(done, steps.length * 750);
+            }
+
+            // ---------- steps ----------
+            function welcome() {
+                const m = botSays('<p>Hi Alex, what would you like to work on today? I can search your full loan history, find refinance candidates and build borrower-ready offers.</p>' +
+                    '<button type="button" class="gpt-chip" data-prompt="search">' + esc(SEARCH_PROMPT) + '</button>');
+                bringIntoView(m);
+            }
+
+            function runSearch(text) {
+                if (state !== 'start' || busy) return;
+                setBusy(true);
+                root.classList.add('wide');
+                setState('searching');
+                userSays(text || SEARCH_PROMPT);
+                const m = botSays('');
+                bringIntoView(m);
+                statusSequence(m, ['Searching your loan history…', 'Filtering interest rates at or above 7.5%…', 'Preparing results…'], () => {
+                    const rows = HISTORY.filter(l => l.lo === LO.name && l.status === 'Funded' && l.rate >= 7.5);
+                    m.querySelector('.gpt-body').innerHTML =
+                        '<p>I found <strong>' + rows.length + ' funded loans</strong> in your loan history with an interest rate of 7.5% or greater. Select a loan to explore a refinance.</p>' +
+                        '<div class="gpt-card gpt-table-wrap"><table class="gpt-table"><thead><tr><th>Loan #</th><th>Borrower</th><th>Original loan amount</th><th>Rate</th><th>Funded</th><th>Status</th><th></th></tr></thead><tbody>' +
+                        rows.map(l => '<tr data-loan="' + l.loan + '"><td>' + l.loan + '</td><td>' + esc(l.borrower) + '</td><td>' + money(l.amount, 0) + '</td><td class="gpt-rate">' + pct(l.rate) + '</td><td>' + l.funded + '</td><td><span class="gpt-pill">' + l.status + '</span></td><td><button type="button" class="gpt-link" data-loan="' + l.loan + '">Explore refinance →</button></td></tr>').join('') +
+                        '</tbody></table></div>';
+                    refs.results = m;
+                    setBusy(false);
+                    setState('results');
+                    bringIntoView(m);
+                });
+            }
+
+            function selectLoan(id, text) {
+                if (busy || state !== 'results') return;
+                if (id !== 'DEMO-10482') {
+                    userSays('Generate a rate-and-term refinance offer for loan ' + id + '.');
+                    const m = botSays('<p>This demo includes full loan details for <strong>DEMO-10482 (Jordan Reed)</strong>. Select that loan to continue.</p>');
+                    bringIntoView(m);
+                    return;
+                }
+                refs.results.querySelectorAll('tr[data-loan]').forEach(r => r.classList.toggle('picked', r.dataset.loan === id));
+                userSays(text || OFFER_PROMPT);
+                const m = botSays(
+                    '<p>Let’s compare refinance options for Jordan Reed. Fetch the loan details to get started.</p>' +
+                    '<div class="gpt-card"><div class="gpt-form">' +
+                    '<div class="gpt-field"><label>Customer type</label><select><option>Existing Customer</option><option>New Customer</option></select></div>' +
+                    '<div class="gpt-field"><label>Source</label><select><option>Encompass</option></select></div>' +
+                    '<div class="gpt-field"><label>Loan number</label><input type="text" value="DEMO-10482"></div>' +
+                    '<button type="button" class="gpt-btn" data-ctl="fetch">Fetch Details</button>' +
+                    '</div><div class="gpt-fetched"></div></div>');
+                refs.fetch = m;
+                setState('fetch');
+                bringIntoView(m);
+            }
+
+            function fetchDetails() {
+                if (busy || state !== 'fetch') return;
+                const btn = refs.fetch.querySelector('[data-ctl="fetch"]');
+                const out = refs.fetch.querySelector('.gpt-fetched');
+                setBusy(true);
+                btn.disabled = true;
+                btn.textContent = 'Fetching…';
+                out.innerHTML = '<div class="gpt-status" style="margin-top: 12px;"><span class="gpt-spin"></span><span>Retrieving DEMO-10482 from Encompass…</span></div>';
+                later(() => {
+                    btn.textContent = 'Fetched ✓';
+                    const f = (label, value, cls) => '<div' + (cls ? ' class="' + cls + '"' : '') + '><span>' + label + '</span><strong>' + esc(value) + '</strong></div>';
+                    out.innerHTML = '<div class="gpt-details">' +
+                        f('Borrower', LOAN.borrower) + f('Email', LOAN.email) + f('Property', LOAN.property, 'wide2') +
+                        f('Loan officer', LOAN.lo) + f('Existing loan status', LOAN.status) + f('Original loan amount', money(LOAN.originalAmount, 0)) + f('Est. current principal balance', money(LOAN.balance, 0)) +
+                        f('Existing interest rate', pct(LOAN.rate)) + f('Existing term', LOAN.termMonths + ' months') + f('Remaining term (illustration)', LOAN.remainingMonths + ' months') + f('Current monthly P&I', money(currentPI())) +
+                        f('Property value', money(LOAN.value, 0)) + f('Loan-to-value', (LOAN.balance / LOAN.value * 100).toFixed(1) + '%') + f('Occupancy', LOAN.occupancy) + f('Property type', LOAN.propertyType) +
+                        f('Loan type', LOAN.loanType) + f('Mortgage insurance', money(LOAN.mi, 0)) + f('Cash out', money(LOAN.cashOut, 0)) +
+                        '</div>' +
+                        '<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px;">' +
+                        '<span class="gpt-ok">✓ Loan details loaded.</span>' +
+                        '<button type="button" class="gpt-btn" data-ctl="configure">Configure refinance options</button></div>';
+                    setBusy(false);
+                    setState('details');
+                    bringIntoView(refs.fetch);
+                }, 1100);
+            }
+
+            function scenarioCard(s, i) {
+                const field = (key, label, step, suffix) => '<div class="gpt-field"><label>' + label + '</label><input type="number" inputmode="decimal" step="' + step + '" min="0" data-i="' + i + '" data-key="' + key + '" value="' + s[key] + '"' + (suffix ? ' aria-label="' + label + ' ' + suffix + '"' : '') + '></div>';
+                return '<div class="gpt-opt" data-i="' + i + '">' +
+                    '<div class="gpt-opt-head"><strong>Option ' + s.id + '</strong><div class="gpt-badges"></div></div>' +
+                    '<div class="gpt-opt-inputs">' +
+                    field('rate', 'Rate (%)', '0.125') + field('termYears', 'Term (years)', '1') +
+                    field('principal', 'New loan amount ($)', '1000') + field('closing', 'Closing costs ($)', '100') +
+                    '</div><p class="gpt-opt-sub">Conventional · fixed rate · closing costs paid at closing, not financed</p>' +
+                    '<div class="gpt-results"></div></div>';
+            }
+
+            function refreshScenarios() {
+                const { results, savings, cheapest } = standouts();
+                refs.scen.querySelectorAll('.gpt-opt').forEach((card, i) => {
+                    const r = results[i];
+                    card.classList.toggle('top', i === savings);
+                    card.querySelector('.gpt-badges').innerHTML =
+                        (i === cheapest ? '<span class="gpt-badge">Lowest upfront cost</span>' : '') +
+                        (i === savings ? '<span class="gpt-badge savings">Greatest monthly savings</span>' : '');
+                    const cls = r.monthly > 0 ? 'gpt-pos' : 'gpt-neg';
+                    card.querySelector('.gpt-results').innerHTML =
+                        '<div><span>Monthly P&amp;I</span><strong>' + money(r.proposed) + '</strong></div>' +
+                        '<div><span>Monthly savings</span><strong class="' + cls + '">' + money(r.monthly) + '</strong></div>' +
+                        '<div><span>Annual savings</span><strong class="' + cls + '">' + money(r.annual) + '</strong></div>' +
+                        '<div><span>Simple break-even</span><strong>' + beText(r) + '</strong></div>';
+                });
+            }
+
+            function showScenarios() {
+                if (busy || state !== 'details') return;
+                const cfg = refs.fetch.querySelector('[data-ctl="configure"]');
+                if (cfg) cfg.disabled = true;
+                const m = botSays(
+                    '<p>Here are three rate-and-term options to start. Edit any rate, term, loan amount or closing cost and the comparison updates instantly.</p>' +
+                    '<div class="gpt-card">' +
+                    '<div class="gpt-current"><span class="lbl">Current mortgage</span>' +
+                    '<span>Balance <b>' + money(LOAN.balance, 0) + '</b></span><span>Rate <b>' + pct(LOAN.rate) + '</b></span>' +
+                    '<span>Term <b>' + LOAN.remainingMonths + ' months</b></span><span>Monthly P&amp;I <b>' + money(currentPI()) + '</b></span></div>' +
+                    '<div class="gpt-options">' + scenarios.map(scenarioCard).join('') + '</div>' +
+                    '<div class="gpt-actions"><button type="button" class="gpt-btn" data-ctl="generate">Generate Offer</button></div>' +
+                    '</div>');
+                refs.scen = m;
+                refreshScenarios();
+                setState('scenarios');
+                bringIntoView(m);
+            }
+
+            function offerHTML() {
+                const { results, savings, cheapest } = standouts();
+                const cards = scenarios.map((s, i) => {
+                    const r = results[i];
+                    const cls = r.monthly > 0 ? 'gpt-pos' : 'gpt-neg';
+                    return '<div class="gpt-opt' + (i === savings ? ' top' : '') + '">' +
+                        '<div class="gpt-opt-head"><strong>Option ' + s.id + '</strong><div class="gpt-badges">' +
+                        (i === cheapest ? '<span class="gpt-badge">Lowest upfront cost</span>' : '') +
+                        (i === savings ? '<span class="gpt-badge savings">Greatest monthly savings</span>' : '') + '</div></div>' +
+                        '<div class="gpt-results">' +
+                        '<div><span>Rate</span><strong>' + pct(s.rate) + '</strong></div>' +
+                        '<div><span>Term</span><strong>' + s.termYears + '-year fixed</strong></div>' +
+                        '<div><span>Loan amount</span><strong>' + money(s.principal, 0) + '</strong></div>' +
+                        '<div><span>Monthly P&amp;I</span><strong>' + money(r.proposed) + '</strong></div>' +
+                        '<div><span>Monthly savings</span><strong class="' + cls + '">' + money(r.monthly) + '</strong></div>' +
+                        '<div><span>Closing costs</span><strong>' + money(s.closing, 0) + '</strong></div>' +
+                        '<div><span>Simple break-even</span><strong>' + beText(r) + '</strong></div>' +
+                        '</div></div>';
+                }).join('');
+                return '<div class="gpt-offer">' +
+                    '<div class="gpt-offer-band"><span>Homespire Mortgage · Refinance comparison</span><span>Prepared for Jordan Reed</span></div>' +
+                    '<div class="gpt-offer-body">' +
+                    '<h3>Your refinance options, side by side</h3>' +
+                    '<p class="gpt-offer-intro">Hi Jordan,<br>I’ve put together three illustrative options to lower your mortgage’s principal-and-interest payment. Here’s how they compare with your current loan.</p>' +
+                    '<div class="gpt-current"><span class="lbl">Your current loan</span><span>Balance <b>' + money(LOAN.balance, 0) + '</b></span><span>Rate <b>' + pct(LOAN.rate) + '</b></span><span>Term <b>' + LOAN.remainingMonths + ' months</b></span><span>Monthly P&amp;I <b>' + money(currentPI()) + '</b></span></div>' +
+                    '<div class="gpt-options">' + cards + '</div>' +
+                    summaryLines().map(t => '<p class="gpt-offer-note">' + esc(t) + '</p>').join('') +
+                    '<div class="gpt-sign"><strong>' + LO.name + '</strong><br>Homespire Mortgage<br>' + LO.email + '<br>' + LO.phone + '</div>' +
+                    '<div class="gpt-disclose">' + esc(DISCLOSURE) + '</div>' +
+                    '</div></div>' +
+                    '<div class="gpt-actions">' +
+                    '<button type="button" class="gpt-btn ghost" data-ctl="edit">Edit Scenarios</button>' +
+                    '<button type="button" class="gpt-btn ghost" data-ctl="pdf">Download PDF</button>' +
+                    '<button type="button" class="gpt-btn" data-ctl="email">Preview Email</button></div>';
+            }
+
+            const DISCLOSURE = 'Illustrative comparison only; not a loan commitment or rate lock. Payments shown include principal and interest only. Taxes, insurance, escrow deposits, and prepaid interest are excluded. Closing costs are assumed paid separately and are not financed. Actual pricing, eligibility, payoff amounts, and costs require verification.';
+
+            function summaryLines() {
+                const { results, savings, cheapest } = standouts();
+                const lines = [];
+                if (savings === null) {
+                    lines.push('With these inputs, none of the options lowers your monthly principal-and-interest payment, so there is no payment-savings break-even.');
+                } else {
+                    const r = results[savings];
+                    lines.push('Option ' + scenarios[savings].id + ' lowers your monthly principal-and-interest payment by approximately ' + money(Math.round(r.monthly), 0) + ', with an estimated simple break-even of ' + r.breakEven.toFixed(1) + ' months.');
+                }
+                lines.push('Option ' + scenarios[cheapest].id + ' requires ' + (savings === cheapest ? 'the fewest' : 'fewer') + ' upfront closing costs. The right choice depends on your priorities and how long you expect to keep the loan.');
+                return lines;
+            }
+
+            function assistantSummary() {
+                const { savings, cheapest } = standouts();
+                if (savings === null) return 'Here’s a refinance comparison for Jordan Reed. With the current inputs, none of the options lowers the monthly payment, and the comparison shows that clearly.';
+                if (savings === cheapest) return 'Here’s a refinance comparison for Jordan Reed. Option ' + scenarios[savings].id + ' offers the greatest monthly payment savings and the lowest upfront cost.';
+                return 'Here’s a refinance comparison for Jordan Reed. Option ' + scenarios[savings].id + ' offers the greatest monthly payment savings, while Option ' + scenarios[cheapest].id + ' has the lowest upfront cost.';
+            }
+
+            function generateOffer() {
+                if (busy || !['scenarios', 'offer', 'sent'].includes(state)) return;
+                setBusy(true);
+                if (refs.offer) refs.offer.remove();
+                const m = botSays('');
+                refs.offer = m;
+                bringIntoView(m);
+                statusSequence(m, ['Preparing your refinance comparison…'], () => {
+                    m.querySelector('.gpt-body').innerHTML = '<p>' + esc(assistantSummary()) + '</p>' + offerHTML();
+                    setBusy(false);
+                    setState('offer');
+                    bringIntoView(m);
+                });
+            }
+
+            function editScenarios() {
+                if (!refs.scen) return;
+                setState('scenarios');
+                bringIntoView(refs.scen);
+                const card = refs.scen.querySelector('.gpt-card');
+                card.classList.remove('gpt-flash');
+                void card.offsetWidth;
+                card.classList.add('gpt-flash');
+            }
+
+            // ---------- email ----------
+            function emailBodyHTML() {
+                const { results } = standouts();
+                return '<p>Hi Jordan,</p>' +
+                    '<p>I’ve put together three illustrative options to lower your mortgage’s principal-and-interest payment. Here’s how they compare with your current loan (' + pct(LOAN.rate) + ', ' + money(currentPI()) + ' a month in principal and interest).</p>' +
+                    '<table class="gpt-email-table"><thead><tr><th></th>' + scenarios.map(s => '<th>Option ' + s.id + '</th>').join('') + '</tr></thead><tbody>' +
+                    '<tr><td>Rate</td>' + scenarios.map(s => '<td>' + pct(s.rate) + '</td>').join('') + '</tr>' +
+                    '<tr><td>Term</td>' + scenarios.map(s => '<td>' + s.termYears + '-yr fixed</td>').join('') + '</tr>' +
+                    '<tr><td>Loan amount</td>' + scenarios.map(s => '<td>' + money(s.principal, 0) + '</td>').join('') + '</tr>' +
+                    '<tr><td>Monthly P&amp;I</td>' + results.map(r => '<td>' + money(r.proposed) + '</td>').join('') + '</tr>' +
+                    '<tr><td>Monthly savings</td>' + results.map(r => '<td class="' + (r.monthly > 0 ? 'gpt-pos' : 'gpt-neg') + '">' + money(r.monthly) + '</td>').join('') + '</tr>' +
+                    '<tr><td>Closing costs</td>' + scenarios.map(s => '<td>' + money(s.closing, 0) + '</td>').join('') + '</tr>' +
+                    '<tr><td>Simple break-even</td>' + results.map(r => '<td>' + (r.breakEven === null ? 'None' : r.breakEven.toFixed(1) + ' mo') + '</td>').join('') + '</tr>' +
+                    '</tbody></table>' +
+                    summaryLines().map(t => '<p>' + esc(t) + '</p>').join('') +
+                    '<p>I’m happy to walk through these with you whenever it’s convenient.</p>' +
+                    '<div class="gpt-sign"><strong>' + LO.name + '</strong><br>Homespire Mortgage<br>' + LO.email + '<br>' + LO.phone + '</div>' +
+                    '<div class="gpt-disclose">' + esc(DISCLOSURE) + '</div>';
+            }
+
+            function openEmail() {
+                if (busy || !['offer', 'email', 'sent'].includes(state)) return;
+                emailBox.innerHTML =
+                    '<div class="gpt-email-meta"><span>To</span><strong>' + LOAN.email + '</strong><span>From</span><strong>' + LO.email + '</strong><span>Subject</span><strong>Jordan, here are your refinance options</strong></div>' +
+                    emailBodyHTML();
+                sentNote.hidden = true;
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Simulate Send';
+                modal.hidden = false;
+                emailBox.scrollTop = 0;
+                setState('email');
+            }
+
+            function simulateSend() {
+                if (modal.hidden) return;
+                sentNote.hidden = false;
+                sendBtn.disabled = true;
+                sendBtn.textContent = 'Prepared';
+                setState('sent');
+            }
+
+            function closeEmail() {
+                modal.hidden = true;
+                if (state === 'email') setState('offer');
+            }
+
+            // ---------- PDF ----------
+            function loadJsPDF() {
+                if (window.jspdf) return Promise.resolve(window.jspdf.jsPDF);
+                return new Promise((resolve, reject) => {
+                    const s = document.createElement('script');
+                    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    s.onload = () => window.jspdf ? resolve(window.jspdf.jsPDF) : reject();
+                    s.onerror = reject;
+                    document.head.appendChild(s);
+                });
+            }
+
+            function buildPDF(JsPDF) {
+                const doc = new JsPDF({ unit: 'pt', format: 'letter' });
+                const W = 612, M = 44, inner = W - M * 2;
+                const deep = [59, 11, 112], primary = [109, 40, 217], accent = [139, 92, 246], pale = [243, 238, 250];
+                const ink = [31, 27, 36], muted = [107, 100, 117], green = [21, 128, 61], red = [180, 35, 24], border = [230, 224, 239];
+                const { results, savings, cheapest } = standouts();
+                const ascii = t => t.replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/—/g, '-').replace(/−/g, '-');
+
+                doc.setFillColor(...deep); doc.rect(0, 0, W, 74, 'F');
+                doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(18);
+                doc.text('Homespire Mortgage', M, 34);
+                doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
+                doc.text('Refinance comparison prepared for Jordan Reed', M, 54);
+                doc.text('Illustrative', W - M, 54, { align: 'right' });
+
+                let y = 112;
+                doc.setTextColor(...deep); doc.setFont('helvetica', 'bold'); doc.setFontSize(21);
+                doc.text('Your refinance options, side by side', M, y);
+                y += 22;
+                doc.setTextColor(...ink); doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+                doc.text('Hi Jordan,', M, y); y += 15;
+                const intro = doc.splitTextToSize(ascii('I’ve put together three illustrative options to lower your mortgage’s principal-and-interest payment. Here’s how they compare with your current loan.'), inner);
+                doc.text(intro, M, y); y += intro.length * 14 + 10;
+
+                doc.setFillColor(...pale); doc.roundedRect(M, y, inner, 40, 8, 8, 'F');
+                doc.setTextColor(...primary); doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5);
+                doc.text('YOUR CURRENT LOAN', M + 14, y + 16);
+                doc.setTextColor(...ink); doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
+                doc.text('Balance ' + money(LOAN.balance, 0) + '    Rate ' + pct(LOAN.rate) + '    Term ' + LOAN.remainingMonths + ' months    Monthly P&I ' + money(currentPI()), M + 14, y + 31);
+                y += 56;
+
+                const gap = 12, cw = (inner - gap * 2) / 3, ch = 222;
+                scenarios.forEach((s, i) => {
+                    const x = M + i * (cw + gap), r = results[i];
+                    doc.setDrawColor(...(i === savings ? accent : border));
+                    doc.setLineWidth(i === savings ? 2 : 1);
+                    doc.roundedRect(x, y, cw, ch, 8, 8, 'S');
+                    doc.setTextColor(...deep); doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
+                    doc.text('Option ' + s.id, x + 12, y + 22);
+                    let by = y + 38;
+                    doc.setFontSize(7.5);
+                    const badge = (label, fill, color) => {
+                        doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5);
+                        doc.setFillColor(...fill); doc.roundedRect(x + 12, by - 9, doc.getTextWidth(label) + 14, 13, 6, 6, 'F');
+                        doc.setTextColor(...color); doc.text(label, x + 19, by); by += 16;
+                    };
+                    if (i === savings) badge('GREATEST MONTHLY SAVINGS', primary, [255, 255, 255]);
+                    if (i === cheapest) badge('LOWEST UPFRONT COST', pale, primary);
+                    const rows = [
+                        ['Rate', pct(s.rate)], ['Term', s.termYears + '-year fixed'], ['Loan amount', money(s.principal, 0)],
+                        ['Monthly P&I', money(r.proposed)], ['Monthly savings', money(r.monthly), r.monthly > 0 ? green : red],
+                        ['Closing costs', money(s.closing, 0)], ['Simple break-even', r.breakEven === null ? 'None' : r.breakEven.toFixed(1) + ' months']
+                    ];
+                    let ry = y + 78;
+                    rows.forEach(([k, v, c]) => {
+                        doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(...muted);
+                        doc.text(k, x + 12, ry);
+                        doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(...(c || ink));
+                        doc.text(ascii(v), x + cw - 12, ry, { align: 'right' });
+                        ry += 20;
+                    });
+                });
+                y += ch + 22;
+
+                doc.setTextColor(...ink); doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
+                summaryLines().forEach(t => {
+                    const lines = doc.splitTextToSize(ascii(t), inner);
+                    doc.text(lines, M, y); y += lines.length * 14 + 6;
+                });
+
+                y += 8;
+                doc.setFont('helvetica', 'bold'); doc.setTextColor(...deep); doc.text(LO.name, M, y);
+                doc.setFont('helvetica', 'normal'); doc.setTextColor(...ink);
+                ['Homespire Mortgage', LO.email, LO.phone].forEach((t, i) => doc.text(t, M, y + 14 * (i + 1)));
+                y += 72;
+
+                doc.setDrawColor(...border); doc.setLineWidth(1); doc.line(M, y, W - M, y);
+                doc.setFontSize(8.5); doc.setTextColor(...muted);
+                doc.text(doc.splitTextToSize(DISCLOSURE, inner), M, y + 14);
+                doc.save('Jordan-Reed-refinance-options.pdf');
+            }
+
+            function printFallback() {
+                const w = window.open('', '_blank');
+                if (!w) return;
+                w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Jordan Reed refinance options</title><style>' +
+                    'body{font-family:Helvetica,Arial,sans-serif;color:#1F1B24;max-width:720px;margin:32px auto;padding:0 24px}' +
+                    'h1{color:#3B0B70;font-size:24px}.band{background:#3B0B70;color:#fff;padding:14px 18px;border-radius:10px;font-weight:700}' +
+                    'table{width:100%;border-collapse:collapse;margin:12px 0}th,td{padding:7px 8px;border-bottom:1px solid #E6E0EF;text-align:right}' +
+                    'th:first-child,td:first-child{text-align:left}thead th{background:#F3EEFA;color:#3B0B70}.gpt-pos{color:#15803D;font-weight:700}.gpt-neg{color:#B42318;font-weight:700}' +
+                    '.gpt-sign strong{color:#3B0B70}.gpt-disclose{margin-top:16px;padding-top:10px;border-top:1px solid #E6E0EF;font-size:11px;color:#6B6475}' +
+                    '@media print{body{margin:0}}</style></head><body><div class="band">Homespire Mortgage · Refinance comparison</div>' +
+                    '<h1>Your refinance options, side by side</h1>' + emailBodyHTML() + '<script>window.onload=function(){window.print()}<\/script></body></html>');
+                w.document.close();
+            }
+
+            function downloadPDF(btn) {
+                const label = btn ? btn.textContent : '';
+                if (btn) { btn.disabled = true; btn.textContent = 'Preparing PDF…'; }
+                loadJsPDF().then(buildPDF).catch(printFallback).finally(() => {
+                    if (btn) { btn.disabled = false; btn.textContent = label; }
+                });
+            }
+
+            // ---------- presenter controls ----------
+            function next() {
+                if (busy) return;
+                ({
+                    start: () => runSearch(),
+                    results: () => selectLoan('DEMO-10482'),
+                    fetch: fetchDetails,
+                    details: showScenarios,
+                    scenarios: generateOffer,
+                    offer: openEmail,
+                    email: simulateSend
+                }[state] || (() => {}))();
+            }
+
+            function restart() {
+                timers.forEach(clearTimeout);
+                timers = [];
+                busy = false;
+                refs = {};
+                scenarios = DEFAULTS.map(s => ({ ...s }));
+                thread.innerHTML = '';
+                input.value = '';
+                modal.hidden = true;
+                root.classList.remove('wide');
+                setState('start');
+                welcome();
+            }
+
+            function onTyped(text) {
+                const t = text.trim();
+                if (!t) return;
+                const lower = t.toLowerCase();
+                if (state === 'start' && /7\.5|interest rate|rate/.test(lower)) return runSearch(t);
+                const loanId = (t.match(/demo-\d{5}/i) || [])[0];
+                if (state === 'results' && (loanId || /refinanc/.test(lower))) return selectLoan(loanId ? loanId.toUpperCase() : 'DEMO-10482', t);
+                userSays(t);
+                const hint = state === 'start' ? SEARCH_PROMPT : state === 'results' ? OFFER_PROMPT : null;
+                const m = botSays('<p>' + (hint ? 'In this demo, try: “' + esc(hint) + '”' : 'This demo follows one guided workflow. Use the buttons above, or press Next step.') + '</p>');
+                bringIntoView(m);
+            }
+
+            // ---------- events ----------
+            root.addEventListener('click', e => {
+                const t = e.target.closest('button, tr[data-loan]');
+                if (!t || !root.contains(t)) return;
+                if (t.dataset.prompt === 'search') return runSearch();
+                if (t.dataset.loan) return selectLoan(t.dataset.loan);
+                if (t.dataset.nav === 'new') return restart();
+                if (t.dataset.nav === 'search' && refs.results) return bringIntoView(refs.results);
+                if (t.dataset.nav === 'offers') return refs.offer ? bringIntoView(refs.offer) : refs.scen ? bringIntoView(refs.scen) : null;
+                switch (t.dataset.ctl) {
+                    case 'next': return next();
+                    case 'restart': return restart();
+                    case 'fetch': return fetchDetails();
+                    case 'configure': return showScenarios();
+                    case 'generate': return generateOffer();
+                    case 'edit': return editScenarios();
+                    case 'pdf': return downloadPDF(t);
+                    case 'email': return openEmail();
+                    case 'send': return simulateSend();
+                    case 'close-email': return closeEmail();
+                }
+            });
+
+            root.addEventListener('input', e => {
+                const el = e.target;
+                if (!el.dataset || el.dataset.key === undefined) return;
+                const v = parseFloat(el.value);
+                scenarios[+el.dataset.i][el.dataset.key] = isFinite(v) && v >= 0 ? v : 0;
+                refreshScenarios();
+            });
+
+            composer.addEventListener('submit', e => {
+                e.preventDefault();
+                const t = input.value;
+                input.value = '';
+                onTyped(t);
+            });
+
+            // Typing in the demo must not trigger the deck's arrow/space navigation
+            window.addEventListener('keydown', e => {
+                if (!root.contains(e.target)) return;
+                if (e.target.matches('input, select, textarea')) { e.stopPropagation(); return; }
+                if (!modal.hidden && e.key === 'Escape') { closeEmail(); e.stopPropagation(); }
+            }, true);
+
+            restart();
         })();
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f0ce7d66e3ce5c7',t:'MTc3Njk0NzcwMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
