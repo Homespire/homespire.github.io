@@ -50,7 +50,9 @@
             function open() {
                 clearTimeout(closeTimer);
                 const cur = onScreen();
-                list.querySelectorAll('.navitem').forEach(b => b.classList.toggle('current', +b.dataset.index === cur));
+                const items = [...list.querySelectorAll('.navitem')];
+                const here = items.filter(b => +b.dataset.index <= cur).pop();
+                items.forEach(b => b.classList.toggle('current', b === here));
                 drawer.classList.add('open');
                 const c = list.querySelector('.navitem.current');
                 if (c) c.scrollIntoView({ block: 'nearest' });
