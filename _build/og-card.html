@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Link preview card</title>
+<!-- Rendered to a 1200x630 image with headless Chrome (see _build/README.md). ?v=tour or ?v=live -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    font-family: 'Instrument Sans', sans-serif;
+    color: #ffffff;
+    background: linear-gradient(160deg, #160329 0%, #370C66 55%, #5B1C9C 100%);
+  }
+  .glow { position: absolute; border-radius: 50%; filter: blur(70px); }
+  .g1 { width: 620px; height: 620px; left: -200px; bottom: -320px; background: rgba(224, 64, 251, 0.38); }
+  .g2 { width: 520px; height: 520px; right: 60px; top: -260px; background: rgba(124, 77, 255, 0.35); }
+  .copy { position: absolute; left: 72px; top: 68px; width: 620px; }
+  .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 40px; }
+  .brand img { width: 56px; height: 56px; border-radius: 12px; }
+  .brand span { font-size: 20px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #f0dcff; }
+  h1 { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 68px; line-height: 1.04; margin-bottom: 26px; }
+  .grad { background: linear-gradient(135deg, #f48cff 0%, #b39dff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { font-size: 30px; font-weight: 600; color: rgba(255, 255, 255, 0.9); margin-bottom: 30px; }
+  .pill { display: inline-block; padding: 12px 24px; border-radius: 40px; background: linear-gradient(135deg, #e040fb 0%, #7c4dff 100%); font-size: 21px; font-weight: 700; box-shadow: 0 10px 30px rgba(224, 64, 251, 0.35); }
+  .phones { position: absolute; right: 40px; top: 58px; width: 470px; height: 560px; }
+  .phones img { position: absolute; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5)); }
+  .p1 { height: 540px; right: 150px; top: 20px; transform: rotate(-6deg); }
+  .p2 { height: 500px; right: 0; top: 52px; transform: rotate(7deg); }
+</style>
+</head>
+<body>
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="copy">
+    <div class="brand"><img src="homespire-logo.webp" alt=""><span>Homespire Mortgage</span></div>
+    <h1><span class="grad">Loan Officers,</span> meet your unfair advantage.</h1>
+    <p class="sub">Technology-driven. Human-centered.</p>
+    <span class="pill" id="pill">See the live demo</span>
+  </div>
+  <div class="phones">
+    <img class="p2" src="../join-homespire-live-demo-v2/images/v2/360-pipeline.webp" alt="">
+    <img class="p1" src="../join-homespire-live-demo-v2/images/v2/360-home.webp" alt="">
+  </div>
+  <script>
+    if (new URLSearchParams(location.search).get('v') === 'tour') document.getElementById('pill').textContent = 'Take the tour';
+  </script>
+</body>
+</html>

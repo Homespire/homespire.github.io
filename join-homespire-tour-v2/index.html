@@ -4,11 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Homespire Mortgage - Recruiting Presentation showcasing our technology, products, and culture">
+    <meta name="description" content="A quick tour of the technology, marketing, support and products behind Homespire Mortgage loan officers.">
     <meta name="theme-color" content="#6B4E9B">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Homespire Mortgage</title>
+    <title>Join Homespire: A Tour for Loan Officers</title>
+    <link rel="canonical" href="https://homespire.github.io/join-homespire-tour-v2/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Homespire Mortgage">
+    <meta property="og:title" content="Join Homespire: A Tour for Loan Officers">
+    <meta property="og:description" content="A quick tour of the technology, marketing, support and products behind Homespire Mortgage loan officers.">
+    <meta property="og:url" content="https://homespire.github.io/join-homespire-tour-v2/">
+    <meta property="og:image" content="https://homespire.github.io/join-homespire-live-demo-v2/images/v2/og-tour.jpg">
+    <meta property="og:image:secure_url" content="https://homespire.github.io/join-homespire-live-demo-v2/images/v2/og-tour.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Homespire Mortgage: Loan Officers, meet your unfair advantage.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Join Homespire: A Tour for Loan Officers">
+    <meta name="twitter:description" content="A quick tour of the technology, marketing, support and products behind Homespire Mortgage loan officers.">
+    <meta name="twitter:image" content="https://homespire.github.io/join-homespire-live-demo-v2/images/v2/og-tour.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -3516,6 +3532,180 @@
                 transform: none !important;
             }
         }
+
+        /* ============================================
+           SECTION MENU: hover the right edge, tap the tab, or press M
+           ============================================ */
+        .navzone {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 18px;
+            z-index: 2990;
+        }
+
+        .navtab {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 2995;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 7px;
+            border: 0;
+            border-radius: 12px 0 0 12px;
+            background: linear-gradient(180deg, #6B4E9B 0%, #8B6BBB 100%);
+            color: #ffffff;
+            font-family: var(--sans);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            opacity: 0.55;
+            box-shadow: -4px 4px 16px rgba(59, 11, 112, 0.2);
+            transition: opacity 0.2s ease, padding 0.2s ease;
+        }
+
+        .navtab:hover,
+        .navtab:focus-visible {
+            opacity: 1;
+            padding-right: 11px;
+        }
+
+        .navtab span {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .navdrawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 3000;
+            width: 330px;
+            max-width: 86vw;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            box-shadow: -18px 0 50px rgba(22, 3, 41, 0.22);
+            transform: translateX(105%);
+            transition: transform 0.28s ease;
+            font-family: var(--sans);
+        }
+
+        .navdrawer.open {
+            transform: none;
+        }
+
+        .navdrawer-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 22px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .navdrawer-head strong {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+
+        .navdrawer-head small {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .navdrawer-close {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: #ffffff;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .navdrawer-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 12px 24px;
+        }
+
+        .navchapter {
+            margin: 16px 10px 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .navitem {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            width: 100%;
+            padding: 8px 10px;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 15px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .navitem:hover {
+            background: rgba(107, 78, 155, 0.08);
+        }
+
+        .navitem small {
+            min-width: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .navitem.current {
+            background: linear-gradient(135deg, rgba(224, 64, 251, 0.12), rgba(124, 77, 255, 0.12));
+            color: #4B1A8A;
+            font-weight: 600;
+        }
+
+        .navitem.current small {
+            color: #7c4dff;
+        }
+
+        @media (hover: none), (max-width: 1024px) {
+            .navzone {
+                display: none;
+            }
+
+            .navtab {
+                opacity: 0.85;
+                padding: 12px 6px;
+            }
+        }
+
+        @media print {
+            .navzone,
+            .navtab,
+            .navdrawer {
+                display: none !important;
+            }
+        }
     </style>
 
 </head>
@@ -5777,6 +5967,97 @@
                 const r = shown._slide.getBoundingClientRect();
                 if (r.bottom < window.innerHeight * 0.4 || r.top > window.innerHeight * 0.6) shown.hidden = true;
             }, { passive: true });
+        })();
+
+        // Section menu: built from each slide's data-nav-chapter / data-nav-title.
+        // Hover the right edge or the tab (desktop), tap the tab (phones), or press M.
+        (function () {
+            const all = [...document.querySelectorAll('.slide')];
+            if (!all.some(s => s.dataset.navTitle)) return;
+
+            const zone = document.createElement('div');
+            zone.className = 'navzone';
+            const tab = document.createElement('button');
+            tab.type = 'button';
+            tab.className = 'navtab';
+            tab.setAttribute('aria-label', 'Open the section menu');
+            tab.innerHTML = '☰<span>Sections</span>';
+            const drawer = document.createElement('nav');
+            drawer.className = 'navdrawer';
+            drawer.setAttribute('aria-label', 'Sections');
+            drawer.innerHTML = '<div class="navdrawer-head"><div><strong>Jump to</strong><small>Press M to open or close</small></div>' +
+                '<button type="button" class="navdrawer-close" aria-label="Close">✕</button></div><div class="navdrawer-list"></div>';
+            const list = drawer.querySelector('.navdrawer-list');
+
+            let chapter = null;
+            all.forEach((slide, i) => {
+                if (!slide.dataset.navTitle) return;
+                if (slide.dataset.navChapter !== chapter) {
+                    chapter = slide.dataset.navChapter;
+                    const h = document.createElement('div');
+                    h.className = 'navchapter';
+                    h.textContent = chapter;
+                    list.appendChild(h);
+                }
+                const item = document.createElement('button');
+                item.type = 'button';
+                item.className = 'navitem';
+                item.dataset.index = i;
+                item.innerHTML = '<small>' + (i + 1) + '</small><span></span>';
+                item.querySelector('span').textContent = slide.dataset.navTitle;
+                list.appendChild(item);
+            });
+
+            document.body.appendChild(zone);
+            document.body.appendChild(tab);
+            document.body.appendChild(drawer);
+
+            const onScreen = () => {
+                const mid = window.innerHeight / 2;
+                return Math.max(0, all.findIndex(s => { const r = s.getBoundingClientRect(); return r.top <= mid && r.bottom > mid; }));
+            };
+            let closeTimer;
+            function open() {
+                clearTimeout(closeTimer);
+                const cur = onScreen();
+                list.querySelectorAll('.navitem').forEach(b => b.classList.toggle('current', +b.dataset.index === cur));
+                drawer.classList.add('open');
+                const c = list.querySelector('.navitem.current');
+                if (c) c.scrollIntoView({ block: 'nearest' });
+            }
+            function close() { drawer.classList.remove('open'); }
+            const isOpen = () => drawer.classList.contains('open');
+
+            // Desktop: hovering the right edge opens it; leaving the menu closes it
+            const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            if (fine) {
+                zone.addEventListener('mouseenter', open);
+                tab.addEventListener('mouseenter', open);
+                drawer.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+                drawer.addEventListener('mouseleave', () => { closeTimer = setTimeout(close, 350); });
+            }
+            tab.addEventListener('click', () => (isOpen() ? close() : open()));
+            drawer.querySelector('.navdrawer-close').addEventListener('click', close);
+            list.addEventListener('click', e => {
+                const item = e.target.closest('.navitem');
+                if (!item) return;
+                close();
+                all[+item.dataset.index].scrollIntoView({ behavior: 'smooth' });
+            });
+            document.addEventListener('click', e => {
+                if (isOpen() && !drawer.contains(e.target) && !tab.contains(e.target)) close();
+            });
+            window.addEventListener('keydown', e => {
+                if (e.target.matches && e.target.matches('input, select, textarea')) return;
+                if (e.key === 'm' || e.key === 'M') {
+                    isOpen() ? close() : open();
+                    e.preventDefault();
+                    e.stopPropagation();
+                } else if (e.key === 'Escape' && isOpen()) {
+                    close();
+                    e.stopPropagation();
+                }
+            }, true);
         })();
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f0ce7d66e3ce5c7',t:'MTc3Njk0NzcwMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
